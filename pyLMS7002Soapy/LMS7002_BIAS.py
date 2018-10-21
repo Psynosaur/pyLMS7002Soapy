@@ -7,7 +7,9 @@
 #* License:
 #**************************************************************
 
-from LMS7002_base import *
+# from LMS7002_base import *
+from pyLMS7002Soapy.LMS7002_base import LMS7002_base
+
 
 class LMS7002_BIAS(LMS7002_base):
     __slots__ = ['allowLDO']    # Used to generate error on typos

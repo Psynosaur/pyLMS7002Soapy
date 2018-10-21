@@ -7,8 +7,9 @@
 #* License:
 #**************************************************************
 
-from LMS7002_base import *
-from LMS7002_GFIR import *
+from pyLMS7002Soapy.LMS7002_base import LMS7002_base
+# from LMS7002_GFIR import *
+from pyLMS7002Soapy.LMS7002_GFIR import LMS7002_GFIR
 
 class LMS7002_GFIR2(LMS7002_base):
     __slots__ = ['CMB0', 'CMB1', 'CMB2', 'CMB3', 'CMB4', 'rxtx']    # Used to generate error on typos

@@ -7,6 +7,7 @@
 #* License:
 #**************************************************************
 
+
 class LMS7002_base(object):
     __slots__ = ['channel', 'chip', 'prefix']
     #

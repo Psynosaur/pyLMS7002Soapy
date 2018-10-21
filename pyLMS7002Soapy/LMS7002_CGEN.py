@@ -7,9 +7,11 @@
 #* License:
 #**************************************************************
 
-from LMS7002_base import *
+# from LMS7002_base import *
+from pyLMS7002Soapy.LMS7002_base import LMS7002_base
 from math import floor
 from time import sleep
+
 
 class LMS7002_CGEN(LMS7002_base):
     __slots__ = []    # Used to generate error on typos

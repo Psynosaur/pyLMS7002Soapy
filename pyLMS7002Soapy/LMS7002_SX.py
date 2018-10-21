@@ -7,9 +7,11 @@
 #* License:
 #**************************************************************
 
-from LMS7002_base import *
+from pyLMS7002Soapy.LMS7002_base import LMS7002_base
 from time import sleep
 from math import floor
+
+
 class LMS7002_SX(LMS7002_base):
     __slots__ = []    # Used to generate error on typos
     def __init__(self, chip, Channel):

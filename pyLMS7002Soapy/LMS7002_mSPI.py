@@ -7,8 +7,9 @@
 #* License:
 #**************************************************************
 
-from LMS7002_base import *
+from pyLMS7002Soapy.LMS7002_base import LMS7002_base
 import time
+
 
 class LMS7002_mSPI(LMS7002_base):
     __slots__=[]    # Used to generate error on typos

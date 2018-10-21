@@ -1,13 +1,14 @@
 import SoapySDR
 from SoapySDR import * #SOAPY_SDR_* constants
-from LMS7002 import *
-from weakproxy import *
+from pyLMS7002Soapy.LMS7002 import LMS7002
+from pyLMS7002Soapy.weakproxy import Proxy
 from timeit import default_timer as timer
 import atexit
 
 #######################################
 # Board class
 #######################################
+
 
 class pyLMS7002Soapy(object):
     def __init__(self,verbose=0):
@@ -22,8 +23,8 @@ class pyLMS7002Soapy(object):
             self.boardName = "LimeSDR"
         else:
             raise ValueError("Unsupported board : "+boardName)
-        self.LMS7002 = LMS7002(SPIwriteFn=Proxy(self.LMS7002_Write), SPIreadFn=Proxy(self.LMS7002_Read)
-                               , verbose=verbose, MCUProgram=Proxy(self.MCUProgram), fRef = self.fRef)
+        self.LMS7002 = LMS7002(SPIwriteFn=self.LMS7002_Write, SPIreadFn=self.LMS7002_Read
+                                       , verbose=verbose, MCUProgram=self.MCUProgram, fRef = self.fRef)
         self.channel = 0
         self.previousBand = [None,None]
 

@@ -18,9 +18,16 @@ for high level functions, such as reading samples.
 
 ## Installation
 
-The pyLMS7002Soapy package is installed in a usual way:
+#### Since this isn't completely thought out and I'm just ballin it, please install inside a virtualenv. *Activate* your environment and run the following
 
-  python setup.py install
+##### pyLMS7002Soapy Installation (in virtualenv ideally)
+
+    $ python setup.py install
+    
+##### Run Python 3 SNA
+
+    $ cd examples    
+    $ python p3SNA.py sometestname 1 200 300 
 
 Module installation can be verified from Python:
 
@@ -31,8 +38,8 @@ If there is no error, the module is correctly installed.
 
 ## Examples
 
-* Vector Network Analyser (VNA)
-* Scalar Network Analyser (SNA)
+* Vector Network Analyser (VNA) - working on it. . .
+* Scalar Network Analyser (SNA) - should be working
 
 Scalar network analyzer is preferred for measurements and is much faster than VNA.
 

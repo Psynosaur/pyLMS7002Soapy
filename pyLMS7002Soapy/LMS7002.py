@@ -7,36 +7,62 @@
 #* License:
 #**************************************************************
 
-from LMS7002_REGDESC import *
-from LMS7002_REGDESC_MR3 import *
-from LMS7002_regDataStructs import *
-from LMS7002_regDataStructs import *
+# from LMS7002_REGDESC import *
+from pyLMS7002Soapy.LMS7002_REGDESC import LMS7002_REGDESC
+# from LMS7002_REGDESC_MR3 import *
+from pyLMS7002Soapy.LMS7002_REGDESC_MR3 import LMS7002_REGDESC_MR3
+# from LMS7002_regDataStructs import *
+from pyLMS7002Soapy.LMS7002_regDataStructs import regDescParser
+# from LMS7002_regDataStructs import *
 
 # Import core chip modules
-from LMS7002_CHIP import *
-from LMS7002_LimeLight import *
-from LMS7002_IO import *
-from LMS7002_NCO import *
-from LMS7002_GFIR1 import *
-from LMS7002_GFIR2 import *
-from LMS7002_GFIR3 import *
-from LMS7002_TxTSP import *
-from LMS7002_RxTSP import *
-from LMS7002_RFE import *
-from LMS7002_RBB import *
-from LMS7002_TRF import *
-from LMS7002_TBB import *
-from LMS7002_AFE import *
-from LMS7002_BIAS import *
-from LMS7002_SX import *
-from LMS7002_CGEN import *
-from LMS7002_XBUF import *
-from LMS7002_CDS import *
-from LMS7002_mSPI import *
-from LMS7002_DCCAL import *
+# from LMS7002_CHIP import *
+from pyLMS7002Soapy.LMS7002_CHIP import LMS7002_CHIP
+# from LMS7002_LimeLight import *
+from pyLMS7002Soapy.LMS7002_LimeLight import LMS7002_LimeLight
+# from LMS7002_IO import *
+from pyLMS7002Soapy.LMS7002_IO import LMS7002_IO
+# from LMS7002_NCO import *
+from pyLMS7002Soapy.LMS7002_NCO import LMS7002_NCO
+# from LMS7002_GFIR1 import *
+from pyLMS7002Soapy.LMS7002_GFIR1 import LMS7002_GFIR1
+# from LMS7002_GFIR2 import *
+from pyLMS7002Soapy.LMS7002_GFIR2 import LMS7002_GFIR2
+# from LMS7002_GFIR3 import *
+from pyLMS7002Soapy.LMS7002_GFIR3 import LMS7002_GFIR3
+# from LMS7002_TxTSP import *
+from pyLMS7002Soapy.LMS7002_TxTSP import LMS7002_TxTSP
+# from LMS7002_RxTSP import *
+from pyLMS7002Soapy.LMS7002_RxTSP import LMS7002_RxTSP
+# from LMS7002_RFE import *
+from pyLMS7002Soapy.LMS7002_RFE import LMS7002_RFE
+# from LMS7002_RBB import *
+from pyLMS7002Soapy.LMS7002_RBB import LMS7002_RBB
+# from LMS7002_TRF import *
+from pyLMS7002Soapy.LMS7002_TRF import LMS7002_TRF
+# from LMS7002_TBB import *
+from pyLMS7002Soapy.LMS7002_TBB import LMS7002_TBB
+# from LMS7002_AFE import *
+from pyLMS7002Soapy.LMS7002_AFE import LMS7002_AFE
+# from LMS7002_BIAS import *
+from pyLMS7002Soapy.LMS7002_BIAS import LMS7002_BIAS
+# from LMS7002_SX import *
+from pyLMS7002Soapy.LMS7002_SX import LMS7002_SX
+# from LMS7002_CGEN import *
+from pyLMS7002Soapy.LMS7002_CGEN import LMS7002_CGEN
+# from LMS7002_XBUF import *
+from pyLMS7002Soapy.LMS7002_XBUF import LMS7002_XBUF
+# from LMS7002_CDS import *
+from pyLMS7002Soapy.LMS7002_CDS import LMS7002_CDS
+# from LMS7002_mSPI import *
+from pyLMS7002Soapy.LMS7002_mSPI import LMS7002_mSPI
+# from LMS7002_DCCAL import *
+from pyLMS7002Soapy.LMS7002_DCCAL import LMS7002_DCCAL
 
 # Import support modules
-from LMS7002_calibration import *
+# from LMS7002_calibration import *
+from pyLMS7002Soapy.LMS7002_calibration import LMS7002_calibration
+
 
 class LMS7002(object):
     def __init__(self, SPIwriteFn=None, SPIreadFn=None, verbose=0, MCUProgram=None, fRef = 30.72e6):
@@ -270,7 +296,7 @@ class LMS7002(object):
 
     def log(self, msg, verboseLevel=0):
         if verboseLevel <= self.verbose:
-            print msg
+            print(msg)
 
     #
     # Auxiliary functions

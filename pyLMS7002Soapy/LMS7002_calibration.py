@@ -7,7 +7,9 @@
 #* License:
 #**************************************************************
 
-from LMS7002_base import *
+# from LMS7002_base import *
+from pyLMS7002Soapy.LMS7002_base import LMS7002_base
+
 
 class LMS7002_calibration(LMS7002_base):
     
@@ -125,7 +127,7 @@ class LMS7002_calibration(LMS7002_base):
                 TxTSP.GCORRQ = tmp
                 val = RxTSP.RSSI
                 if val < maxVal:
-                    print "Q ",val
+                    print("Q ",val)
                     ind = tmp
                     GCORRQ = tmp
                     maxVal = val
@@ -135,7 +137,7 @@ class LMS7002_calibration(LMS7002_base):
                 TxTSP.GCORRI = tmp
                 val = RxTSP.RSSI
                 if val < maxVal:
-                    print "I ",val
+                    print("I ",val)
                     ind = tmp
                     GCORRI = tmp
                     maxVal = val
@@ -146,7 +148,7 @@ class LMS7002_calibration(LMS7002_base):
             TxTSP.IQCORR = tmp
             val = RxTSP.RSSI
             if val < maxVal:
-                print "PH ",val
+                print("PH ",val)
                 ind = tmp
                 IQCORR = tmp
                 maxVal = val

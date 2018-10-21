@@ -1,8 +1,8 @@
 from SoapySDR import *  # SOAPY_SDR_* constants
 from pyLMS7002Soapy.pyLMS7002Soapy import pyLMS7002Soapy
 # from pyLMS7002Soapy import pyLMS7002Soapy # this should work . . . but it does not
-import time
-import numpy as np
+# import time
+# import numpy as np
 from matplotlib.pyplot import *
 import matplotlib.ticker as ticker
 import pylab as plt

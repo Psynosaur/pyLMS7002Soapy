@@ -11,7 +11,7 @@ import pylab as plt
 
 # Checks the argument count for the cmdline applet
 if len(sys.argv) != 5:
-    print("Usage: python measureSNA.py measurementName fast(0|1) start end")
+    print("Usage: python p3SNA.py measurementName fast(0|1) start end")
     exit(1)
 
 measName = sys.argv[1]

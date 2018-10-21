@@ -27,7 +27,7 @@ for high level functions, such as reading samples.
 ##### Run Python 3 SNA
 
     $ cd examples    
-    $ python p3SNA.py sometestname 1 200 300 
+    $ python p3SNA.py sometestname 1 200 300 - In MHz
 
 Module installation can be verified from Python:
 

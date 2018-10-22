@@ -1,18 +1,19 @@
-#***************************************************************
-#* Name:      LMS7002_LimeLight.py
-#* Purpose:   Class implementing LMS7002 LimeLight functions
-#* Author:    Lime Microsystems ()
-#* Created:   2016-11-14
-#* Copyright: Lime Microsystems (limemicro.com)
-#* License:
-#**************************************************************
+# ***************************************************************
+# * Name:      LMS7002_LimeLight.py
+# * Purpose:   Class implementing LMS7002 LimeLight functions
+# * Author:    Lime Microsystems ()
+# * Created:   2016-11-14
+# * Copyright: Lime Microsystems (limemicro.com)
+# * License:
+# **************************************************************
 
 # from LMS7002_base import *
 from pyLMS7002Soapy.LMS7002_base import LMS7002_base
 
 
 class LMS7002_LimeLight(LMS7002_base):
-    __slots__=[]    # Used to generate error on typos
+    __slots__ = []  # Used to generate error on typos
+
     def __init__(self, chip):
         self.chip = chip
         self.channel = None
@@ -21,9 +22,9 @@ class LMS7002_LimeLight(LMS7002_base):
     #
     # LimeLight_IOCFG (0x0023)
     #
-    
+
     # DIQDIRCTR2
-    @property 
+    @property
     def DIQDIRCTR2(self):
         """
         Get the value of DIQDIRCTR2
@@ -40,7 +41,7 @@ class LMS7002_LimeLight(LMS7002_base):
         self._writeReg('IOCFG', 'DIQDIRCTR2', value)
 
     # DIQDIR2
-    @property 
+    @property
     def DIQDIR2(self):
         """
         Get the value of DIQDIR2
@@ -57,7 +58,7 @@ class LMS7002_LimeLight(LMS7002_base):
         self._writeReg('IOCFG', 'DIQDIR2', value)
 
     # DIQDIRCTR1
-    @property 
+    @property
     def DIQDIRCTR1(self):
         """
         Get the value of DIQDIRCTR1
@@ -74,7 +75,7 @@ class LMS7002_LimeLight(LMS7002_base):
         self._writeReg('IOCFG', 'DIQDIRCTR1', value)
 
     # DIQDIR1
-    @property 
+    @property
     def DIQDIR1(self):
         """
         Get the value of DIQDIR1
@@ -91,7 +92,7 @@ class LMS7002_LimeLight(LMS7002_base):
         self._writeReg('IOCFG', 'DIQDIR1', value)
 
     # ENABLEDIRCTR2
-    @property 
+    @property
     def ENABLEDIRCTR2(self):
         """
         Get the value of ENABLEDIRCTR2
@@ -108,7 +109,7 @@ class LMS7002_LimeLight(LMS7002_base):
         self._writeReg('IOCFG', 'ENABLEDIRCTR2', value)
 
     # ENABLEDIR2
-    @property 
+    @property
     def ENABLEDIR2(self):
         """
         Get the value of ENABLEDIR2
@@ -125,7 +126,7 @@ class LMS7002_LimeLight(LMS7002_base):
         self._writeReg('IOCFG', 'ENABLEDIR2', value)
 
     # ENABLEDIRCTR1
-    @property 
+    @property
     def ENABLEDIRCTR1(self):
         """
         Get the value of ENABLEDIRCTR1
@@ -142,7 +143,7 @@ class LMS7002_LimeLight(LMS7002_base):
         self._writeReg('IOCFG', 'ENABLEDIRCTR1', value)
 
     # ENABLEDIR1
-    @property 
+    @property
     def ENABLEDIR1(self):
         """
         Get the value of ENABLEDIR1
@@ -159,7 +160,7 @@ class LMS7002_LimeLight(LMS7002_base):
         self._writeReg('IOCFG', 'ENABLEDIR1', value)
 
     # MOD_EN
-    @property 
+    @property
     def MOD_EN(self):
         """
         Get the value of MOD_EN
@@ -176,7 +177,7 @@ class LMS7002_LimeLight(LMS7002_base):
         self._writeReg('IOCFG', 'MOD_EN', value)
 
     # LML2_FIDM
-    @property 
+    @property
     def LML2_FIDM(self):
         """
         Get the value of LML2_FIDM
@@ -193,7 +194,7 @@ class LMS7002_LimeLight(LMS7002_base):
         self._writeReg('IOCFG', 'LML2_FIDM', value)
 
     # LML2_TXNRXIQ
-    @property 
+    @property
     def LML2_TXNRXIQ(self):
         """
         Get the value of LML2_TXNRXIQ
@@ -210,7 +211,7 @@ class LMS7002_LimeLight(LMS7002_base):
         self._writeReg('IOCFG', 'LML2_TXNRXIQ', value)
 
     # LML2_MODE
-    @property 
+    @property
     def LML2_MODE(self):
         """
         Get the value of LML2_MODE
@@ -227,7 +228,7 @@ class LMS7002_LimeLight(LMS7002_base):
         self._writeReg('IOCFG', 'LML2_MODE', value)
 
     # LML1_FIDM
-    @property 
+    @property
     def LML1_FIDM(self):
         """
         Get the value of LML1_FIDM
@@ -244,7 +245,7 @@ class LMS7002_LimeLight(LMS7002_base):
         self._writeReg('IOCFG', 'LML1_FIDM', value)
 
     # LML1_TXNRXIQ
-    @property 
+    @property
     def LML1_TXNRXIQ(self):
         """
         Get the value of LML1_TXNRXIQ
@@ -261,7 +262,7 @@ class LMS7002_LimeLight(LMS7002_base):
         self._writeReg('IOCFG', 'LML1_TXNRXIQ', value)
 
     # LML1_MODE
-    @property 
+    @property
     def LML1_MODE(self):
         """
         Get the value of LML1_MODE
@@ -280,9 +281,9 @@ class LMS7002_LimeLight(LMS7002_base):
     #
     # LimeLight_POS1 (0x0024)
     #
-    
+
     # LML1_S3S<1:0>
-    @property 
+    @property
     def LML1_S3S(self):
         """
         Get the value of LML1_S3S<1:0>
@@ -294,12 +295,12 @@ class LMS7002_LimeLight(LMS7002_base):
         """
         Set the value of LML1_S3S<1:0>
         """
-        if not(0 <= value <= 3):
+        if not (0 <= value <= 3):
             raise ValueError("Value must be [0..3]")
         self._writeReg('POS1', 'LML1_S3S<1:0>', value)
 
     # LML1_S2S<1:0>
-    @property 
+    @property
     def LML1_S2S(self):
         """
         Get the value of LML1_S2S<1:0>
@@ -311,12 +312,12 @@ class LMS7002_LimeLight(LMS7002_base):
         """
         Set the value of LML1_S2S<1:0>
         """
-        if not(0 <= value <= 3):
+        if not (0 <= value <= 3):
             raise ValueError("Value must be [0..3]")
         self._writeReg('POS1', 'LML1_S2S<1:0>', value)
 
     # LML1_S1S<1:0>
-    @property 
+    @property
     def LML1_S1S(self):
         """
         Get the value of LML1_S1S<1:0>
@@ -328,12 +329,12 @@ class LMS7002_LimeLight(LMS7002_base):
         """
         Set the value of LML1_S1S<1:0>
         """
-        if not(0 <= value <= 3):
+        if not (0 <= value <= 3):
             raise ValueError("Value must be [0..3]")
         self._writeReg('POS1', 'LML1_S1S<1:0>', value)
 
     # LML1_S0S<1:0>
-    @property 
+    @property
     def LML1_S0S(self):
         """
         Get the value of LML1_S0S<1:0>
@@ -345,12 +346,12 @@ class LMS7002_LimeLight(LMS7002_base):
         """
         Set the value of LML1_S0S<1:0>
         """
-        if not(0 <= value <= 3):
+        if not (0 <= value <= 3):
             raise ValueError("Value must be [0..3]")
         self._writeReg('POS1', 'LML1_S0S<1:0>', value)
 
     # LML1_BQP<1:0>
-    @property 
+    @property
     def LML1_BQP(self):
         """
         Get the value of LML1_BQP<1:0>
@@ -362,12 +363,12 @@ class LMS7002_LimeLight(LMS7002_base):
         """
         Set the value of LML1_BQP<1:0>
         """
-        if not(0 <= value <= 3):
+        if not (0 <= value <= 3):
             raise ValueError("Value must be [0..3]")
         self._writeReg('POS1', 'LML1_BQP<1:0>', value)
 
     # LML1_BIP<1:0>
-    @property 
+    @property
     def LML1_BIP(self):
         """
         Get the value of LML1_BIP<1:0>
@@ -379,12 +380,12 @@ class LMS7002_LimeLight(LMS7002_base):
         """
         Set the value of LML1_BIP<1:0>
         """
-        if not(0 <= value <= 3):
+        if not (0 <= value <= 3):
             raise ValueError("Value must be [0..3]")
         self._writeReg('POS1', 'LML1_BIP<1:0>', value)
 
     # LML1_AQP<1:0>
-    @property 
+    @property
     def LML1_AQP(self):
         """
         Get the value of LML1_AQP<1:0>
@@ -396,12 +397,12 @@ class LMS7002_LimeLight(LMS7002_base):
         """
         Set the value of LML1_AQP<1:0>
         """
-        if not(0 <= value <= 3):
+        if not (0 <= value <= 3):
             raise ValueError("Value must be [0..3]")
         self._writeReg('POS1', 'LML1_AQP<1:0>', value)
 
     # LML1_AIP<1:0>
-    @property 
+    @property
     def LML1_AIP(self):
         """
         Get the value of LML1_AIP<1:0>
@@ -413,7 +414,7 @@ class LMS7002_LimeLight(LMS7002_base):
         """
         Set the value of LML1_AIP<1:0>
         """
-        if not(0 <= value <= 3):
+        if not (0 <= value <= 3):
             raise ValueError("Value must be [0..3]")
         self._writeReg('POS1', 'LML1_AIP<1:0>', value)
 
@@ -422,7 +423,7 @@ class LMS7002_LimeLight(LMS7002_base):
     #
 
     # LML1_BB2RF_PST<4:0>
-    @property 
+    @property
     def LML1_BB2RF_PST(self):
         """
         Get the value of LML1_BB2RF_PST<4:0>
@@ -434,12 +435,12 @@ class LMS7002_LimeLight(LMS7002_base):
         """
         Set the value of LML1_BB2RF_PST<4:0>
         """
-        if not(0 <= value <= 31):
+        if not (0 <= value <= 31):
             raise ValueError("Value must be [0..31]")
         self._writeReg('BBRF1', 'LML1_BB2RF_PST<4:0>', value)
 
     # LML1_BB2RF_PRE<4:0>
-    @property 
+    @property
     def LML1_BB2RF_PRE(self):
         """
         Get the value of LML1_BB2RF_PRE<4:0>
@@ -451,7 +452,7 @@ class LMS7002_LimeLight(LMS7002_base):
         """
         Set the value of LML1_BB2RF_PRE<4:0>
         """
-        if not(0 <= value <= 31):
+        if not (0 <= value <= 31):
             raise ValueError("Value must be [0..31]")
         self._writeReg('BBRF1', 'LML1_BB2RF_PRE<4:0>', value)
 
@@ -460,7 +461,7 @@ class LMS7002_LimeLight(LMS7002_base):
     #
 
     # LML1_RF2BB_PST<4:0>
-    @property 
+    @property
     def LML1_RF2BB_PST(self):
         """
         Get the value of LML1_RF2BB_PST<4:0>
@@ -472,12 +473,12 @@ class LMS7002_LimeLight(LMS7002_base):
         """
         Set the value of LML1_RF2BB_PST<4:0>
         """
-        if not(0 <= value <= 31):
+        if not (0 <= value <= 31):
             raise ValueError("Value must be [0..31]")
         self._writeReg('RFBB1', 'LML1_RF2BB_PST<4:0>', value)
 
     # LML1_RF2BB_PRE<4:0>
-    @property 
+    @property
     def LML1_RF2BB_PRE(self):
         """
         Get the value of LML1_RF2BB_PRE<4:0>
@@ -489,16 +490,16 @@ class LMS7002_LimeLight(LMS7002_base):
         """
         Set the value of LML1_RF2BB_PRE<4:0>
         """
-        if not(0 <= value <= 31):
+        if not (0 <= value <= 31):
             raise ValueError("Value must be [0..31]")
         self._writeReg('RFBB1', 'LML1_RF2BB_PRE<4:0>', value)
 
     #
     # LimeLight_POS2 (0x0027)
     #
-    
+
     # LML2_S3S<1:0>
-    @property 
+    @property
     def LML2_S3S(self):
         """
         Get the value of LML2_S3S<1:0>
@@ -510,12 +511,12 @@ class LMS7002_LimeLight(LMS7002_base):
         """
         Set the value of LML2_S3S<1:0>
         """
-        if not(0 <= value <= 3):
+        if not (0 <= value <= 3):
             raise ValueError("Value must be [0..3]")
         self._writeReg('POS2', 'LML2_S3S<1:0>', value)
 
     # LML2_S2S<1:0>
-    @property 
+    @property
     def LML2_S2S(self):
         """
         Get the value of LML2_S2S<1:0>
@@ -527,12 +528,12 @@ class LMS7002_LimeLight(LMS7002_base):
         """
         Set the value of LML2_S2S<1:0>
         """
-        if not(0 <= value <= 3):
+        if not (0 <= value <= 3):
             raise ValueError("Value must be [0..3]")
         self._writeReg('POS2', 'LML2_S2S<1:0>', value)
 
     # LML2_S1S<1:0>
-    @property 
+    @property
     def LML2_S1S(self):
         """
         Get the value of LML2_S1S<1:0>
@@ -544,12 +545,12 @@ class LMS7002_LimeLight(LMS7002_base):
         """
         Set the value of LML2_S1S<1:0>
         """
-        if not(0 <= value <= 3):
+        if not (0 <= value <= 3):
             raise ValueError("Value must be [0..3]")
         self._writeReg('POS2', 'LML2_S1S<1:0>', value)
 
     # LML2_S0S<1:0>
-    @property 
+    @property
     def LML2_S0S(self):
         """
         Get the value of LML2_S0S<1:0>
@@ -561,12 +562,12 @@ class LMS7002_LimeLight(LMS7002_base):
         """
         Set the value of LML2_S0S<1:0>
         """
-        if not(0 <= value <= 3):
+        if not (0 <= value <= 3):
             raise ValueError("Value must be [0..3]")
         self._writeReg('POS2', 'LML2_S0S<1:0>', value)
 
     # LML2_BQP<1:0>
-    @property 
+    @property
     def LML2_BQP(self):
         """
         Get the value of LML2_BQP<1:0>
@@ -578,12 +579,12 @@ class LMS7002_LimeLight(LMS7002_base):
         """
         Set the value of LML2_BQP<1:0>
         """
-        if not(0 <= value <= 3):
+        if not (0 <= value <= 3):
             raise ValueError("Value must be [0..3]")
         self._writeReg('POS2', 'LML2_BQP<1:0>', value)
 
     # LML2_BIP<1:0>
-    @property 
+    @property
     def LML2_BIP(self):
         """
         Get the value of LML2_BIP<1:0>
@@ -595,12 +596,12 @@ class LMS7002_LimeLight(LMS7002_base):
         """
         Set the value of LML2_BIP<1:0>
         """
-        if not(0 <= value <= 3):
+        if not (0 <= value <= 3):
             raise ValueError("Value must be [0..3]")
         self._writeReg('POS2', 'LML2_BIP<1:0>', value)
 
     # LML2_AQP<1:0>
-    @property 
+    @property
     def LML2_AQP(self):
         """
         Get the value of LML2_AQP<1:0>
@@ -612,12 +613,12 @@ class LMS7002_LimeLight(LMS7002_base):
         """
         Set the value of LML2_AQP<1:0>
         """
-        if not(0 <= value <= 3):
+        if not (0 <= value <= 3):
             raise ValueError("Value must be [0..3]")
         self._writeReg('POS2', 'LML2_AQP<1:0>', value)
 
     # LML2_AIP<1:0>
-    @property 
+    @property
     def LML2_AIP(self):
         """
         Get the value of LML2_AIP<1:0>
@@ -629,16 +630,16 @@ class LMS7002_LimeLight(LMS7002_base):
         """
         Set the value of LML2_AIP<1:0>
         """
-        if not(0 <= value <= 3):
+        if not (0 <= value <= 3):
             raise ValueError("Value must be [0..3]")
         self._writeReg('POS2', 'LML2_AIP<1:0>', value)
 
     #
     # LimeLight_BBRF2 (0x0028)
     #
-    
+
     # LML2_BB2RF_PST<4:0>
-    @property 
+    @property
     def LML2_BB2RF_PST(self):
         """
         Get the value of LML2_BB2RF_PST<4:0>
@@ -650,12 +651,12 @@ class LMS7002_LimeLight(LMS7002_base):
         """
         Set the value of LML2_BB2RF_PST<4:0>
         """
-        if not(0 <= value <= 31):
+        if not (0 <= value <= 31):
             raise ValueError("Value must be [0..31]")
         self._writeReg('BBRF2', 'LML2_BB2RF_PST<4:0>', value)
 
     # LML2_RF2BB_PRE<4:0>
-    @property 
+    @property
     def LML2_RF2BB_PRE(self):
         """
         Get the value of LML2_RF2BB_PRE<4:0>
@@ -667,16 +668,16 @@ class LMS7002_LimeLight(LMS7002_base):
         """
         Set the value of LML2_RF2BB_PRE<4:0>
         """
-        if not(0 <= value <= 31):
+        if not (0 <= value <= 31):
             raise ValueError("Value must be [0..31]")
         self._writeReg('BBRF2', 'LML2_RF2BB_PRE<4:0>', value)
 
     #
     # LimeLight_RFBB2 (0x0029)
     #
-    
+
     # LML2_RF2BB_PST<4:0>
-    @property 
+    @property
     def LML2_RF2BB_PST(self):
         """
         Get the value of LML2_RF2BB_PST<4:0>
@@ -688,12 +689,12 @@ class LMS7002_LimeLight(LMS7002_base):
         """
         Set the value of LML2_RF2BB_PST<4:0>
         """
-        if not(0 <= value <= 31):
+        if not (0 <= value <= 31):
             raise ValueError("Value must be [0..31]")
         self._writeReg('RFBB2', 'LML2_RF2BB_PST<4:0>', value)
 
     # LML2_RF2BB_PRE<4:0>
-    @property 
+    @property
     def LML2_RF2BB_PRE(self):
         """
         Get the value of LML2_RF2BB_PRE<4:0>
@@ -705,7 +706,7 @@ class LMS7002_LimeLight(LMS7002_base):
         """
         Set the value of LML2_RF2BB_PRE<4:0>
         """
-        if not(0 <= value <= 31):
+        if not (0 <= value <= 31):
             raise ValueError("Value must be [0..31]")
         self._writeReg('RFBB2', 'LML2_RF2BB_PRE<4:0>', value)
 
@@ -714,7 +715,7 @@ class LMS7002_LimeLight(LMS7002_base):
     #
 
     # FCLK2_DLY<1:0>
-    @property 
+    @property
     def FCLK2_DLY(self):
         """
         Get the value of FCLK2_DLY<1:0>
@@ -722,8 +723,7 @@ class LMS7002_LimeLight(LMS7002_base):
         if self.chip.chipID == self.chip.chipIDMR3:
             return self._readReg('CLKSRC', 'FCLK2_DLY<1:0>')
         else:
-            raise ValueError("Bitfield FCLK2_DLY is not supported on chip version "+str(self.chip.chipID))
-
+            raise ValueError("Bitfield FCLK2_DLY is not supported on chip version " + str(self.chip.chipID))
 
     @FCLK2_DLY.setter
     def FCLK2_DLY(self, value):
@@ -731,14 +731,14 @@ class LMS7002_LimeLight(LMS7002_base):
         Set the value of FCLK2_DLY<1:0>
         """
         if self.chip.chipID == self.chip.chipIDMR3:
-            if not(0 <= value <= 3):
+            if not (0 <= value <= 3):
                 raise ValueError("Value must be [0..3]")
             self._writeReg('CLKSRC', 'FCLK2_DLY<1:0>', value)
         else:
-            raise ValueError("Bitfield FCLK2_DLY is not supported on chip version "+str(self.chip.chipID))
+            raise ValueError("Bitfield FCLK2_DLY is not supported on chip version " + str(self.chip.chipID))
 
     # FCLK1_DLY<1:0>
-    @property 
+    @property
     def FCLK1_DLY(self):
         """
         Get the value of FCLK1_DLY<1:0>
@@ -746,8 +746,7 @@ class LMS7002_LimeLight(LMS7002_base):
         if self.chip.chipID == self.chip.chipIDMR3:
             return self._readReg('CLKSRC', 'FCLK1_DLY<1:0>')
         else:
-            raise ValueError("Bitfield FCLK1_DLY is not supported on chip version "+str(self.chip.chipID))
-
+            raise ValueError("Bitfield FCLK1_DLY is not supported on chip version " + str(self.chip.chipID))
 
     @FCLK1_DLY.setter
     def FCLK1_DLY(self, value):
@@ -755,14 +754,14 @@ class LMS7002_LimeLight(LMS7002_base):
         Set the value of FCLK1_DLY<1:0>
         """
         if self.chip.chipID == self.chip.chipIDMR3:
-            if not(0 <= value <= 3):
+            if not (0 <= value <= 3):
                 raise ValueError("Value must be [0..3]")
             self._writeReg('CLKSRC', 'FCLK1_DLY<1:0>', value)
         else:
-            raise ValueError("Bitfield FCLK1_DLY is not supported on chip version "+str(self.chip.chipID))
-    
+            raise ValueError("Bitfield FCLK1_DLY is not supported on chip version " + str(self.chip.chipID))
+
     # RX_MUX<1:0>
-    @property 
+    @property
     def RX_MUX(self):
         """
         Get the value of RX_MUX<1:0>
@@ -774,12 +773,12 @@ class LMS7002_LimeLight(LMS7002_base):
         """
         Set the value of RX_MUX<1:0>
         """
-        if not(0 <= value <= 3):
+        if not (0 <= value <= 3):
             raise ValueError("Value must be [0..3]")
         self._writeReg('CLKSRC', 'RX_MUX<1:0>', value)
 
     # TX_MUX<1:0>
-    @property 
+    @property
     def TX_MUX(self):
         """
         Get the value of TX_MUX<1:0>
@@ -791,12 +790,12 @@ class LMS7002_LimeLight(LMS7002_base):
         """
         Set the value of TX_MUX<1:0>
         """
-        if not(0 <= value <= 3):
+        if not (0 <= value <= 3):
             raise ValueError("Value must be [0..3]")
         self._writeReg('CLKSRC', 'TX_MUX<1:0>', value)
 
     # TXRDCLK_MUX<1:0>
-    @property 
+    @property
     def TXRDCLK_MUX(self):
         """
         Get the value of TXRDCLK_MUX<1:0>
@@ -808,12 +807,12 @@ class LMS7002_LimeLight(LMS7002_base):
         """
         Set the value of TXRDCLK_MUX<1:0>
         """
-        if not(0 <= value <= 3):
+        if not (0 <= value <= 3):
             raise ValueError("Value must be [0..3]")
         self._writeReg('CLKSRC', 'TXRDCLK_MUX<1:0>', value)
 
     # TXWRCLK_MUX<1:0>
-    @property 
+    @property
     def TXWRCLK_MUX(self):
         """
         Get the value of TXWRCLK_MUX<1:0>
@@ -825,12 +824,12 @@ class LMS7002_LimeLight(LMS7002_base):
         """
         Set the value of TXWRCLK_MUX<1:0>
         """
-        if not(0 <= value <= 3):
+        if not (0 <= value <= 3):
             raise ValueError("Value must be [0..3]")
         self._writeReg('CLKSRC', 'TXWRCLK_MUX<1:0>', value)
 
     # RXRDCLK_MUX<1:0>
-    @property 
+    @property
     def RXRDCLK_MUX(self):
         """
         Get the value of RXRDCLK_MUX<1:0>
@@ -842,12 +841,12 @@ class LMS7002_LimeLight(LMS7002_base):
         """
         Set the value of RXRDCLK_MUX<1:0>
         """
-        if not(0 <= value <= 3):
+        if not (0 <= value <= 3):
             raise ValueError("Value must be [0..3]")
         self._writeReg('CLKSRC', 'RXRDCLK_MUX<1:0>', value)
 
     # RXWRCLK_MUX<1:0>
-    @property 
+    @property
     def RXWRCLK_MUX(self):
         """
         Get the value of RXWRCLK_MUX<1:0>
@@ -859,7 +858,7 @@ class LMS7002_LimeLight(LMS7002_base):
         """
         Set the value of RXWRCLK_MUX<1:0>
         """
-        if not(0 <= value <= 3):
+        if not (0 <= value <= 3):
             raise ValueError("Value must be [0..3]")
         self._writeReg('CLKSRC', 'RXWRCLK_MUX<1:0>', value)
 
@@ -868,7 +867,7 @@ class LMS7002_LimeLight(LMS7002_base):
     #
 
     # FCLK2_INV
-    @property 
+    @property
     def FCLK2_INV(self):
         """
         Get the value of FCLK2_INV
@@ -885,7 +884,7 @@ class LMS7002_LimeLight(LMS7002_base):
         self._writeReg('CLKCFG', 'FCLK2_INV', value)
 
     # FCLK1_INV
-    @property 
+    @property
     def FCLK1_INV(self):
         """
         Get the value of FCLK1_INV
@@ -902,7 +901,7 @@ class LMS7002_LimeLight(LMS7002_base):
         self._writeReg('CLKCFG', 'FCLK1_INV', value)
 
     # MCLK2_DLY<1:0>
-    @property 
+    @property
     def MCLK2_DLY(self):
         """
         Get the value of MCLK2_DLY<1:0>
@@ -910,8 +909,7 @@ class LMS7002_LimeLight(LMS7002_base):
         if self.chip.chipID == self.chip.chipIDMR3:
             return self._readReg('CLKCFG', 'MCLK2_DLY<1:0>')
         else:
-            raise ValueError("Bitfield MCLK2_DLY is not supported on chip version "+str(self.chip.chipID))
-
+            raise ValueError("Bitfield MCLK2_DLY is not supported on chip version " + str(self.chip.chipID))
 
     @MCLK2_DLY.setter
     def MCLK2_DLY(self, value):
@@ -919,14 +917,14 @@ class LMS7002_LimeLight(LMS7002_base):
         Set the value of MCLK2_DLY<1:0>
         """
         if self.chip.chipID == self.chip.chipIDMR3:
-            if not(0 <= value <= 3):
+            if not (0 <= value <= 3):
                 raise ValueError("Value must be [0..3]")
             self._writeReg('CLKCFG', 'MCLK2_DLY<1:0>', value)
         else:
-            raise ValueError("Bitfield MCLK2_DLY is not supported on chip version "+str(self.chip.chipID))
+            raise ValueError("Bitfield MCLK2_DLY is not supported on chip version " + str(self.chip.chipID))
 
     # MCLK1_DLY<1:0>
-    @property 
+    @property
     def MCLK1_DLY(self):
         """
         Get the value of MCLK1_DLY<1:0>
@@ -934,8 +932,7 @@ class LMS7002_LimeLight(LMS7002_base):
         if self.chip.chipID == self.chip.chipIDMR3:
             return self._readReg('CLKCFG', 'MCLK1_DLY<1:0>')
         else:
-            raise ValueError("Bitfield MCLK1_DLY is not supported on chip version "+str(self.chip.chipID))
-
+            raise ValueError("Bitfield MCLK1_DLY is not supported on chip version " + str(self.chip.chipID))
 
     @MCLK1_DLY.setter
     def MCLK1_DLY(self, value):
@@ -943,14 +940,14 @@ class LMS7002_LimeLight(LMS7002_base):
         Set the value of MCLK1_DLY<1:0>
         """
         if self.chip.chipID == self.chip.chipIDMR3:
-            if not(0 <= value <= 3):
+            if not (0 <= value <= 3):
                 raise ValueError("Value must be [0..3]")
             self._writeReg('CLKCFG', 'MCLK1_DLY<1:0>', value)
         else:
-            raise ValueError("Bitfield MCLK1_DLY is not supported on chip version "+str(self.chip.chipID))
+            raise ValueError("Bitfield MCLK1_DLY is not supported on chip version " + str(self.chip.chipID))
 
     # MCLK2_INV
-    @property 
+    @property
     def MCLK2_INV(self):
         """
         Get the value of MCLK2_INV
@@ -958,7 +955,7 @@ class LMS7002_LimeLight(LMS7002_base):
         if self.chip.chipID == self.chip.chipIDMR3:
             return self._readReg('CLKCFG', 'MCLK2_INV')
         else:
-            raise ValueError("Bitfield MCLK2_INV is not supported on chip version "+str(self.chip.chipID))
+            raise ValueError("Bitfield MCLK2_INV is not supported on chip version " + str(self.chip.chipID))
 
     @MCLK2_INV.setter
     def MCLK2_INV(self, value):
@@ -970,10 +967,10 @@ class LMS7002_LimeLight(LMS7002_base):
                 raise ValueError("Value must be [0,1]")
             self._writeReg('CLKCFG', 'MCLK2_INV', value)
         else:
-            raise ValueError("Bitfield MCLK2_INV is not supported on chip version "+str(self.chip.chipID))
+            raise ValueError("Bitfield MCLK2_INV is not supported on chip version " + str(self.chip.chipID))
 
     # MCLK1_INV
-    @property 
+    @property
     def MCLK1_INV(self):
         """
         Get the value of MCLK1_INV
@@ -981,7 +978,7 @@ class LMS7002_LimeLight(LMS7002_base):
         if self.chip.chipID == self.chip.chipIDMR3:
             return self._readReg('CLKCFG', 'MCLK1_INV')
         else:
-            raise ValueError("Bitfield MCLK1_INV is not supported on chip version "+str(self.chip.chipID))
+            raise ValueError("Bitfield MCLK1_INV is not supported on chip version " + str(self.chip.chipID))
 
     @MCLK1_INV.setter
     def MCLK1_INV(self, value):
@@ -993,10 +990,10 @@ class LMS7002_LimeLight(LMS7002_base):
                 raise ValueError("Value must be [0,1]")
             self._writeReg('CLKCFG', 'MCLK1_INV', value)
         else:
-            raise ValueError("Bitfield MCLK1_INV is not supported on chip version "+str(self.chip.chipID))
+            raise ValueError("Bitfield MCLK1_INV is not supported on chip version " + str(self.chip.chipID))
 
     # MCLK2SRC<1:0>
-    @property 
+    @property
     def MCLK2SRC(self):
         """
         Get the value of MCLK2SRC<1:0>
@@ -1008,12 +1005,12 @@ class LMS7002_LimeLight(LMS7002_base):
         """
         Set the value of MCLK2SRC<1:0>
         """
-        if not(0 <= value <= 3):
+        if not (0 <= value <= 3):
             raise ValueError("Value must be [0..3]")
         self._writeReg('CLKCFG', 'MCLK2SRC<1:0>', value)
 
     # MCLK1SRC<1:0>
-    @property 
+    @property
     def MCLK1SRC(self):
         """
         Get the value of MCLK1SRC<1:0>
@@ -1025,12 +1022,12 @@ class LMS7002_LimeLight(LMS7002_base):
         """
         Set the value of MCLK1SRC<1:0>
         """
-        if not(0 <= value <= 3):
+        if not (0 <= value <= 3):
             raise ValueError("Value must be [0..3]")
         self._writeReg('CLKCFG', 'MCLK1SRC<1:0>', value)
 
     # TXDIVEN
-    @property 
+    @property
     def TXDIVEN(self):
         """
         Get the value of TXDIVEN
@@ -1047,7 +1044,7 @@ class LMS7002_LimeLight(LMS7002_base):
         self._writeReg('CLKCFG', 'TXDIVEN', value)
 
     # RXDIVEN
-    @property 
+    @property
     def RXDIVEN(self):
         """
         Get the value of RXDIVEN
@@ -1062,5 +1059,3 @@ class LMS7002_LimeLight(LMS7002_base):
         if value not in [0, 1]:
             raise ValueError("Value must be [0,1]")
         self._writeReg('CLKCFG', 'RXDIVEN', value)
-    
-

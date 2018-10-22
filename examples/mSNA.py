@@ -1,6 +1,5 @@
 from SoapySDR import *  # SOAPY_SDR_* constants
-from pyLMS7002Soapy.pyLMS7002Soapy import pyLMS7002Soapy
-# from pyLMS7002Soapy import pyLMS7002Soapy # this should work . . . but it does not
+from pyLMS7002Soapy import pyLMS7002Soapy as pyLMSS
 # import time
 # import numpy as np
 from matplotlib.pyplot import *
@@ -11,19 +10,18 @@ import pylab as plt
 
 # Checks the argument count for the cmdline applet
 if len(sys.argv) != 5:
-    print("Usage: python p3SNA.py measurementName fast(0|1) start end")
+    print("Usage: python SNA.py measurementName fast(0|1) start end")
     exit(1)
 
-measName = sys.argv[1]
-fastSweep = sys.argv[2] == '1'
-startFreq = int(sys.argv[3]) * 1e06
-endFreq = int(sys.argv[4]) * 1e06
-
+measName = sys.argv[1]  # the file to save measurement
+fastSweep = sys.argv[2]  # Sweeps fast(20MHz) or slow(5MHz)
+startFreq = int(sys.argv[3]) * 1e06  # start frequency
+endFreq = int(sys.argv[4]) * 1e06  # end frequency
 
 
 class SNA(object):
     def __init__(self, sampleRate, cgenFreq, rfBandwidth, rfFreq, rxGain, txGain):
-        self.sdr = pyLMS7002Soapy(0)  # pyLMS7002 device instance
+        self.sdr = pyLMSS.pyLMS7002Soapy(0)  # pyLMS7002 device instance
         self.sampleRate = sampleRate  # sample rate for limeSDR
         self.cgenFreq = cgenFreq  # center generator frequency
         self.rfBandwidth = rfBandwidth  # RF bandwidth

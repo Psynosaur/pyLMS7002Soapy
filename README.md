@@ -24,10 +24,10 @@ for high level functions, such as reading samples.
 
     $ python setup.py install
     
-##### Run Python 3 SNA
+##### Run Python 3 SNA - "measurement name" + fast sweep(0|1) + start frequency(MHz) + end frequency(MHz)
 
     $ cd examples    
-    $ python p3SNA.py sometestname 1 200 300 - In MHz
+    $ python mSNA.py test 1 400 500
 
 Module installation can be verified from Python:
 

@@ -1,11 +1,11 @@
-#***************************************************************
-#* Name:      LMS7002_SX.py
-#* Purpose:   Class implementing LMS7002 SXT/SXR functions
-#* Author:    Lime Microsystems ()
-#* Created:   2016-11-14
-#* Copyright: Lime Microsystems (limemicro.com)
-#* License:
-#**************************************************************
+# ***************************************************************
+# * Name:      LMS7002_SX.py
+# * Purpose:   Class implementing LMS7002 SXT/SXR functions
+# * Author:    Lime Microsystems ()
+# * Created:   2016-11-14
+# * Copyright: Lime Microsystems (limemicro.com)
+# * License:
+# **************************************************************
 
 from pyLMS7002Soapy.LMS7002_base import LMS7002_base
 from time import sleep
@@ -13,7 +13,8 @@ from math import floor
 
 
 class LMS7002_SX(LMS7002_base):
-    __slots__ = []    # Used to generate error on typos
+    __slots__ = []  # Used to generate error on typos
+
     def __init__(self, chip, Channel):
         if Channel not in ['R', 'T']:
             raise ValueError("Parameter Channel must be 'R' or 'T'")
@@ -22,7 +23,7 @@ class LMS7002_SX(LMS7002_base):
         self.prefix = "SXT_SXR_"
 
     # EN_DIR
-    @property 
+    @property
     def EN_DIR(self):
         """
         Get the value of EN_DIR
@@ -44,13 +45,13 @@ class LMS7002_SX(LMS7002_base):
         self.prefix = ""
         self._writeReg('TRX_EN_DIR', 'EN_DIR', value)
         self.prefix = prefix
-        
+
     #
     # SXT_SXR_CFG0 (0x011C)
     #
 
     # RESET_N
-    @property 
+    @property
     def RESET_N(self):
         """
         Get the value of RESET_N
@@ -64,14 +65,14 @@ class LMS7002_SX(LMS7002_base):
         """
         if value not in [0, 1, 'RESET', 'NORMAL']:
             raise ValueError("Value must be [0,1,'RESET', 'NORMAL']")
-        if value==0 or value=='RESET':
+        if value == 0 or value == 'RESET':
             val = 0
         else:
             val = 1
         self._writeReg('CFG0', 'RESET_N', val)
 
     # SPDUP_VCO
-    @property 
+    @property
     def SPDUP_VCO(self):
         """
         Get the value of SPDUP_VCO
@@ -85,14 +86,14 @@ class LMS7002_SX(LMS7002_base):
         """
         if value not in [0, 1, 'ON', 'OFF']:
             raise ValueError("Value must be [0,1,'ON', 'OFF']")
-        if value==0 or value=='OFF':
+        if value == 0 or value == 'OFF':
             val = 0
         else:
             val = 1
         self._writeReg('CFG0', 'SPDUP_VCO', val)
 
     # BYPLDO_VCO
-    @property 
+    @property
     def BYPLDO_VCO(self):
         """
         Get the value of BYPLDO_VCO
@@ -106,14 +107,14 @@ class LMS7002_SX(LMS7002_base):
         """
         if value not in [0, 1, 'BYP', 'ACT']:
             raise ValueError("Value must be [0,1,'BYP', 'ACT']")
-        if value==0 or value=='ACT':
+        if value == 0 or value == 'ACT':
             val = 0
         else:
             val = 1
         self._writeReg('CFG0', 'BYPLDO_VCO', val)
 
     # EN_COARSEPLL
-    @property 
+    @property
     def EN_COARSEPLL(self):
         """
         Get the value of EN_COARSEPLL
@@ -127,14 +128,14 @@ class LMS7002_SX(LMS7002_base):
         """
         if value not in [0, 1, 'ON', 'OFF']:
             raise ValueError("Value must be [0,1,'ON', 'OFF']")
-        if value==0 or value=='OFF':
+        if value == 0 or value == 'OFF':
             val = 0
         else:
             val = 1
         self._writeReg('CFG0', 'EN_COARSEPLL', val)
 
     # CURLIM_VCO
-    @property 
+    @property
     def CURLIM_VCO(self):
         """
         Get the value of CURLIM_VCO
@@ -148,14 +149,14 @@ class LMS7002_SX(LMS7002_base):
         """
         if value not in [0, 1, 'ON', 'OFF']:
             raise ValueError("Value must be [0,1,'ON', 'OFF']")
-        if value==0 or value=='OFF':
+        if value == 0 or value == 'OFF':
             val = 0
         else:
             val = 1
         self._writeReg('CFG0', 'CURLIM_VCO', val)
 
     # EN_DIV2_DIVPROG
-    @property 
+    @property
     def EN_DIV2_DIVPROG(self):
         """
         Get the value of EN_DIV2_DIVPROG
@@ -169,14 +170,14 @@ class LMS7002_SX(LMS7002_base):
         """
         if value not in [0, 1, 'ON', 'OFF']:
             raise ValueError("Value must be [0,1,'ON', 'OFF']")
-        if value==0 or value=='OFF':
+        if value == 0 or value == 'OFF':
             val = 0
         else:
             val = 1
         self._writeReg('CFG0', 'EN_DIV2_DIVPROG', val)
 
     # EN_INTONLY_SDM
-    @property 
+    @property
     def EN_INTONLY_SDM(self):
         """
         Get the value of EN_INTONLY_SDM
@@ -190,14 +191,14 @@ class LMS7002_SX(LMS7002_base):
         """
         if value not in [0, 1, 'FRACN', 'INTN']:
             raise ValueError("Value must be [0,1,'FRACN', 'INTN']")
-        if value==0 or value=='FRACN':
+        if value == 0 or value == 'FRACN':
             val = 0
         else:
             val = 1
         self._writeReg('CFG0', 'EN_INTONLY_SDM', val)
 
     # EN_SDM_CLK
-    @property 
+    @property
     def EN_SDM_CLK(self):
         """
         Get the value of EN_SDM_CLK
@@ -211,14 +212,14 @@ class LMS7002_SX(LMS7002_base):
         """
         if value not in [0, 1, 'ON', 'OFF']:
             raise ValueError("Value must be [0,1,'ON', 'OFF']")
-        if value==0 or value=='OFF':
+        if value == 0 or value == 'OFF':
             val = 0
         else:
             val = 1
         self._writeReg('CFG0', 'EN_SDM_CLK', val)
 
     # PD_FBDIV
-    @property 
+    @property
     def PD_FBDIV(self):
         """
         Get the value of PD_FBDIV
@@ -232,14 +233,14 @@ class LMS7002_SX(LMS7002_base):
         """
         if value not in [0, 1, 'ON', 'OFF']:
             raise ValueError("Value must be [0,1,'ON', 'OFF']")
-        if value==0 or value=='ON':
+        if value == 0 or value == 'ON':
             val = 0
         else:
             val = 1
         self._writeReg('CFG0', 'PD_FBDIV', val)
 
     # PD_LOCH_T2RBUF
-    @property 
+    @property
     def PD_LOCH_T2RBUF(self):
         """
         Get the value of PD_LOCH_T2RBUF
@@ -253,14 +254,14 @@ class LMS7002_SX(LMS7002_base):
         """
         if value not in [0, 1, 'ON', 'OFF']:
             raise ValueError("Value must be [0,1,'ON', 'OFF']")
-        if value==0 or value=='ON':
+        if value == 0 or value == 'ON':
             val = 0
         else:
             val = 1
         self._writeReg('CFG0', 'PD_LOCH_T2RBUF', val)
 
     # PD_CP
-    @property 
+    @property
     def PD_CP(self):
         """
         Get the value of PD_CP
@@ -274,14 +275,14 @@ class LMS7002_SX(LMS7002_base):
         """
         if value not in [0, 1, 'ON', 'OFF']:
             raise ValueError("Value must be [0,1,'ON', 'OFF']")
-        if value==0 or value=='ON':
+        if value == 0 or value == 'ON':
             val = 0
         else:
             val = 1
         self._writeReg('CFG0', 'PD_CP', val)
 
     # PD_FDIV
-    @property 
+    @property
     def PD_FDIV(self):
         """
         Get the value of PD_FDIV
@@ -295,14 +296,14 @@ class LMS7002_SX(LMS7002_base):
         """
         if value not in [0, 1, 'ON', 'OFF']:
             raise ValueError("Value must be [0,1,'ON', 'OFF']")
-        if value==0 or value=='ON':
+        if value == 0 or value == 'ON':
             val = 0
         else:
             val = 1
         self._writeReg('CFG0', 'PD_FDIV', val)
 
     # PD_SDM
-    @property 
+    @property
     def PD_SDM(self):
         """
         Get the value of PD_SDM
@@ -316,14 +317,14 @@ class LMS7002_SX(LMS7002_base):
         """
         if value not in [0, 1, 'ON', 'OFF']:
             raise ValueError("Value must be [0,1,'ON', 'OFF']")
-        if value==0 or value=='ON':
+        if value == 0 or value == 'ON':
             val = 0
         else:
             val = 1
         self._writeReg('CFG0', 'PD_SDM', val)
 
     # PD_VCO_COMP
-    @property 
+    @property
     def PD_VCO_COMP(self):
         """
         Get the value of PD_VCO_COMP
@@ -337,14 +338,14 @@ class LMS7002_SX(LMS7002_base):
         """
         if value not in [0, 1, 'ON', 'OFF']:
             raise ValueError("Value must be [0,1,'ON', 'OFF']")
-        if value==0 or value=='ON':
+        if value == 0 or value == 'ON':
             val = 0
         else:
             val = 1
         self._writeReg('CFG0', 'PD_VCO_COMP', val)
 
     # PD_VCO
-    @property 
+    @property
     def PD_VCO(self):
         """
         Get the value of PD_VCO
@@ -358,14 +359,14 @@ class LMS7002_SX(LMS7002_base):
         """
         if value not in [0, 1, 'ON', 'OFF']:
             raise ValueError("Value must be [0,1,'ON', 'OFF']")
-        if value==0 or value=='ON':
+        if value == 0 or value == 'ON':
             val = 0
         else:
             val = 1
         self._writeReg('CFG0', 'PD_VCO', val)
 
     # EN_G
-    @property 
+    @property
     def EN_G(self):
         """
         Get the value of EN_G
@@ -379,14 +380,14 @@ class LMS7002_SX(LMS7002_base):
         """
         if value not in [0, 1, 'ON', 'OFF']:
             raise ValueError("Value must be [0,1,'ON', 'OFF']")
-        if value==0 or value=='OFF':
+        if value == 0 or value == 'OFF':
             val = 0
         else:
             val = 1
         self._writeReg('CFG0', 'EN_G', val)
 
     # FRAC_SDM
-    @property 
+    @property
     def FRAC_SDM(self):
         """
         Get the value of FRAC_SDM
@@ -400,7 +401,7 @@ class LMS7002_SX(LMS7002_base):
         """
         Set the value of FRAC_SDM
         """
-        if not(0<= value <=2**20-1):
+        if not (0 <= value <= 2 ** 20 - 1):
             raise ValueError("Value must be [0,2*20-1]")
         lsb = value & 0xFFFF
         msb = (value >> 16) & 0xF
@@ -408,7 +409,7 @@ class LMS7002_SX(LMS7002_base):
         self._writeReg('FRACH', 'FRAC_SDM_H<3:0>', msb)
 
     # INT_SDM<9:0>
-    @property 
+    @property
     def INT_SDM(self):
         """
         Get the value of INT_SDM<9:0>
@@ -420,7 +421,7 @@ class LMS7002_SX(LMS7002_base):
         """
         Set the value of INT_SDM<9:0>
         """
-        if not(0<= value <=1023):
+        if not (0 <= value <= 1023):
             raise ValueError("Value must be [0..1023]")
         self._writeReg('FRACH', 'INT_SDM<9:0>', value)
 
@@ -429,7 +430,7 @@ class LMS7002_SX(LMS7002_base):
     #
 
     # PW_DIV2_LOCH<2:0>
-    @property 
+    @property
     def PW_DIV2_LOCH(self):
         """
         Get the value of PW_DIV2_LOCH<2:0>
@@ -441,12 +442,12 @@ class LMS7002_SX(LMS7002_base):
         """
         Set the value of PW_DIV2_LOCH<2:0>
         """
-        if not(0 <= value <= 7):
+        if not (0 <= value <= 7):
             raise ValueError("Value must be [0..7]")
         self._writeReg('CFG1', 'PW_DIV2_LOCH<2:0>', value)
 
     # PW_DIV4_LOCH<2:0>
-    @property 
+    @property
     def PW_DIV4_LOCH(self):
         """
         Get the value of PW_DIV4_LOCH<2:0>
@@ -458,12 +459,12 @@ class LMS7002_SX(LMS7002_base):
         """
         Set the value of PW_DIV4_LOCH<2:0>
         """
-        if not(0 <= value <= 7):
+        if not (0 <= value <= 7):
             raise ValueError("Value must be [0..7]")
         self._writeReg('CFG1', 'PW_DIV4_LOCH<2:0>', value)
 
     # DIV_LOCH<2:0>
-    @property 
+    @property
     def DIV_LOCH(self):
         """
         Get the value of DIV_LOCH<2:0>
@@ -475,12 +476,12 @@ class LMS7002_SX(LMS7002_base):
         """
         Set the value of DIV_LOCH<2:0>
         """
-        if not(0 <= value <= 7):
+        if not (0 <= value <= 7):
             raise ValueError("Value must be [0..7]")
         self._writeReg('CFG1', 'DIV_LOCH<2:0>', value)
-    
+
     # TST_SX<2:0>
-    @property 
+    @property
     def TST_SX(self):
         """
         Get the value of TST_SX<2:0>
@@ -492,12 +493,12 @@ class LMS7002_SX(LMS7002_base):
         """
         Set the value of TST_SX<2:0>
         """
-        if not(0 <= value <= 7):
+        if not (0 <= value <= 7):
             raise ValueError("Value must be [0..7]")
         self._writeReg('CFG1', 'TST_SX<2:0>', value)
 
     # SEL_SDMCLK
-    @property 
+    @property
     def SEL_SDMCLK(self):
         """
         Get the value of SEL_SDMCLK
@@ -511,14 +512,14 @@ class LMS7002_SX(LMS7002_base):
         """
         if value not in [0, 1, 'CLK_DIV', 'CLK_REF']:
             raise ValueError("Value must be [0,1,'CLK_DIV', 'CLK_REF']")
-        if value==0 or value=='CLK_DIV':
+        if value == 0 or value == 'CLK_DIV':
             val = 0
         else:
             val = 1
         self._writeReg('CFG1', 'SEL_SDMCLK', val)
 
     # SX_DITHER_EN
-    @property 
+    @property
     def SX_DITHER_EN(self):
         """
         Get the value of SX_DITHER_EN
@@ -532,14 +533,14 @@ class LMS7002_SX(LMS7002_base):
         """
         if value not in [0, 1, 'ON', 'OFF']:
             raise ValueError("Value must be [0,1,'ON', 'OFF']")
-        if value==0 or value=='OFF':
+        if value == 0 or value == 'OFF':
             val = 0
         else:
             val = 1
         self._writeReg('CFG1', 'SX_DITHER_EN', val)
 
     # REV_SDMCLK
-    @property 
+    @property
     def REV_SDMCLK(self):
         """
         Get the value of REV_SDMCLK
@@ -553,7 +554,7 @@ class LMS7002_SX(LMS7002_base):
         """
         if value not in [0, 1, 'ON', 'OFF']:
             raise ValueError("Value must be [0,1,'ON', 'OFF']")
-        if value==0 or value=='OFF':
+        if value == 0 or value == 'OFF':
             val = 0
         else:
             val = 1
@@ -562,9 +563,9 @@ class LMS7002_SX(LMS7002_base):
     #
     # SXT_SXR_VCO_BIAS (0x0120)
     #
-    
+
     # VDIV_VCO<7:0>
-    @property 
+    @property
     def VDIV_VCO(self):
         """
         Get the value of VDIV_VCO<7:0>
@@ -576,12 +577,12 @@ class LMS7002_SX(LMS7002_base):
         """
         Set the value of VDIV_VCO<7:0>
         """
-        if not(0<= value <=255):
+        if not (0 <= value <= 255):
             raise ValueError("Value must be [0..255]")
         self._writeReg('VCO_BIAS', 'VDIV_VCO<7:0>', value)
 
     # ICT_VCO<7:0>
-    @property 
+    @property
     def ICT_VCO(self):
         """
         Get the value of ICT_VCO<7:0>
@@ -593,16 +594,16 @@ class LMS7002_SX(LMS7002_base):
         """
         Set the value of ICT_VCO<7:0>
         """
-        if not(0<= value <=255):
+        if not (0 <= value <= 255):
             raise ValueError("Value must be [0..255]")
         self._writeReg('VCO_BIAS', 'ICT_VCO<7:0>', value)
 
     #
     # SXT_SXR_VCO_CFG (0x0121)
     #
-    
+
     # RSEL_LDO_VCO<4:0>
-    @property 
+    @property
     def RSEL_LDO_VCO(self):
         """
         Get the value of RSEL_LDO_VCO<4:0>
@@ -614,12 +615,12 @@ class LMS7002_SX(LMS7002_base):
         """
         Set the value of RSEL_LDO_VCO<4:0>
         """
-        if not(0 <= value <= 31):
+        if not (0 <= value <= 31):
             raise ValueError("Value must be [0..31]")
         self._writeReg('VCO_CFG', 'RSEL_LDO_VCO<4:0>', value)
 
     # CSW_VCO<7:0>
-    @property 
+    @property
     def CSW_VCO(self):
         """
         Get the value of CSW_VCO<7:0>
@@ -631,12 +632,12 @@ class LMS7002_SX(LMS7002_base):
         """
         Set the value of CSW_VCO<7:0>
         """
-        if not(0<= value <=255):
+        if not (0 <= value <= 255):
             raise ValueError("Value must be [0..255]")
         self._writeReg('VCO_CFG', 'CSW_VCO<7:0>', value)
 
     # SEL_VCO<1:0>
-    @property 
+    @property
     def SEL_VCO(self):
         """
         Get the value of SEL_VCO<1:0>
@@ -648,18 +649,18 @@ class LMS7002_SX(LMS7002_base):
         """
         Set the value of SEL_VCO<1:0>
         """
-        if value not in [0,1,2, 'VCOL', 'VCOM', 'VCOH']:
+        if value not in [0, 1, 2, 'VCOL', 'VCOM', 'VCOH']:
             raise ValueError("Value must be [0,1,2, 'VCOL', 'VCOM', 'VCOH']")
-        if value==0 or value=='VCOL':
+        if value == 0 or value == 'VCOL':
             val = 0
-        elif value==1 or value=='VCOM':
+        elif value == 1 or value == 'VCOM':
             val = 1
         else:
             val = 2
         self._writeReg('VCO_CFG', 'SEL_VCO<1:0>', val)
 
     # COARSE_START
-    @property 
+    @property
     def COARSE_START(self):
         """
         Get the value of COARSE_START
@@ -673,7 +674,7 @@ class LMS7002_SX(LMS7002_base):
         """
         if value not in [0, 1, 'ON', 'OFF']:
             raise ValueError("Value must be [0,1,'ON', 'OFF']")
-        if value==0 or value=='OFF':
+        if value == 0 or value == 'OFF':
             val = 0
         else:
             val = 1
@@ -684,16 +685,15 @@ class LMS7002_SX(LMS7002_base):
     #
 
     # RZ_CTRL<1:0>
-    @property 
+    @property
     def RZ_CTRL(self):
         """
         Get the value of RZ_CTRL<1:0>
         """
-        if self.chip.chipID == self.chip.chipIDMR3:        
+        if self.chip.chipID == self.chip.chipIDMR3:
             return self._readReg('PFDCP', 'RZ_CTRL<1:0>')
         else:
-            raise ValueError("Bitfield RZ_CTRL<1:0> is not supported on chip version "+str(self.chip.chipID))
-
+            raise ValueError("Bitfield RZ_CTRL<1:0> is not supported on chip version " + str(self.chip.chipID))
 
     @RZ_CTRL.setter
     def RZ_CTRL(self, value):
@@ -703,21 +703,20 @@ class LMS7002_SX(LMS7002_base):
         if self.chip.chipID == self.chip.chipIDMR3:
             if value not in [0, 1, 2, 3]:
                 raise ValueError("Value must be [0,1, 2, 3]")
-            self._writeReg('PFDCP', 'RZ_CTRL<1:0>', val)
+            self._writeReg('PFDCP', 'RZ_CTRL<1:0>', value)
         else:
-            raise ValueError("Bitfield RZ_CTRL<1:0> is not supported on chip version "+str(self.chip.chipID))
+            raise ValueError("Bitfield RZ_CTRL<1:0> is not supported on chip version " + str(self.chip.chipID))
 
     # CMPLO_CTRL
-    @property 
+    @property
     def CMPLO_CTRL(self):
         """
         Get the value of CMPLO_CTRL
         """
-        if self.chip.chipID == self.chip.chipIDMR3:        
+        if self.chip.chipID == self.chip.chipIDMR3:
             return self._readReg('PFDCP', 'CMPLO_CTRL')
         else:
-            raise ValueError("Bitfield CMPLO_CTRL is not supported on chip version "+str(self.chip.chipID))
-
+            raise ValueError("Bitfield CMPLO_CTRL is not supported on chip version " + str(self.chip.chipID))
 
     @CMPLO_CTRL.setter
     def CMPLO_CTRL(self, value):
@@ -727,12 +726,12 @@ class LMS7002_SX(LMS7002_base):
         if self.chip.chipID == self.chip.chipIDMR3:
             if value not in [0, 1]:
                 raise ValueError("Value must be [0,1]")
-            self._writeReg('PFDCP', 'CMPLO_CTRL', val)
+            self._writeReg('PFDCP', 'CMPLO_CTRL', value)
         else:
-            raise ValueError("Bitfield CMPLO_CTRL is not supported on chip version "+str(self.chip.chipID))
-    
+            raise ValueError("Bitfield CMPLO_CTRL is not supported on chip version " + str(self.chip.chipID))
+
     # REVPH_PFD
-    @property 
+    @property
     def REVPH_PFD(self):
         """
         Get the value of REVPH_PFD
@@ -746,14 +745,14 @@ class LMS7002_SX(LMS7002_base):
         """
         if value not in [0, 1, 'ON', 'OFF']:
             raise ValueError("Value must be [0,1,'ON', 'OFF']")
-        if value==0 or value=='OFF':
+        if value == 0 or value == 'OFF':
             val = 0
         else:
             val = 1
         self._writeReg('PFDCP', 'REVPH_PFD', val)
 
     # IOFFSET_CP<5:0>
-    @property 
+    @property
     def IOFFSET_CP(self):
         """
         Get the value of IOFFSET_CP<5:0>
@@ -765,12 +764,12 @@ class LMS7002_SX(LMS7002_base):
         """
         Set the value of IOFFSET_CP<5:0>
         """
-        if not(0 <= value <= 63):
+        if not (0 <= value <= 63):
             raise ValueError("Value must be [0..63]")
         self._writeReg('PFDCP', 'IOFFSET_CP<5:0>', value)
 
     # IPULSE_CP<5:0>
-    @property 
+    @property
     def IPULSE_CP(self):
         """
         Get the value of IPULSE_CP<5:0>
@@ -782,7 +781,7 @@ class LMS7002_SX(LMS7002_base):
         """
         Set the value of IPULSE_CP<5:0>
         """
-        if not(0 <= value <= 63):
+        if not (0 <= value <= 63):
             raise ValueError("Value must be [0..63]")
         self._writeReg('PFDCP', 'IPULSE_CP<5:0>', value)
 
@@ -791,7 +790,7 @@ class LMS7002_SX(LMS7002_base):
     #
 
     # COARSE_STEPDONE
-    @property 
+    @property
     def COARSE_STEPDONE(self):
         """
         Get the value of COARSE_STEPDONE
@@ -799,7 +798,7 @@ class LMS7002_SX(LMS7002_base):
         return self._readReg('COMP_LPF', 'COARSE_STEPDONE')
 
     # COARSEPLL_COMPO
-    @property 
+    @property
     def COARSEPLL_COMPO(self):
         """
         Get the value of COARSEPLL_COMPO
@@ -807,7 +806,7 @@ class LMS7002_SX(LMS7002_base):
         return self._readReg('COMP_LPF', 'COARSEPLL_COMPO')
 
     # VCO_CMPHO
-    @property 
+    @property
     def VCO_CMPHO(self):
         """
         Get the value of VCO_CMPHO
@@ -815,7 +814,7 @@ class LMS7002_SX(LMS7002_base):
         return self._readReg('COMP_LPF', 'VCO_CMPHO')
 
     # VCO_CMPLO
-    @property 
+    @property
     def VCO_CMPLO(self):
         """
         Get the value of VCO_CMPLO
@@ -823,7 +822,7 @@ class LMS7002_SX(LMS7002_base):
         return self._readReg('COMP_LPF', 'VCO_CMPLO')
 
     # CP2_PLL<3:0>
-    @property 
+    @property
     def CP2_PLL(self):
         """
         Get the value of CP2_PLL<3:0>
@@ -835,12 +834,12 @@ class LMS7002_SX(LMS7002_base):
         """
         Set the value of CP2_PLL<3:0>
         """
-        if not(0 <= value <= 15):
+        if not (0 <= value <= 15):
             raise ValueError("Value must be [0..15]")
         self._writeReg('COMP_LPF', 'CP2_PLL<3:0>', value)
 
     # CP3_PLL<3:0>
-    @property 
+    @property
     def CP3_PLL(self):
         """
         Get the value of CP3_PLL<3:0>
@@ -852,12 +851,12 @@ class LMS7002_SX(LMS7002_base):
         """
         Set the value of CP3_PLL<3:0>
         """
-        if not(0 <= value <= 15):
+        if not (0 <= value <= 15):
             raise ValueError("Value must be [0..15]")
         self._writeReg('COMP_LPF', 'CP3_PLL<3:0>', value)
 
     # CZ<3:0>
-    @property 
+    @property
     def CZ(self):
         """
         Get the value of CZ<3:0>
@@ -869,7 +868,7 @@ class LMS7002_SX(LMS7002_base):
         """
         Set the value of CZ<3:0>
         """
-        if not(0 <= value <= 15):
+        if not (0 <= value <= 15):
             raise ValueError("Value must be [0..15]")
         self._writeReg('COMP_LPF', 'CZ<3:0>', value)
 
@@ -882,170 +881,168 @@ class LMS7002_SX(LMS7002_base):
         VCO Coarse Tuning. In closed-loop mode, based on feedback from VTUNE monitoring circuit.
         F_VCO - desired VCO frequency
         """
-        F_REF = self.chip.fRef   # get the chip reference frequency      
-        
-        
-        # Reset PLL
-        self.RESET_N=0
-        
-    	# Enable PLL Blocks
-        self.SPDUP_VCO=0
-        self.BYPLDO_VCO=1
-        self.EN_COARSEPLL=0
-        self.CURLIM_VCO=1                
-        if (F_VCO>5.5e9):
-            self.EN_DIV2_DIVPROG=1
-        else:
-            self.EN_DIV2_DIVPROG=0
-        if (IntN_MODE):
-            self.EN_INTONLY_SDM=1
-            self.EN_SDM_CLK=0
-        else:
-            self.EN_INTONLY_SDM=0
-            self.EN_SDM_CLK=1
+        F_REF = self.chip.fRef  # get the chip reference frequency
 
-        self.PD_FBDIV=0
+        # Reset PLL
+        self.RESET_N = 0
+
+        # Enable PLL Blocks
+        self.SPDUP_VCO = 0
+        self.BYPLDO_VCO = 1
+        self.EN_COARSEPLL = 0
+        self.CURLIM_VCO = 1
+        if (F_VCO > 5.5e9):
+            self.EN_DIV2_DIVPROG = 1
+        else:
+            self.EN_DIV2_DIVPROG = 0
+        if (IntN_MODE):
+            self.EN_INTONLY_SDM = 1
+            self.EN_SDM_CLK = 0
+        else:
+            self.EN_INTONLY_SDM = 0
+            self.EN_SDM_CLK = 1
+
+        self.PD_FBDIV = 0
         # bug!!!
         # should be set outside the method
-        #self.PD_LOCH_T2RBUF=1
-        self.PD_CP=0
-        self.PD_FDIV=0
-        self.PD_SDM=0
-        self.PD_VCO_COMP=0
-        self.PD_VCO=0
-        self.EN_G=1
-        
+        # self.PD_LOCH_T2RBUF=1
+        self.PD_CP = 0
+        self.PD_FDIV = 0
+        self.PD_SDM = 0
+        self.PD_VCO_COMP = 0
+        self.PD_VCO = 0
+        self.EN_G = 1
+
         # Calculate FB-DIV Configuration
         if (IntN_MODE):
-            N_INT=round((F_VCO/2.0**self.EN_DIV2_DIVPROG)/F_REF)
-            N_FRAC=0
-            F_VCO=2.0**self.EN_DIV2_DIVPROG*N_INT*F_REF
+            N_INT = round((F_VCO / 2.0 ** self.EN_DIV2_DIVPROG) / F_REF)
+            N_FRAC = 0
+            F_VCO = 2.0 ** self.EN_DIV2_DIVPROG * N_INT * F_REF
         else:
-            N_INT=floor((F_VCO/2.0**self.EN_DIV2_DIVPROG)/F_REF)
-            N_FRAC=(2.0**20)*(((F_VCO/2.0**self.EN_DIV2_DIVPROG)/F_REF)-N_INT)
-        
+            N_INT = floor((F_VCO / 2.0 ** self.EN_DIV2_DIVPROG) / F_REF)
+            N_FRAC = (2.0 ** 20) * (((F_VCO / 2.0 ** self.EN_DIV2_DIVPROG) / F_REF) - N_INT)
+
         # Set PLL to operate in IntN-Mode if targeted frequency is integer multiple of reference frequency and user did not set IntN_MODE argument to True
-        if (N_FRAC==0 and IntN_MODE==False):
-            self.EN_INTONLY_SDM=1
-            self.EN_SDM_CLK=0
+        if (N_FRAC == 0 and IntN_MODE == False):
+            self.EN_INTONLY_SDM = 1
+            self.EN_SDM_CLK = 0
 
         # Activate PLL
-        self.RESET_N=1
-        
+        self.RESET_N = 1
+
         # Write FB-DIV Configuration
-        self.INT_SDM=(int(N_INT)-4)
-        #print N_FRAC
-        self.FRAC_SDM=int(N_FRAC)
+        self.INT_SDM = (int(N_INT) - 4)
+        # print N_FRAC
+        self.FRAC_SDM = int(N_FRAC)
 
         # Scale VCO Bias Current to maximum value
-        self.ICT_VCO=255
+        self.ICT_VCO = 255
 
         # Start VCO Coarse-Tuning Algo.
         # Find optimal VCO core for targeted frequency
-        self.SEL_VCO=1
-        self.CSW_VCO=7
-      
+        self.SEL_VCO = 1
+        self.CSW_VCO = 7
+
         sleep(0.001)
-      
-        VTUNE_HIGH=1-self.VCO_CMPHO
-        VTUNE_LOW=self.VCO_CMPLO
-      
+
+        VTUNE_HIGH = 1 - self.VCO_CMPHO
+        VTUNE_LOW = self.VCO_CMPLO
+
         if (VTUNE_LOW):
-            self.SEL_VCO=0
+            self.SEL_VCO = 0
         else:
-            self.CSW_VCO=247
+            self.CSW_VCO = 247
             sleep(0.001)
-            VTUNE_HIGH=1-self.VCO_CMPHO
-            VTUNE_LOW=self.VCO_CMPLO
+            VTUNE_HIGH = 1 - self.VCO_CMPHO
+            VTUNE_LOW = self.VCO_CMPLO
             if (VTUNE_HIGH):
-                self.SEL_VCO=2
+                self.SEL_VCO = 2
             else:
-                self.SEL_VCO=1
+                self.SEL_VCO = 1
 
         # Find inital CSW_VCO for targeted frequency
-        csw_low=0
-        csw_high=255
-        csw=int((csw_high+csw_low+1)/2.0)
-        iter_num=0
-        while(csw_low<csw_high and iter_num<=8):
-           iter_num+=1
-           self.CSW_VCO=csw
-           sleep(0.001)
-           
-           VTUNE_HIGH=1-self.VCO_CMPHO
-           VTUNE_LOW=self.VCO_CMPLO
+        csw_low = 0
+        csw_high = 255
+        csw = int((csw_high + csw_low + 1) / 2.0)
+        iter_num = 0
+        while (csw_low < csw_high and iter_num <= 8):
+            iter_num += 1
+            self.CSW_VCO = csw
+            sleep(0.001)
 
-           
-           if (VTUNE_HIGH):
-               #print 'VTUNE HIGH'
-               csw_low=csw
-               csw=int((csw_high+csw_low+1)/2.0)
-           elif (VTUNE_LOW):
-               csw_high=csw
-               csw=int((csw_high+csw_low+1)/2.0)
-           else:
+            VTUNE_HIGH = 1 - self.VCO_CMPHO
+            VTUNE_LOW = self.VCO_CMPLO
+
+            if (VTUNE_HIGH):
+                # print 'VTUNE HIGH'
+                csw_low = csw
+                csw = int((csw_high + csw_low + 1) / 2.0)
+            elif (VTUNE_LOW):
+                csw_high = csw
+                csw = int((csw_high + csw_low + 1) / 2.0)
+            else:
                 break
-             
+
         self.chip.log("1st step of VCO Coarse Tuning Finished.", 1)
-        self.chip.log('-'*60, 1)
-        self.chip.log('SEL_VCO= %d' %(int(self.SEL_VCO)), 1)
-        self.chip.log('CSW_VCO= %d' %(int(self.CSW_VCO)), 1)
-        self.chip.log('-'*60, 1)
+        self.chip.log('-' * 60, 1)
+        self.chip.log('SEL_VCO= %d' % (int(self.SEL_VCO)), 1)
+        self.chip.log('CSW_VCO= %d' % (int(self.CSW_VCO)), 1)
+        self.chip.log('-' * 60, 1)
         self.chip.log('', 1)
         self.chip.log('', 1)
 
         if (not SPDUP_CTUNE):
-            csw_init=csw
+            csw_init = csw
             # Find 1st CSW_VCO where VTUNE_LOW=1
-            VTUNE_HIGH=1-self.VCO_CMPHO
-            VTUNE_LOW=self.VCO_CMPLO
-            while (VTUNE_LOW==0):
-                  csw+=1
-                  if (csw>=255):
-                       break
-                  self.CSW_VCO=csw
-                  sleep(0.001)
-                  VTUNE_HIGH=1-self.VCO_CMPHO
-                  VTUNE_LOW=self.VCO_CMPLO
-            csw_max=csw
-        
+            VTUNE_HIGH = 1 - self.VCO_CMPHO
+            VTUNE_LOW = self.VCO_CMPLO
+            while (VTUNE_LOW == 0):
+                csw += 1
+                if (csw >= 255):
+                    break
+                self.CSW_VCO = csw
+                sleep(0.001)
+                VTUNE_HIGH = 1 - self.VCO_CMPHO
+                VTUNE_LOW = self.VCO_CMPLO
+            csw_max = csw
+
             # Find 1st CSW_VCO where VTUNE_HIGH=1
-            csw=csw_init
-            self.CSW_VCO=csw
+            csw = csw_init
+            self.CSW_VCO = csw
             sleep(0.001)
-            VTUNE_HIGH=1-self.VCO_CMPHO
-            VTUNE_LOW=self.VCO_CMPLO
-            while (VTUNE_HIGH==0):
-               csw=csw-1
-               if (csw<=0):
-                   break
-      
-               self.CSW_VCO=csw
-               sleep(0.001)
-               VTUNE_HIGH=1-self.VCO_CMPHO
-               VTUNE_LOW=self.VCO_CMPLO
+            VTUNE_HIGH = 1 - self.VCO_CMPHO
+            VTUNE_LOW = self.VCO_CMPLO
+            while (VTUNE_HIGH == 0):
+                csw = csw - 1
+                if (csw <= 0):
+                    break
 
-            csw_min=csw
-        
-            csw_opt=int((csw_min+csw_max)/2.0)
+                self.CSW_VCO = csw
+                sleep(0.001)
+                VTUNE_HIGH = 1 - self.VCO_CMPHO
+                VTUNE_LOW = self.VCO_CMPLO
+
+            csw_min = csw
+
+            csw_opt = int((csw_min + csw_max) / 2.0)
         else:
-            csw_opt=csw
-            csw_min=csw
-            csw_max=csw
+            csw_opt = csw
+            csw_min = csw
+            csw_max = csw
 
-        self.CSW_VCO=csw_opt
+        self.CSW_VCO = csw_opt
         sleep(0.001)
-        VTUNE_HIGH=1-self.VCO_CMPHO
-        VTUNE_LOW=self.VCO_CMPLO
-        
+        VTUNE_HIGH = 1 - self.VCO_CMPHO
+        VTUNE_LOW = self.VCO_CMPLO
+
         self.chip.log('VCO Coarse Frequency Tuning Done.', 1)
-        self.chip.log('-'*60, 1)
-        self.chip.log('SEL_VCO= %d' %(self.SEL_VCO), 1)
-        self.chip.log('CSW_VCO= %d' %(self.CSW_VCO), 1)
-        self.chip.log('min(CSW_VCO)= %d' %(csw_min), 1)
-        self.chip.log('max(CSW_VCO)= %d' %(csw_max), 1)
-        self.chip.log('VTUNE_HIGH=%d, VTUNE_LOW=%d' %(VTUNE_HIGH, VTUNE_LOW), 1)
-        self.chip.log('-'*60, 1)
+        self.chip.log('-' * 60, 1)
+        self.chip.log('SEL_VCO= %d' % (self.SEL_VCO), 1)
+        self.chip.log('CSW_VCO= %d' % (self.CSW_VCO), 1)
+        self.chip.log('min(CSW_VCO)= %d' % (csw_min), 1)
+        self.chip.log('max(CSW_VCO)= %d' % (csw_max), 1)
+        self.chip.log('VTUNE_HIGH=%d, VTUNE_LOW=%d' % (VTUNE_HIGH, VTUNE_LOW), 1)
+        self.chip.log('-' * 60, 1)
         self.chip.log('', 1)
         self.chip.log('', 1)
         return True
@@ -1054,35 +1051,35 @@ class LMS7002_SX(LMS7002_base):
         """
         Calculates FF-DIV Modulus. Calls VCO Corse Tuning Method. Configures PLL in LMS7002.
         """
-        F_REF = self.chip.fRef   # get the chip reference frequency
-        if not (0.24e9<=F_LO<=3.8e9):
-             raise ValueError("Not Valid LO Frequency. 240 MHz< F_LO < 3.8 GHz")
-        
-        if (PD_TLOBUF_CTUNE):
-            PD_TXMIXA=self.chip.TRF['A'].PD_TLOBUF_TRF
-            PD_TXMIXB=self.chip.TRF['B'].PD_TLOBUF_TRF
-            self.chip.TRF['A'].PD_TLOBUF_TRF=1
-            self.chip.TRF['B'].PD_TLOBUF_TRF=1
-        
-        FF_MOD=0.0
-        F_VCO=2*F_LO*(2**FF_MOD)
+        F_REF = self.chip.fRef  # get the chip reference frequency
+        if not (0.24e9 <= F_LO <= 3.8e9):
+            raise ValueError("Not Valid LO Frequency. 240 MHz< F_LO < 3.8 GHz")
 
-        while (not(3.8e9<F_VCO<=7.6e9)):
-             FF_MOD+=1
-             F_VCO=2*F_LO*(2**FF_MOD)
-        
+        if (PD_TLOBUF_CTUNE):
+            PD_TXMIXA = self.chip.TRF['A'].PD_TLOBUF_TRF
+            PD_TXMIXB = self.chip.TRF['B'].PD_TLOBUF_TRF
+            self.chip.TRF['A'].PD_TLOBUF_TRF = 1
+            self.chip.TRF['B'].PD_TLOBUF_TRF = 1
+
+        FF_MOD = 0.0
+        F_VCO = 2 * F_LO * (2 ** FF_MOD)
+
+        while (not (3.8e9 < F_VCO <= 7.6e9)):
+            FF_MOD += 1
+            F_VCO = 2 * F_LO * (2 ** FF_MOD)
+
         self.chip.log('', 1)
         self.chip.log('FF-DIV Modulus', 1)
-        self.chip.log('-'*60, 1)
-        self.chip.log('FFDIV-MOD=%d ' %(2**FF_MOD), 1)
+        self.chip.log('-' * 60, 1)
+        self.chip.log('FFDIV-MOD=%d ' % (2 ** FF_MOD), 1)
         self.chip.log('', 1)
         self.chip.log('', 1)
-        self.DIV_LOCH=int(FF_MOD)
+        self.DIV_LOCH = int(FF_MOD)
         self.VCO_CTUNE(F_VCO=F_VCO, IntN_MODE=IntN_MODE, SPDUP_CTUNE=SPDUP_CTUNE)
-        
+
         if (PD_TLOBUF_CTUNE):
-            self.chip.TRF['A'].PD_TLOBUF_TRF=PD_TXMIXA
-            self.chip.TRF['B'].PD_TLOBUF_TRF=PD_TXMIXB
+            self.chip.TRF['A'].PD_TLOBUF_TRF = PD_TXMIXA
+            self.chip.TRF['B'].PD_TLOBUF_TRF = PD_TXMIXB
         return True
 
     def getVCOFrequency(self):
@@ -1090,25 +1087,23 @@ class LMS7002_SX(LMS7002_base):
         Returns the current SX VCO frequency
         """
         fRef = self.chip.fRef
-        
+
         # Check if the SX is working in integer or fractional mode
-        if self.EN_INTONLY_SDM==1:
+        if self.EN_INTONLY_SDM == 1:
             intNmode = True
         else:
             intNmode = False
-        
+
         EN_DIV2_DIVPROG = self.EN_DIV2_DIVPROG
         INT_SDM = self.INT_SDM
         if intNmode:
-            fVCO = (INT_SDM+4) * fRef * (2.0**EN_DIV2_DIVPROG)
+            fVCO = (INT_SDM + 4) * fRef * (2.0 ** EN_DIV2_DIVPROG)
         else:
             FRAC_SDM = self.FRAC_SDM
-            fVCO = (2.0**EN_DIV2_DIVPROG) * fRef * ((1.0*FRAC_SDM)/(2.0**20) + (INT_SDM+4))
-        return fVCO        
+            fVCO = (2.0 ** EN_DIV2_DIVPROG) * fRef * ((1.0 * FRAC_SDM) / (2.0 ** 20) + (INT_SDM + 4))
+        return fVCO
 
     def getFrequency(self):
         fVCO = self.getVCOFrequency()
         FF_MOD = self.DIV_LOCH
-        return fVCO / (2.0 * 2**FF_MOD)
-        
-
+        return fVCO / (2.0 * 2 ** FF_MOD)

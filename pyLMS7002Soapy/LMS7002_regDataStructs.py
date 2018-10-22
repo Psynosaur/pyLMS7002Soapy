@@ -32,7 +32,8 @@ class RegBank(object):
                 raise ValueError("Bank specifier " + specifier + " is a fixed address!")
             else:
                 raise ValueError(
-                    "Bank specifier can only have X for lowest bits. Specifier " + specifier + " violates this constraint.")
+                    "Bank specifier can only have X for lowest bits. Specifier " + specifier + "violates this "
+                                                                                               "constraint.")
 
         if "X" in specifier[0:-pos]:
             raise ValueError(
@@ -631,8 +632,7 @@ class BitField(object):
 
     def setValueBin(self, valueBin):
         if len(valueBin) != self.getLen():
-            raise ValueError("Wrong number of bits given. Bitfield width is " + str(self.getLen()) + ", while " + len(
-                val) + " bits given.")
+            raise ValueError("Wrong number of bits given. Bitfield width is " + str(self.getLen()) + ", while " + len(valueBin) + " bits given.")
         self.defValue = valueBin
 
     def setValueFromReg(self, regValue):
@@ -657,8 +657,7 @@ class BitField(object):
         else:
             val = bitFieldVal
         if len(val) != self.getLen():
-            raise ValueError("Wrong number of bits given. Bitfield width is " + str(self.getLen()) + ", while " + len(
-                val) + " bits given.")
+            raise ValueError("Wrong number of bits given. Bitfield width is " + str(self.getLen()) + ", while " + len(val) + " bits given.")
         valInt = int("0b" + val, 2)
         valInt = int(valInt * (2 ** self.getPosL()))
         return valInt

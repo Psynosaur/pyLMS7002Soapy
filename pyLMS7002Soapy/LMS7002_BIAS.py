@@ -1,30 +1,31 @@
-#***************************************************************
-#* Name:      LMS7002_BIAS.py
-#* Purpose:   Class implementing LMS7002 BIAS functions
-#* Author:    Lime Microsystems ()
-#* Created:   2016-11-14
-#* Copyright: Lime Microsystems (limemicro.com)
-#* License:
-#**************************************************************
+# ***************************************************************
+# * Name:      LMS7002_BIAS.py
+# * Purpose:   Class implementing LMS7002 BIAS functions
+# * Author:    Lime Microsystems ()
+# * Created:   2016-11-14
+# * Copyright: Lime Microsystems (limemicro.com)
+# * License:
+# **************************************************************
 
 # from LMS7002_base import *
 from pyLMS7002Soapy.LMS7002_base import LMS7002_base
 
 
 class LMS7002_BIAS(LMS7002_base):
-    __slots__ = ['allowLDO']    # Used to generate error on typos
+    __slots__ = ['allowLDO']  # Used to generate error on typos
+
     def __init__(self, chip):
         self.chip = chip
         self.channel = None
         self.prefix = "BIAS_"
-        self.allowLDO = False   # Do not allow changing of LDO voltage
-            
+        self.allowLDO = False  # Do not allow changing of LDO voltage
+
     #
     # BIAS_CFG (0x0084)
     #
 
     # MUX_BIAS_OUT<1:0>
-    @property 
+    @property
     def MUX_BIAS_OUT(self):
         """
         Get the value of MUX_BIAS_OUT<1:0>
@@ -36,12 +37,12 @@ class LMS7002_BIAS(LMS7002_base):
         """
         Set the value of MUX_BIAS_OUT<1:0>
         """
-        if not(0 <= value <= 3):
+        if not (0 <= value <= 3):
             raise ValueError("Value must be [0..3]")
         self._writeReg('CFG', 'MUX_BIAS_OUT<1:0>', value)
 
     # RP_CALIB_BIAS<4:0>
-    @property 
+    @property
     def RP_CALIB_BIAS(self):
         """
         Get the value of RP_CALIB_BIAS<4:0>
@@ -53,12 +54,12 @@ class LMS7002_BIAS(LMS7002_base):
         """
         Set the value of RP_CALIB_BIAS<4:0>
         """
-        if not(0 <= value <= 31):
+        if not (0 <= value <= 31):
             raise ValueError("Value must be [0..31]")
         self._writeReg('CFG', 'RP_CALIB_BIAS<4:0>', value)
 
     # PD_FRP_BIAS
-    @property 
+    @property
     def PD_FRP_BIAS(self):
         """
         Get the value of PD_FRP_BIAS
@@ -75,7 +76,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG', 'PD_FRP_BIAS', value)
 
     # PD_F_BIAS
-    @property 
+    @property
     def PD_F_BIAS(self):
         """
         Get the value of PD_F_BIAS
@@ -92,7 +93,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG', 'PD_F_BIAS', value)
 
     # PD_PTRP_BIAS
-    @property 
+    @property
     def PD_PTRP_BIAS(self):
         """
         Get the value of PD_PTRP_BIAS
@@ -109,7 +110,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG', 'PD_PTRP_BIAS', value)
 
     # PD_PT_BIAS
-    @property 
+    @property
     def PD_PT_BIAS(self):
         """
         Get the value of PD_PT_BIAS
@@ -126,7 +127,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG', 'PD_PT_BIAS', value)
 
     # PD_BIAS_MASTER
-    @property 
+    @property
     def PD_BIAS_MASTER(self):
         """
         Get the value of PD_BIAS_MASTER
@@ -145,9 +146,9 @@ class LMS7002_BIAS(LMS7002_base):
     #
     # BIAS_CFG0 (0x0092)
     #
-    
+
     # EN_LDO_DIG
-    @property 
+    @property
     def EN_LDO_DIG(self):
         """
         Get the value of EN_LDO_DIG
@@ -164,7 +165,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG0', 'EN_LDO_DIG', value)
 
     # EN_LDO_DIGGN
-    @property 
+    @property
     def EN_LDO_DIGGN(self):
         """
         Get the value of EN_LDO_DIGGN
@@ -181,7 +182,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG0', 'EN_LDO_DIGGN', value)
 
     # EN_LDO_DIGSXR
-    @property 
+    @property
     def EN_LDO_DIGSXR(self):
         """
         Get the value of EN_LDO_DIGSXR
@@ -198,7 +199,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG0', 'EN_LDO_DIGSXR', value)
 
     # EN_LDO_DIGSXT
-    @property 
+    @property
     def EN_LDO_DIGSXT(self):
         """
         Get the value of EN_LDO_DIGSXT
@@ -215,7 +216,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG0', 'EN_LDO_DIGSXT', value)
 
     # EN_LDO_DIVGN
-    @property 
+    @property
     def EN_LDO_DIVGN(self):
         """
         Get the value of EN_LDO_DIVGN
@@ -232,7 +233,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG0', 'EN_LDO_DIVGN', value)
 
     # EN_LDO_DIVSXR
-    @property 
+    @property
     def EN_LDO_DIVSXR(self):
         """
         Get the value of EN_LDO_DIVSXR
@@ -249,7 +250,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG0', 'EN_LDO_DIVSXR', value)
 
     # EN_LDO_DIVSXT
-    @property 
+    @property
     def EN_LDO_DIVSXT(self):
         """
         Get the value of EN_LDO_DIVSXT
@@ -266,7 +267,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG0', 'EN_LDO_DIVSXT', value)
 
     # EN_LDO_LNA12
-    @property 
+    @property
     def EN_LDO_LNA12(self):
         """
         Get the value of EN_LDO_LNA12
@@ -283,7 +284,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG0', 'EN_LDO_LNA12', value)
 
     # EN_LDO_LNA14
-    @property 
+    @property
     def EN_LDO_LNA14(self):
         """
         Get the value of EN_LDO_LNA14
@@ -300,7 +301,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG0', 'EN_LDO_LNA14', value)
 
     # EN_LDO_MXRFE
-    @property 
+    @property
     def EN_LDO_MXRFE(self):
         """
         Get the value of EN_LDO_MXRFE
@@ -317,7 +318,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG0', 'EN_LDO_MXRFE', value)
 
     # EN_LDO_RBB
-    @property 
+    @property
     def EN_LDO_RBB(self):
         """
         Get the value of EN_LDO_RBB
@@ -334,7 +335,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG0', 'EN_LDO_RBB', value)
 
     # EN_LDO_RXBUF
-    @property 
+    @property
     def EN_LDO_RXBUF(self):
         """
         Get the value of EN_LDO_RXBUF
@@ -351,7 +352,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG0', 'EN_LDO_RXBUF', value)
 
     # EN_LDO_TBB
-    @property 
+    @property
     def EN_LDO_TBB(self):
         """
         Get the value of EN_LDO_TBB
@@ -368,7 +369,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG0', 'EN_LDO_TBB', value)
 
     # EN_LDO_TIA12
-    @property 
+    @property
     def EN_LDO_TIA12(self):
         """
         Get the value of EN_LDO_TIA12
@@ -385,7 +386,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG0', 'EN_LDO_TIA12', value)
 
     # EN_LDO_TIA14
-    @property 
+    @property
     def EN_LDO_TIA14(self):
         """
         Get the value of EN_LDO_TIA14
@@ -402,7 +403,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG0', 'EN_LDO_TIA14', value)
 
     # EN_G_LDO
-    @property 
+    @property
     def EN_G_LDO(self):
         """
         Get the value of EN_G_LDO
@@ -421,9 +422,9 @@ class LMS7002_BIAS(LMS7002_base):
     #
     # BIAS_CFG1 (0x0093)
     #
-    
+
     # EN_LOADIMP_LDO_TLOB
-    @property 
+    @property
     def EN_LOADIMP_LDO_TLOB(self):
         """
         Get the value of EN_LOADIMP_LDO_TLOB
@@ -440,7 +441,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG1', 'EN_LOADIMP_LDO_TLOB', value)
 
     # EN_LOADIMP_LDO_TPAD
-    @property 
+    @property
     def EN_LOADIMP_LDO_TPAD(self):
         """
         Get the value of EN_LOADIMP_LDO_TPAD
@@ -457,7 +458,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG1', 'EN_LOADIMP_LDO_TPAD', value)
 
     # EN_LOADIMP_LDO_TXBUF
-    @property 
+    @property
     def EN_LOADIMP_LDO_TXBUF(self):
         """
         Get the value of EN_LOADIMP_LDO_TXBUF
@@ -474,7 +475,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG1', 'EN_LOADIMP_LDO_TXBUF', value)
 
     # EN_LOADIMP_LDO_VCOGN
-    @property 
+    @property
     def EN_LOADIMP_LDO_VCOGN(self):
         """
         Get the value of EN_LOADIMP_LDO_VCOGN
@@ -491,7 +492,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG1', 'EN_LOADIMP_LDO_VCOGN', value)
 
     # EN_LOADIMP_LDO_VCOSXR
-    @property 
+    @property
     def EN_LOADIMP_LDO_VCOSXR(self):
         """
         Get the value of EN_LOADIMP_LDO_VCOSXR
@@ -508,7 +509,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG1', 'EN_LOADIMP_LDO_VCOSXR', value)
 
     # EN_LOADIMP_LDO_VCOSXT
-    @property 
+    @property
     def EN_LOADIMP_LDO_VCOSXT(self):
         """
         Get the value of EN_LOADIMP_LDO_VCOSXT
@@ -525,7 +526,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG1', 'EN_LOADIMP_LDO_VCOSXT', value)
 
     # EN_LDO_AFE
-    @property 
+    @property
     def EN_LDO_AFE(self):
         """
         Get the value of EN_LDO_AFE
@@ -542,7 +543,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG1', 'EN_LDO_AFE', value)
 
     # EN_LDO_CPGN
-    @property 
+    @property
     def EN_LDO_CPGN(self):
         """
         Get the value of EN_LDO_CPGN
@@ -559,7 +560,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG1', 'EN_LDO_CPGN', value)
 
     # EN_LDO_CPSXR
-    @property 
+    @property
     def EN_LDO_CPSXR(self):
         """
         Get the value of EN_LDO_CPSXR
@@ -576,7 +577,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG1', 'EN_LDO_CPSXR', value)
 
     # EN_LDO_TLOB
-    @property 
+    @property
     def EN_LDO_TLOB(self):
         """
         Get the value of EN_LDO_TLOB
@@ -593,7 +594,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG1', 'EN_LDO_TLOB', value)
 
     # EN_LDO_TPAD
-    @property 
+    @property
     def EN_LDO_TPAD(self):
         """
         Get the value of EN_LDO_TPAD
@@ -610,7 +611,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG1', 'EN_LDO_TPAD', value)
 
     # EN_LDO_TXBUF
-    @property 
+    @property
     def EN_LDO_TXBUF(self):
         """
         Get the value of EN_LDO_TXBUF
@@ -627,7 +628,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG1', 'EN_LDO_TXBUF', value)
 
     # EN_LDO_VCOGN
-    @property 
+    @property
     def EN_LDO_VCOGN(self):
         """
         Get the value of EN_LDO_VCOGN
@@ -644,7 +645,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG1', 'EN_LDO_VCOGN', value)
 
     # EN_LDO_VCOSXR
-    @property 
+    @property
     def EN_LDO_VCOSXR(self):
         """
         Get the value of EN_LDO_VCOSXR
@@ -661,7 +662,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG1', 'EN_LDO_VCOSXR', value)
 
     # EN_LDO_VCOSXT
-    @property 
+    @property
     def EN_LDO_VCOSXT(self):
         """
         Get the value of EN_LDO_VCOSXT
@@ -678,7 +679,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG1', 'EN_LDO_VCOSXT', value)
 
     # EN_LDO_CPSXT
-    @property 
+    @property
     def EN_LDO_CPSXT(self):
         """
         Get the value of EN_LDO_CPSXT
@@ -699,7 +700,7 @@ class LMS7002_BIAS(LMS7002_base):
     #    
 
     # EN_LOADIMP_LDO_CPSXT
-    @property 
+    @property
     def EN_LOADIMP_LDO_CPSXT(self):
         """
         Get the value of EN_LOADIMP_LDO_CPSXT
@@ -716,7 +717,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG2', 'EN_LOADIMP_LDO_CPSXT', value)
 
     # EN_LOADIMP_LDO_DIG
-    @property 
+    @property
     def EN_LOADIMP_LDO_DIG(self):
         """
         Get the value of EN_LOADIMP_LDO_DIG
@@ -733,7 +734,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG2', 'EN_LOADIMP_LDO_DIG', value)
 
     # EN_LOADIMP_LDO_DIGGN
-    @property 
+    @property
     def EN_LOADIMP_LDO_DIGGN(self):
         """
         Get the value of EN_LOADIMP_LDO_DIGGN
@@ -750,7 +751,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG2', 'EN_LOADIMP_LDO_DIGGN', value)
 
     # EN_LOADIMP_LDO_DIGSXR
-    @property 
+    @property
     def EN_LOADIMP_LDO_DIGSXR(self):
         """
         Get the value of EN_LOADIMP_LDO_DIGSXR
@@ -767,7 +768,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG2', 'EN_LOADIMP_LDO_DIGSXR', value)
 
     # EN_LOADIMP_LDO_DIGSXT
-    @property 
+    @property
     def EN_LOADIMP_LDO_DIGSXT(self):
         """
         Get the value of EN_LOADIMP_LDO_DIGSXT
@@ -784,7 +785,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG2', 'EN_LOADIMP_LDO_DIGSXT', value)
 
     # EN_LOADIMP_LDO_DIVGN
-    @property 
+    @property
     def EN_LOADIMP_LDO_DIVGN(self):
         """
         Get the value of EN_LOADIMP_LDO_DIVGN
@@ -801,7 +802,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG2', 'EN_LOADIMP_LDO_DIVGN', value)
 
     # EN_LOADIMP_LDO_DIVSXR
-    @property 
+    @property
     def EN_LOADIMP_LDO_DIVSXR(self):
         """
         Get the value of EN_LOADIMP_LDO_DIVSXR
@@ -818,7 +819,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG2', 'EN_LOADIMP_LDO_DIVSXR', value)
 
     # EN_LOADIMP_LDO_DIVSXT
-    @property 
+    @property
     def EN_LOADIMP_LDO_DIVSXT(self):
         """
         Get the value of EN_LOADIMP_LDO_DIVSXT
@@ -835,7 +836,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG2', 'EN_LOADIMP_LDO_DIVSXT', value)
 
     # EN_LOADIMP_LDO_LNA12
-    @property 
+    @property
     def EN_LOADIMP_LDO_LNA12(self):
         """
         Get the value of EN_LOADIMP_LDO_LNA12
@@ -852,7 +853,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG2', 'EN_LOADIMP_LDO_LNA12', value)
 
     # EN_LOADIMP_LDO_LNA14
-    @property 
+    @property
     def EN_LOADIMP_LDO_LNA14(self):
         """
         Get the value of EN_LOADIMP_LDO_LNA14
@@ -869,7 +870,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG2', 'EN_LOADIMP_LDO_LNA14', value)
 
     # EN_LOADIMP_LDO_MXRFE
-    @property 
+    @property
     def EN_LOADIMP_LDO_MXRFE(self):
         """
         Get the value of EN_LOADIMP_LDO_MXRFE
@@ -886,7 +887,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG2', 'EN_LOADIMP_LDO_MXRFE', value)
 
     # EN_LOADIMP_LDO_RBB
-    @property 
+    @property
     def EN_LOADIMP_LDO_RBB(self):
         """
         Get the value of EN_LOADIMP_LDO_RBB
@@ -903,7 +904,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG2', 'EN_LOADIMP_LDO_RBB', value)
 
     # EN_LOADIMP_LDO_RXBUF
-    @property 
+    @property
     def EN_LOADIMP_LDO_RXBUF(self):
         """
         Get the value of EN_LOADIMP_LDO_RXBUF
@@ -920,7 +921,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG2', 'EN_LOADIMP_LDO_RXBUF', value)
 
     # EN_LOADIMP_LDO_TBB
-    @property 
+    @property
     def EN_LOADIMP_LDO_TBB(self):
         """
         Get the value of EN_LOADIMP_LDO_TBB
@@ -937,7 +938,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG2', 'EN_LOADIMP_LDO_TBB', value)
 
     # EN_LOADIMP_LDO_TIA12
-    @property 
+    @property
     def EN_LOADIMP_LDO_TIA12(self):
         """
         Get the value of EN_LOADIMP_LDO_TIA12
@@ -954,7 +955,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG2', 'EN_LOADIMP_LDO_TIA12', value)
 
     # EN_LOADIMP_LDO_TIA14
-    @property 
+    @property
     def EN_LOADIMP_LDO_TIA14(self):
         """
         Get the value of EN_LOADIMP_LDO_TIA14
@@ -973,9 +974,9 @@ class LMS7002_BIAS(LMS7002_base):
     #
     # BIAS_CFG3 (0x0095)
     #    
-    
+
     # BYP_LDO_TBB
-    @property 
+    @property
     def BYP_LDO_TBB(self):
         """
         Get the value of BYP_LDO_TBB
@@ -992,7 +993,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG3', 'BYP_LDO_TBB', value)
 
     # BYP_LDO_TIA12
-    @property 
+    @property
     def BYP_LDO_TIA12(self):
         """
         Get the value of BYP_LDO_TIA12
@@ -1009,7 +1010,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG3', 'BYP_LDO_TIA12', value)
 
     # BYP_LDO_TIA14
-    @property 
+    @property
     def BYP_LDO_TIA14(self):
         """
         Get the value of BYP_LDO_TIA14
@@ -1026,7 +1027,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG3', 'BYP_LDO_TIA14', value)
 
     # BYP_LDO_TLOB
-    @property 
+    @property
     def BYP_LDO_TLOB(self):
         """
         Get the value of BYP_LDO_TLOB
@@ -1043,7 +1044,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG3', 'BYP_LDO_TLOB', value)
 
     # BYP_LDO_TPAD
-    @property 
+    @property
     def BYP_LDO_TPAD(self):
         """
         Get the value of BYP_LDO_TPAD
@@ -1060,7 +1061,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG3', 'BYP_LDO_TPAD', value)
 
     # BYP_LDO_TXBUF
-    @property 
+    @property
     def BYP_LDO_TXBUF(self):
         """
         Get the value of BYP_LDO_TXBUF
@@ -1077,7 +1078,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG3', 'BYP_LDO_TXBUF', value)
 
     # BYP_LDO_VCOGN
-    @property 
+    @property
     def BYP_LDO_VCOGN(self):
         """
         Get the value of BYP_LDO_VCOGN
@@ -1094,7 +1095,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG3', 'BYP_LDO_VCOGN', value)
 
     # BYP_LDO_VCOSXR
-    @property 
+    @property
     def BYP_LDO_VCOSXR(self):
         """
         Get the value of BYP_LDO_VCOSXR
@@ -1111,7 +1112,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG3', 'BYP_LDO_VCOSXR', value)
 
     # BYP_LDO_VCOSXT
-    @property 
+    @property
     def BYP_LDO_VCOSXT(self):
         """
         Get the value of BYP_LDO_VCOSXT
@@ -1128,7 +1129,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG3', 'BYP_LDO_VCOSXT', value)
 
     # EN_LOADIMP_LDO_AFE
-    @property 
+    @property
     def EN_LOADIMP_LDO_AFE(self):
         """
         Get the value of EN_LOADIMP_LDO_AFE
@@ -1145,7 +1146,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG3', 'EN_LOADIMP_LDO_AFE', value)
 
     # EN_LOADIMP_LDO_CPGN
-    @property 
+    @property
     def EN_LOADIMP_LDO_CPGN(self):
         """
         Get the value of EN_LOADIMP_LDO_CPGN
@@ -1162,7 +1163,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG3', 'EN_LOADIMP_LDO_CPGN', value)
 
     # EN_LOADIMP_LDO_CPSXR
-    @property 
+    @property
     def EN_LOADIMP_LDO_CPSXR(self):
         """
         Get the value of EN_LOADIMP_LDO_CPSXR
@@ -1183,7 +1184,7 @@ class LMS7002_BIAS(LMS7002_base):
     #    
 
     # BYP_LDO_AFE
-    @property 
+    @property
     def BYP_LDO_AFE(self):
         """
         Get the value of BYP_LDO_AFE
@@ -1200,7 +1201,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG4', 'BYP_LDO_AFE', value)
 
     # BYP_LDO_CPGN
-    @property 
+    @property
     def BYP_LDO_CPGN(self):
         """
         Get the value of BYP_LDO_CPGN
@@ -1217,7 +1218,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG4', 'BYP_LDO_CPGN', value)
 
     # BYP_LDO_CPSXR
-    @property 
+    @property
     def BYP_LDO_CPSXR(self):
         """
         Get the value of BYP_LDO_CPSXR
@@ -1234,7 +1235,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG4', 'BYP_LDO_CPSXR', value)
 
     # BYP_LDO_CPSXT
-    @property 
+    @property
     def BYP_LDO_CPSXT(self):
         """
         Get the value of BYP_LDO_CPSXT
@@ -1251,7 +1252,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG4', 'BYP_LDO_CPSXT', value)
 
     # BYP_LDO_DIG
-    @property 
+    @property
     def BYP_LDO_DIG(self):
         """
         Get the value of BYP_LDO_DIG
@@ -1268,7 +1269,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG4', 'BYP_LDO_DIG', value)
 
     # BYP_LDO_DIGGN
-    @property 
+    @property
     def BYP_LDO_DIGGN(self):
         """
         Get the value of BYP_LDO_DIGGN
@@ -1285,7 +1286,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG4', 'BYP_LDO_DIGGN', value)
 
     # BYP_LDO_DIGSXR
-    @property 
+    @property
     def BYP_LDO_DIGSXR(self):
         """
         Get the value of BYP_LDO_DIGSXR
@@ -1302,7 +1303,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG4', 'BYP_LDO_DIGSXR', value)
 
     # BYP_LDO_DIGSXT
-    @property 
+    @property
     def BYP_LDO_DIGSXT(self):
         """
         Get the value of BYP_LDO_DIGSXT
@@ -1319,7 +1320,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG4', 'BYP_LDO_DIGSXT', value)
 
     # BYP_LDO_DIVGN
-    @property 
+    @property
     def BYP_LDO_DIVGN(self):
         """
         Get the value of BYP_LDO_DIVGN
@@ -1336,7 +1337,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG4', 'BYP_LDO_DIVGN', value)
 
     # BYP_LDO_DIVSXR
-    @property 
+    @property
     def BYP_LDO_DIVSXR(self):
         """
         Get the value of BYP_LDO_DIVSXR
@@ -1353,7 +1354,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG4', 'BYP_LDO_DIVSXR', value)
 
     # BYP_LDO_DIVSXT
-    @property 
+    @property
     def BYP_LDO_DIVSXT(self):
         """
         Get the value of BYP_LDO_DIVSXT
@@ -1370,7 +1371,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG4', 'BYP_LDO_DIVSXT', value)
 
     # BYP_LDO_LNA12
-    @property 
+    @property
     def BYP_LDO_LNA12(self):
         """
         Get the value of BYP_LDO_LNA12
@@ -1387,7 +1388,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG4', 'BYP_LDO_LNA12', value)
 
     # BYP_LDO_LNA14
-    @property 
+    @property
     def BYP_LDO_LNA14(self):
         """
         Get the value of BYP_LDO_LNA14
@@ -1404,7 +1405,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG4', 'BYP_LDO_LNA14', value)
 
     # BYP_LDO_MXRFE
-    @property 
+    @property
     def BYP_LDO_MXRFE(self):
         """
         Get the value of BYP_LDO_MXRFE
@@ -1421,7 +1422,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG4', 'BYP_LDO_MXRFE', value)
 
     # BYP_LDO_RBB
-    @property 
+    @property
     def BYP_LDO_RBB(self):
         """
         Get the value of BYP_LDO_RBB
@@ -1438,7 +1439,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG4', 'BYP_LDO_RBB', value)
 
     # BYP_LDO_RXBUF
-    @property 
+    @property
     def BYP_LDO_RXBUF(self):
         """
         Get the value of BYP_LDO_RXBUF
@@ -1457,9 +1458,9 @@ class LMS7002_BIAS(LMS7002_base):
     #
     # BIAS_CFG5 (0x0097)
     #
-    
+
     # SPDUP_LDO_DIVSXR
-    @property 
+    @property
     def SPDUP_LDO_DIVSXR(self):
         """
         Get the value of SPDUP_LDO_DIVSXR
@@ -1476,7 +1477,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG5', 'SPDUP_LDO_DIVSXR', value)
 
     # SPDUP_LDO_DIVSXT
-    @property 
+    @property
     def SPDUP_LDO_DIVSXT(self):
         """
         Get the value of SPDUP_LDO_DIVSXT
@@ -1493,7 +1494,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG5', 'SPDUP_LDO_DIVSXT', value)
 
     # SPDUP_LDO_LNA12
-    @property 
+    @property
     def SPDUP_LDO_LNA12(self):
         """
         Get the value of SPDUP_LDO_LNA12
@@ -1510,7 +1511,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG5', 'SPDUP_LDO_LNA12', value)
 
     # SPDUP_LDO_LNA14
-    @property 
+    @property
     def SPDUP_LDO_LNA14(self):
         """
         Get the value of SPDUP_LDO_LNA14
@@ -1527,7 +1528,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG5', 'SPDUP_LDO_LNA14', value)
 
     # SPDUP_LDO_MXRFE
-    @property 
+    @property
     def SPDUP_LDO_MXRFE(self):
         """
         Get the value of SPDUP_LDO_MXRFE
@@ -1544,7 +1545,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG5', 'SPDUP_LDO_MXRFE', value)
 
     # SPDUP_LDO_RBB
-    @property 
+    @property
     def SPDUP_LDO_RBB(self):
         """
         Get the value of SPDUP_LDO_RBB
@@ -1561,7 +1562,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG5', 'SPDUP_LDO_RBB', value)
 
     # SPDUP_LDO_RXBUF
-    @property 
+    @property
     def SPDUP_LDO_RXBUF(self):
         """
         Get the value of SPDUP_LDO_RXBUF
@@ -1578,7 +1579,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG5', 'SPDUP_LDO_RXBUF', value)
 
     # SPDUP_LDO_TBB
-    @property 
+    @property
     def SPDUP_LDO_TBB(self):
         """
         Get the value of SPDUP_LDO_TBB
@@ -1595,7 +1596,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG5', 'SPDUP_LDO_TBB', value)
 
     # SPDUP_LDO_TIA12
-    @property 
+    @property
     def SPDUP_LDO_TIA12(self):
         """
         Get the value of SPDUP_LDO_TIA12
@@ -1612,7 +1613,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG5', 'SPDUP_LDO_TIA12', value)
 
     # SPDUP_LDO_TIA14
-    @property 
+    @property
     def SPDUP_LDO_TIA14(self):
         """
         Get the value of SPDUP_LDO_TIA14
@@ -1629,7 +1630,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG5', 'SPDUP_LDO_TIA14', value)
 
     # SPDUP_LDO_TLOB
-    @property 
+    @property
     def SPDUP_LDO_TLOB(self):
         """
         Get the value of SPDUP_LDO_TLOB
@@ -1646,7 +1647,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG5', 'SPDUP_LDO_TLOB', value)
 
     # SPDUP_LDO_TPAD
-    @property 
+    @property
     def SPDUP_LDO_TPAD(self):
         """
         Get the value of SPDUP_LDO_TPAD
@@ -1663,7 +1664,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG5', 'SPDUP_LDO_TPAD', value)
 
     # SPDUP_LDO_TXBUF
-    @property 
+    @property
     def SPDUP_LDO_TXBUF(self):
         """
         Get the value of SPDUP_LDO_TXBUF
@@ -1680,7 +1681,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG5', 'SPDUP_LDO_TXBUF', value)
 
     # SPDUP_LDO_VCOGN
-    @property 
+    @property
     def SPDUP_LDO_VCOGN(self):
         """
         Get the value of SPDUP_LDO_VCOGN
@@ -1697,7 +1698,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG5', 'SPDUP_LDO_VCOGN', value)
 
     # SPDUP_LDO_VCOSXR
-    @property 
+    @property
     def SPDUP_LDO_VCOSXR(self):
         """
         Get the value of SPDUP_LDO_VCOSXR
@@ -1714,7 +1715,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG5', 'SPDUP_LDO_VCOSXR', value)
 
     # SPDUP_LDO_VCOSXT
-    @property 
+    @property
     def SPDUP_LDO_VCOSXT(self):
         """
         Get the value of SPDUP_LDO_VCOSXT
@@ -1735,7 +1736,7 @@ class LMS7002_BIAS(LMS7002_base):
     #
 
     # SPDUP_LDO_AFE
-    @property 
+    @property
     def SPDUP_LDO_AFE(self):
         """
         Get the value of SPDUP_LDO_AFE
@@ -1752,7 +1753,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG6', 'SPDUP_LDO_AFE', value)
 
     # SPDUP_LDO_CPGN
-    @property 
+    @property
     def SPDUP_LDO_CPGN(self):
         """
         Get the value of SPDUP_LDO_CPGN
@@ -1769,7 +1770,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG6', 'SPDUP_LDO_CPGN', value)
 
     # SPDUP_LDO_CPSXR
-    @property 
+    @property
     def SPDUP_LDO_CPSXR(self):
         """
         Get the value of SPDUP_LDO_CPSXR
@@ -1786,7 +1787,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG6', 'SPDUP_LDO_CPSXR', value)
 
     # SPDUP_LDO_CPSXT
-    @property 
+    @property
     def SPDUP_LDO_CPSXT(self):
         """
         Get the value of SPDUP_LDO_CPSXT
@@ -1803,7 +1804,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG6', 'SPDUP_LDO_CPSXT', value)
 
     # SPDUP_LDO_DIG
-    @property 
+    @property
     def SPDUP_LDO_DIG(self):
         """
         Get the value of SPDUP_LDO_DIG
@@ -1820,7 +1821,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG6', 'SPDUP_LDO_DIG', value)
 
     # SPDUP_LDO_DIGGN
-    @property 
+    @property
     def SPDUP_LDO_DIGGN(self):
         """
         Get the value of SPDUP_LDO_DIGGN
@@ -1837,7 +1838,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG6', 'SPDUP_LDO_DIGGN', value)
 
     # SPDUP_LDO_DIGSXR
-    @property 
+    @property
     def SPDUP_LDO_DIGSXR(self):
         """
         Get the value of SPDUP_LDO_DIGSXR
@@ -1854,7 +1855,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG6', 'SPDUP_LDO_DIGSXR', value)
 
     # SPDUP_LDO_DIGSXT
-    @property 
+    @property
     def SPDUP_LDO_DIGSXT(self):
         """
         Get the value of SPDUP_LDO_DIGSXT
@@ -1871,7 +1872,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG6', 'SPDUP_LDO_DIGSXT', value)
 
     # SPDUP_LDO_DIVGN
-    @property 
+    @property
     def SPDUP_LDO_DIVGN(self):
         """
         Get the value of SPDUP_LDO_DIVGN
@@ -1892,7 +1893,7 @@ class LMS7002_BIAS(LMS7002_base):
     #
 
     # RDIV_VCOSXR<7:0>
-    @property 
+    @property
     def RDIV_VCOSXR(self):
         """
         Get the value of RDIV_VCOSXR<7:0>
@@ -1905,14 +1906,14 @@ class LMS7002_BIAS(LMS7002_base):
         Set the value of RDIV_VCOSXR<7:0>
         """
         if self.allowLDO:
-            if not(0<= value <=255):
+            if not (0 <= value <= 255):
                 raise ValueError("Value must be [0..255]")
             self._writeReg('CFG7', 'RDIV_VCOSXR<7:0>', value)
         else:
             self.chip.log("Changing LDO voltage is not permitted. To change the LDO voltage, set BIAS.allowLDO=True")
-            
+
     # RDIV_VCOSXT<7:0>
-    @property 
+    @property
     def RDIV_VCOSXT(self):
         """
         Get the value of RDIV_VCOSXT<7:0>
@@ -1925,7 +1926,7 @@ class LMS7002_BIAS(LMS7002_base):
         Set the value of RDIV_VCOSXT<7:0>
         """
         if self.allowLDO:
-            if not(0<= value <=255):
+            if not (0 <= value <= 255):
                 raise ValueError("Value must be [0..255]")
             self._writeReg('CFG7', 'RDIV_VCOSXT<7:0>', value)
         else:
@@ -1936,7 +1937,7 @@ class LMS7002_BIAS(LMS7002_base):
     #
 
     # RDIV_TXBUF<7:0>
-    @property 
+    @property
     def RDIV_TXBUF(self):
         """
         Get the value of RDIV_TXBUF<7:0>
@@ -1949,14 +1950,14 @@ class LMS7002_BIAS(LMS7002_base):
         Set the value of RDIV_TXBUF<7:0>
         """
         if self.allowLDO:
-            if not(0<= value <=255):
+            if not (0 <= value <= 255):
                 raise ValueError("Value must be [0..255]")
             self._writeReg('CFG8', 'RDIV_TXBUF<7:0>', value)
         else:
             self.chip.log("Changing LDO voltage is not permitted. To change the LDO voltage, set BIAS.allowLDO=True")
-            
+
     # RDIV_VCOGN<7:0>
-    @property 
+    @property
     def RDIV_VCOGN(self):
         """
         Get the value of RDIV_VCOGN<7:0>
@@ -1969,7 +1970,7 @@ class LMS7002_BIAS(LMS7002_base):
         Set the value of RDIV_VCOGN<7:0>
         """
         if self.allowLDO:
-            if not(0<= value <=255):
+            if not (0 <= value <= 255):
                 raise ValueError("Value must be [0..255]")
             self._writeReg('CFG8', 'RDIV_VCOGN<7:0>', value)
         else:
@@ -1978,9 +1979,9 @@ class LMS7002_BIAS(LMS7002_base):
     #
     # BIAS_CFG9 (0x009B)
     #
-    
+
     # RDIV_TLOB<7:0>
-    @property 
+    @property
     def RDIV_TLOB(self):
         """
         Get the value of RDIV_TLOB<7:0>
@@ -1993,14 +1994,14 @@ class LMS7002_BIAS(LMS7002_base):
         Set the value of RDIV_TLOB<7:0>
         """
         if self.allowLDO:
-            if not(0<= value <=255):
+            if not (0 <= value <= 255):
                 raise ValueError("Value must be [0..255]")
             self._writeReg('CFG9', 'RDIV_TLOB<7:0>', value)
         else:
             self.chip.log("Changing LDO voltage is not permitted. To change the LDO voltage, set BIAS.allowLDO=True")
-            
+
     # RDIV_TPAD<7:0>
-    @property 
+    @property
     def RDIV_TPAD(self):
         """
         Get the value of RDIV_TPAD<7:0>
@@ -2013,7 +2014,7 @@ class LMS7002_BIAS(LMS7002_base):
         Set the value of RDIV_TPAD<7:0>
         """
         if self.allowLDO:
-            if not(0<= value <=255):
+            if not (0 <= value <= 255):
                 raise ValueError("Value must be [0..255]")
             self._writeReg('CFG9', 'RDIV_TPAD<7:0>', value)
         else:
@@ -2024,7 +2025,7 @@ class LMS7002_BIAS(LMS7002_base):
     #
 
     # RDIV_TIA12<7:0>
-    @property 
+    @property
     def RDIV_TIA12(self):
         """
         Get the value of RDIV_TIA12<7:0>
@@ -2037,14 +2038,14 @@ class LMS7002_BIAS(LMS7002_base):
         Set the value of RDIV_TIA12<7:0>
         """
         if self.allowLDO:
-            if not(0<= value <=255):
+            if not (0 <= value <= 255):
                 raise ValueError("Value must be [0..255]")
             self._writeReg('CFG10', 'RDIV_TIA12<7:0>', value)
         else:
             self.chip.log("Changing LDO voltage is not permitted. To change the LDO voltage, set BIAS.allowLDO=True")
-            
+
     # RDIV_TIA14<7:0>
-    @property 
+    @property
     def RDIV_TIA14(self):
         """
         Get the value of RDIV_TIA14<7:0>
@@ -2057,7 +2058,7 @@ class LMS7002_BIAS(LMS7002_base):
         Set the value of RDIV_TIA14<7:0>
         """
         if self.allowLDO:
-            if not(0<= value <=255):
+            if not (0 <= value <= 255):
                 raise ValueError("Value must be [0..255]")
             self._writeReg('CFG10', 'RDIV_TIA14<7:0>', value)
         else:
@@ -2068,7 +2069,7 @@ class LMS7002_BIAS(LMS7002_base):
     #
 
     # RDIV_RXBUF<7:0>
-    @property 
+    @property
     def RDIV_RXBUF(self):
         """
         Get the value of RDIV_RXBUF<7:0>
@@ -2081,14 +2082,14 @@ class LMS7002_BIAS(LMS7002_base):
         Set the value of RDIV_RXBUF<7:0>
         """
         if self.allowLDO:
-            if not(0<= value <=255):
+            if not (0 <= value <= 255):
                 raise ValueError("Value must be [0..255]")
             self._writeReg('CFG11', 'RDIV_RXBUF<7:0>', value)
         else:
             self.chip.log("Changing LDO voltage is not permitted. To change the LDO voltage, set BIAS.allowLDO=True")
-            
+
     # RDIV_TBB<7:0>
-    @property 
+    @property
     def RDIV_TBB(self):
         """
         Get the value of RDIV_TBB<7:0>
@@ -2101,7 +2102,7 @@ class LMS7002_BIAS(LMS7002_base):
         Set the value of RDIV_TBB<7:0>
         """
         if self.allowLDO:
-            if not(0<= value <=255):
+            if not (0 <= value <= 255):
                 raise ValueError("Value must be [0..255]")
             self._writeReg('CFG11', 'RDIV_TBB<7:0>', value)
         else:
@@ -2112,7 +2113,7 @@ class LMS7002_BIAS(LMS7002_base):
     #
 
     # RDIV_MXRFE<7:0>
-    @property 
+    @property
     def RDIV_MXRFE(self):
         """
         Get the value of RDIV_MXRFE<7:0>
@@ -2125,14 +2126,14 @@ class LMS7002_BIAS(LMS7002_base):
         Set the value of RDIV_MXRFE<7:0>
         """
         if self.allowLDO:
-            if not(0<= value <=255):
+            if not (0 <= value <= 255):
                 raise ValueError("Value must be [0..255]")
             self._writeReg('CFG12', 'RDIV_MXRFE<7:0>', value)
         else:
             self.chip.log("Changing LDO voltage is not permitted. To change the LDO voltage, set BIAS.allowLDO=True")
-            
+
     # RDIV_RBB<7:0>
-    @property 
+    @property
     def RDIV_RBB(self):
         """
         Get the value of RDIV_RBB<7:0>
@@ -2145,7 +2146,7 @@ class LMS7002_BIAS(LMS7002_base):
         Set the value of RDIV_RBB<7:0>
         """
         if self.allowLDO:
-            if not(0<= value <=255):
+            if not (0 <= value <= 255):
                 raise ValueError("Value must be [0..255]")
             self._writeReg('CFG12', 'RDIV_RBB<7:0>', value)
         else:
@@ -2156,7 +2157,7 @@ class LMS7002_BIAS(LMS7002_base):
     #
 
     # RDIV_LNA12<7:0>
-    @property 
+    @property
     def RDIV_LNA12(self):
         """
         Get the value of RDIV_LNA12<7:0>
@@ -2169,14 +2170,14 @@ class LMS7002_BIAS(LMS7002_base):
         Set the value of RDIV_LNA12<7:0>
         """
         if self.allowLDO:
-            if not(0<= value <=255):
+            if not (0 <= value <= 255):
                 raise ValueError("Value must be [0..255]")
             self._writeReg('CFG13', 'RDIV_LNA12<7:0>', value)
         else:
             self.chip.log("Changing LDO voltage is not permitted. To change the LDO voltage, set BIAS.allowLDO=True")
-            
+
     # RDIV_LNA14<7:0>
-    @property 
+    @property
     def RDIV_LNA14(self):
         """
         Get the value of RDIV_LNA14<7:0>
@@ -2189,7 +2190,7 @@ class LMS7002_BIAS(LMS7002_base):
         Set the value of RDIV_LNA14<7:0>
         """
         if self.allowLDO:
-            if not(0<= value <=255):
+            if not (0 <= value <= 255):
                 raise ValueError("Value must be [0..255]")
             self._writeReg('CFG13', 'RDIV_LNA14<7:0>', value)
         else:
@@ -2200,7 +2201,7 @@ class LMS7002_BIAS(LMS7002_base):
     #
 
     # RDIV_DIVSXR<7:0>
-    @property 
+    @property
     def RDIV_DIVSXR(self):
         """
         Get the value of RDIV_DIVSXR<7:0>
@@ -2213,14 +2214,14 @@ class LMS7002_BIAS(LMS7002_base):
         Set the value of RDIV_DIVSXR<7:0>
         """
         if self.allowLDO:
-            if not(0<= value <=255):
+            if not (0 <= value <= 255):
                 raise ValueError("Value must be [0..255]")
             self._writeReg('CFG14', 'RDIV_DIVSXR<7:0>', value)
         else:
             self.chip.log("Changing LDO voltage is not permitted. To change the LDO voltage, set BIAS.allowLDO=True")
-            
+
     # RDIV_DIVSXT<7:0>
-    @property 
+    @property
     def RDIV_DIVSXT(self):
         """
         Get the value of RDIV_DIVSXT<7:0>
@@ -2233,7 +2234,7 @@ class LMS7002_BIAS(LMS7002_base):
         Set the value of RDIV_DIVSXT<7:0>
         """
         if self.allowLDO:
-            if not(0<= value <=255):
+            if not (0 <= value <= 255):
                 raise ValueError("Value must be [0..255]")
             self._writeReg('CFG14', 'RDIV_DIVSXT<7:0>', value)
         else:
@@ -2244,7 +2245,7 @@ class LMS7002_BIAS(LMS7002_base):
     #
 
     # RDIV_DIGSXT<7:0>
-    @property 
+    @property
     def RDIV_DIGSXT(self):
         """
         Get the value of RDIV_DIGSXT<7:0>
@@ -2257,14 +2258,14 @@ class LMS7002_BIAS(LMS7002_base):
         Set the value of RDIV_DIGSXT<7:0>
         """
         if self.allowLDO:
-            if not(0<= value <=255):
+            if not (0 <= value <= 255):
                 raise ValueError("Value must be [0..255]")
             self._writeReg('CFG15', 'RDIV_DIGSXT<7:0>', value)
         else:
             self.chip.log("Changing LDO voltage is not permitted. To change the LDO voltage, set BIAS.allowLDO=True")
-            
+
     # RDIV_DIVGN<7:0>
-    @property 
+    @property
     def RDIV_DIVGN(self):
         """
         Get the value of RDIV_DIVGN<7:0>
@@ -2277,7 +2278,7 @@ class LMS7002_BIAS(LMS7002_base):
         Set the value of RDIV_DIVGN<7:0>
         """
         if self.allowLDO:
-            if not(0<= value <=255):
+            if not (0 <= value <= 255):
                 raise ValueError("Value must be [0..255]")
             self._writeReg('CFG15', 'RDIV_DIVGN<7:0>', value)
         else:
@@ -2288,7 +2289,7 @@ class LMS7002_BIAS(LMS7002_base):
     #
 
     # RDIV_DIGGN<7:0>
-    @property 
+    @property
     def RDIV_DIGGN(self):
         """
         Get the value of RDIV_DIGGN<7:0>
@@ -2301,14 +2302,14 @@ class LMS7002_BIAS(LMS7002_base):
         Set the value of RDIV_DIGGN<7:0>
         """
         if self.allowLDO:
-            if not(0<= value <=255):
+            if not (0 <= value <= 255):
                 raise ValueError("Value must be [0..255]")
             self._writeReg('CFG16', 'RDIV_DIGGN<7:0>', value)
         else:
             self.chip.log("Changing LDO voltage is not permitted. To change the LDO voltage, set BIAS.allowLDO=True")
-            
+
     # RDIV_DIGSXR<7:0>
-    @property 
+    @property
     def RDIV_DIGSXR(self):
         """
         Get the value of RDIV_DIGSXR<7:0>
@@ -2321,7 +2322,7 @@ class LMS7002_BIAS(LMS7002_base):
         Set the value of RDIV_DIGSXR<7:0>
         """
         if self.allowLDO:
-            if not(0<= value <=255):
+            if not (0 <= value <= 255):
                 raise ValueError("Value must be [0..255]")
             self._writeReg('CFG16', 'RDIV_DIGSXR<7:0>', value)
         else:
@@ -2332,7 +2333,7 @@ class LMS7002_BIAS(LMS7002_base):
     #
 
     # RDIV_CPSXT<7:0>
-    @property 
+    @property
     def RDIV_CPSXT(self):
         """
         Get the value of RDIV_CPSXT<7:0>
@@ -2345,14 +2346,14 @@ class LMS7002_BIAS(LMS7002_base):
         Set the value of RDIV_CPSXT<7:0>
         """
         if self.allowLDO:
-            if not(0<= value <=255):
+            if not (0 <= value <= 255):
                 raise ValueError("Value must be [0..255]")
             self._writeReg('CFG17', 'RDIV_CPSXT<7:0>', value)
         else:
             self.chip.log("Changing LDO voltage is not permitted. To change the LDO voltage, set BIAS.allowLDO=True")
-            
+
     # RDIV_DIG<7:0>
-    @property 
+    @property
     def RDIV_DIG(self):
         """
         Get the value of RDIV_DIG<7:0>
@@ -2365,18 +2366,18 @@ class LMS7002_BIAS(LMS7002_base):
         Set the value of RDIV_DIG<7:0>
         """
         if self.allowLDO:
-            if not(0<= value <=255):
+            if not (0 <= value <= 255):
                 raise ValueError("Value must be [0..255]")
             self._writeReg('CFG17', 'RDIV_DIG<7:0>', value)
         else:
             self.chip.log("Changing LDO voltage is not permitted. To change the LDO voltage, set BIAS.allowLDO=True")
-            
+
     #
     # BIAS_CFG18 (0x00A4)
     #
-    
+
     # RDIV_CPGN<7:0>
-    @property 
+    @property
     def RDIV_CPGN(self):
         """
         Get the value of RDIV_CPGN<7:0>
@@ -2389,14 +2390,14 @@ class LMS7002_BIAS(LMS7002_base):
         Set the value of RDIV_CPGN<7:0>
         """
         if self.allowLDO:
-            if not(0<= value <=255):
+            if not (0 <= value <= 255):
                 raise ValueError("Value must be [0..255]")
             self._writeReg('CFG18', 'RDIV_CPGN<7:0>', value)
         else:
             self.chip.log("Changing LDO voltage is not permitted. To change the LDO voltage, set BIAS.allowLDO=True")
-            
+
     # RDIV_CPSXR<7:0>
-    @property 
+    @property
     def RDIV_CPSXR(self):
         """
         Get the value of RDIV_CPSXR<7:0>
@@ -2409,18 +2410,18 @@ class LMS7002_BIAS(LMS7002_base):
         Set the value of RDIV_CPSXR<7:0>
         """
         if self.allowLDO:
-            if not(0<= value <=255):
+            if not (0 <= value <= 255):
                 raise ValueError("Value must be [0..255]")
             self._writeReg('CFG18', 'RDIV_CPSXR<7:0>', value)
         else:
             self.chip.log("Changing LDO voltage is not permitted. To change the LDO voltage, set BIAS.allowLDO=True")
-                                                                                                                                                    
+
     #
     # BIAS_CFG19 (0x00A5)
     #
 
     # RDIV_SPIBUF<7:0>
-    @property 
+    @property
     def RDIV_SPIBUF(self):
         """
         Get the value of RDIV_SPIBUF<7:0>
@@ -2433,14 +2434,14 @@ class LMS7002_BIAS(LMS7002_base):
         Set the value of RDIV_SPIBUF<7:0>
         """
         if self.allowLDO:
-            if not(0<= value <=255):
+            if not (0 <= value <= 255):
                 raise ValueError("Value must be [0..255]")
             self._writeReg('CFG19', 'RDIV_SPIBUF<7:0>', value)
         else:
             self.chip.log("Changing LDO voltage is not permitted. To change the LDO voltage, set BIAS.allowLDO=True")
-            
+
     # RDIV_AFE<7:0>
-    @property 
+    @property
     def RDIV_AFE(self):
         """
         Get the value of RDIV_AFE<7:0>
@@ -2453,7 +2454,7 @@ class LMS7002_BIAS(LMS7002_base):
         Set the value of RDIV_AFE<7:0>
         """
         if self.allowLDO:
-            if not(0<= value <=255):
+            if not (0 <= value <= 255):
                 raise ValueError("Value must be [0..255]")
             self._writeReg('CFG19', 'RDIV_AFE<7:0>', value)
         else:
@@ -2464,31 +2465,30 @@ class LMS7002_BIAS(LMS7002_base):
     #
 
     # ISINK_SPIBUFF<2:0>
-    @property 
+    @property
     def ISINK_SPIBUFF(self):
         """
         Get the value of ISINK_SPIBUFF<2:0>
         """
-        if self.chip.chipID == self.chip.chipIDMR3:        
+        if self.chip.chipID == self.chip.chipIDMR3:
             return self._readReg('CFG20', 'ISINK_SPIBUFF<2:0>')
         else:
-            raise ValueError("Bitfield ISINK_SPIBUFF<2:0> is not supported on chip version "+str(self.chip.chipID))
-            
+            raise ValueError("Bitfield ISINK_SPIBUFF<2:0> is not supported on chip version " + str(self.chip.chipID))
 
     @ISINK_SPIBUFF.setter
     def ISINK_SPIBUFF(self, value):
         """
         Set the value of ISINK_SPIBUFF<2:0>
         """
-        if self.chip.chipID == self.chip.chipIDMR3:                
-            if value not in range(0,8):
+        if self.chip.chipID == self.chip.chipIDMR3:
+            if value not in range(0, 8):
                 raise ValueError("Value must be [0,1]")
             self._writeReg('CFG20', 'ISINK_SPIBUFF<2:0>', value)
         else:
-            raise ValueError("Bitfield ISINK_SPIBUFF<2:0> is not supported on chip version "+str(self.chip.chipID))
-    
+            raise ValueError("Bitfield ISINK_SPIBUFF<2:0> is not supported on chip version " + str(self.chip.chipID))
+
     # SPDUP_LDO_SPIBUF
-    @property 
+    @property
     def SPDUP_LDO_SPIBUF(self):
         """
         Get the value of SPDUP_LDO_SPIBUF
@@ -2505,7 +2505,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG20', 'SPDUP_LDO_SPIBUF', value)
 
     # SPDUP_LDO_DIGIp2
-    @property 
+    @property
     def SPDUP_LDO_DIGIp2(self):
         """
         Get the value of SPDUP_LDO_DIGIp2
@@ -2522,7 +2522,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG20', 'SPDUP_LDO_DIGIp2', value)
 
     # SPDUP_LDO_DIGIp1
-    @property 
+    @property
     def SPDUP_LDO_DIGIp1(self):
         """
         Get the value of SPDUP_LDO_DIGIp1
@@ -2539,7 +2539,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG20', 'SPDUP_LDO_DIGIp1', value)
 
     # BYP_LDO_SPIBUF
-    @property 
+    @property
     def BYP_LDO_SPIBUF(self):
         """
         Get the value of BYP_LDO_SPIBUF
@@ -2556,7 +2556,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG20', 'BYP_LDO_SPIBUF', value)
 
     # BYP_LDO_DIGIp2
-    @property 
+    @property
     def BYP_LDO_DIGIp2(self):
         """
         Get the value of BYP_LDO_DIGIp2
@@ -2573,7 +2573,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG20', 'BYP_LDO_DIGIp2', value)
 
     # BYP_LDO_DIGIp1
-    @property 
+    @property
     def BYP_LDO_DIGIp1(self):
         """
         Get the value of BYP_LDO_DIGIp1
@@ -2590,7 +2590,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG20', 'BYP_LDO_DIGIp1', value)
 
     # EN_LOADIMP_LDO_SPIBUF
-    @property 
+    @property
     def EN_LOADIMP_LDO_SPIBUF(self):
         """
         Get the value of EN_LOADIMP_LDO_SPIBUF
@@ -2607,7 +2607,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG20', 'EN_LOADIMP_LDO_SPIBUF', value)
 
     # EN_LOADIMP_LDO_DIGIp2
-    @property 
+    @property
     def EN_LOADIMP_LDO_DIGIp2(self):
         """
         Get the value of EN_LOADIMP_LDO_DIGIp2
@@ -2624,7 +2624,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG20', 'EN_LOADIMP_LDO_DIGIp2', value)
 
     # EN_LOADIMP_LDO_DIGIp1
-    @property 
+    @property
     def EN_LOADIMP_LDO_DIGIp1(self):
         """
         Get the value of EN_LOADIMP_LDO_DIGIp1
@@ -2641,7 +2641,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG20', 'EN_LOADIMP_LDO_DIGIp1', value)
 
     # PD_LDO_SPIBUF
-    @property 
+    @property
     def PD_LDO_SPIBUF(self):
         """
         Get the value of PD_LDO_SPIBUF
@@ -2658,7 +2658,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG20', 'PD_LDO_SPIBUF', value)
 
     # PD_LDO_DIGIp2
-    @property 
+    @property
     def PD_LDO_DIGIp2(self):
         """
         Get the value of PD_LDO_DIGIp2
@@ -2675,7 +2675,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG20', 'PD_LDO_DIGIp2', value)
 
     # PD_LDO_DIGIp1
-    @property 
+    @property
     def PD_LDO_DIGIp1(self):
         """
         Get the value of PD_LDO_DIGIp1
@@ -2692,7 +2692,7 @@ class LMS7002_BIAS(LMS7002_base):
         self._writeReg('CFG20', 'PD_LDO_DIGIp1', value)
 
     # EN_G_LDOP
-    @property 
+    @property
     def EN_G_LDOP(self):
         """
         Get the value of EN_G_LDOP
@@ -2711,9 +2711,9 @@ class LMS7002_BIAS(LMS7002_base):
     #
     # BIAS_CFG21 (0x00A7)
     #
-    
+
     # RDIV_DIGIp2<7:0>
-    @property 
+    @property
     def RDIV_DIGIp2(self):
         """
         Get the value of RDIV_DIGIp2<7:0>
@@ -2726,14 +2726,14 @@ class LMS7002_BIAS(LMS7002_base):
         Set the value of RDIV_DIGIp2<7:0>
         """
         if self.allowLDO:
-            if not(0<= value <=255):
+            if not (0 <= value <= 255):
                 raise ValueError("Value must be [0..255]")
             self._writeReg('CFG21', 'RDIV_DIGIp2<7:0>', value)
         else:
             self.chip.log("Changing LDO voltage is not permitted. To change the LDO voltage, set BIAS.allowLDO=True")
-            
+
     # RDIV_DIGIp1<7:0>
-    @property 
+    @property
     def RDIV_DIGIp1(self):
         """
         Get the value of RDIV_DIGIp1<7:0>
@@ -2746,12 +2746,8 @@ class LMS7002_BIAS(LMS7002_base):
         Set the value of RDIV_DIGIp1<7:0>
         """
         if self.allowLDO:
-            if not(0<= value <=255):
+            if not (0 <= value <= 255):
                 raise ValueError("Value must be [0..255]")
             self._writeReg('CFG21', 'RDIV_DIGIp1<7:0>', value)
         else:
             self.chip.log("Changing LDO voltage is not permitted. To change the LDO voltage, set BIAS.allowLDO=True")
-                                                                
-    
-            
-        

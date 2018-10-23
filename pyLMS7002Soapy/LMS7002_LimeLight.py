@@ -657,14 +657,14 @@ class LMS7002_LimeLight(LMS7002_base):
 
     # LML2_RF2BB_PRE<4:0>
     @property
-    def LML2_RF2BB_PRE(self):
+    def LML2_BB2RF_PRE(self):
         """
         Get the value of LML2_RF2BB_PRE<4:0>
         """
         return self._readReg('BBRF2', 'LML2_RF2BB_PRE<4:0>')
 
-    @LML2_RF2BB_PRE.setter
-    def LML2_RF2BB_PRE(self, value):
+    @LML2_BB2RF_PRE.setter
+    def LML2_BB2RF_PRE(self, value):
         """
         Set the value of LML2_RF2BB_PRE<4:0>
         """

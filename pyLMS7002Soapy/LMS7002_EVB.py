@@ -82,7 +82,7 @@ class LMS7002_EVB(object):
                     if rxData[1] == 7:
                         res.append(portName)
                     ser.close()
-                except:
+                except IOError or OSError:
                     pass
         return res
 

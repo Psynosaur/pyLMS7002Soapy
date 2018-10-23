@@ -1,10 +1,9 @@
-from __future__ import print_function
 from timeit import default_timer as timer
 import numpy
-import os, sys
-from pyLMS7002Soapy import *
+import sys
+from pyLMS7002Soapy import pyLMS7002Soapy as pyLMSS
 
-if len(sys.argv)!=2:
+if len(sys.argv) != 2:
     print("Usage: python measureVNA.py measurementName")
     exit(1)
 
@@ -14,6 +13,7 @@ nPoints = 101
 measName = sys.argv[1]
 
 LNA = 'LNAH'
+
 
 #################################################
 # MCU related
@@ -26,29 +26,30 @@ def mcuProgram():
     # Check MCU firmware
     mcu.P0 = 0
     mcu.P0 = 0xFF
-    firmwareID = mcu.P1-0x80
+    firmwareID = mcu.P1 - 0x80
     if firmwareID != 0x31:
-        logTxt("Wrong firmware ID : "+str(firmwareID)+", expected 49")
+        logTxt("Wrong firmware ID : " + str(firmwareID) + ", expected 49")
         exit(1)
     else:
-        logTxt("OK (Firmware ID = "+str(firmwareID)+")")
+        logTxt("OK (Firmware ID = " + str(firmwareID) + ")")
     mcu.P0 = 0
     lms7002.MAC = 'A'
+
 
 def mcuRSSI():
     # Read averaged RSSI from MCU
     mcu = lms7002.mSPI
     mcu.SPISW_CTRL = 'MCU'
     mcu.P0 = 1
-    while(mcu.P1==0xFF):
+    while (mcu.P1 == 0xFF):
         pass
     mcu.P0 = 0x12
-    RSSI = mcu.P1*1.0
+    RSSI = mcu.P1 * 1.0
     mcu.P0 = 0x11
-    RSSI = mcu.P1*1.0 + RSSI*256.0
+    RSSI = mcu.P1 * 1.0 + RSSI * 256.0
     mcu.P0 = 0x10
-    RSSI = mcu.P1*1.0 + RSSI*256.0
-    mcu.SPISW_CTRL = 'BB'    
+    RSSI = mcu.P1 * 1.0 + RSSI * 256.0
+    mcu.SPISW_CTRL = 'BB'
     return RSSI
 
 
@@ -58,22 +59,23 @@ def mcuPhase():
     RxTSP = lms7002.RxTSP['A']
     RxTSP.GC_BYP = 'USE'
     RxTSP.GCORRI = 0
-    
+
     mcu.SPISW_CTRL = 'MCU'
     mcu.P0 = 2
-    while(mcu.P1==0xFF):
+    while (mcu.P1 == 0xFF):
         pass
     mcu.P0 = 0x11
-    phase = 1.0*mcu.P1
+    phase = 1.0 * mcu.P1
     mcu.P0 = 0x10
-    phase = mcu.P1 + phase*256.0
-    mcu.SPISW_CTRL = 'BB'    
-    if phase>2**15:
-        phase = -(2**16)+phase
-    phase = 180.0 * phase / (1.0*0x6487)
+    phase = mcu.P1 + phase * 256.0
+    mcu.SPISW_CTRL = 'BB'
+    if phase > 2 ** 15:
+        phase = -(2 ** 16) + phase
+    phase = 180.0 * phase / (1.0 * 0x6487)
     RxTSP.GC_BYP = 'BYP'
     RxTSP.GCORRI = 2047
     return phase
+
 
 #################################################
 # Auxiliary functions
@@ -82,10 +84,12 @@ def logTxt(text, end="\n"):
     print(text, end=end)
     sys.stdout.flush()
 
+
 def userConfirmation(msg):
     userReady = 'n'
     while userReady != 'y':
-        userReady = raw_input(msg + '. Type y to continue. ')    
+        userReady = input(msg + '. Type y to continue. ')
+
 
 def syncPhase(lms7002):
     TRF = lms7002.TRF['A']
@@ -96,7 +100,8 @@ def syncPhase(lms7002):
     RFE.PD_QGEN_RFE = 1
     TRF.PD_TLOBUF_TRF = 0
     RFE.PD_QGEN_RFE = 0
-    SXT.PD_FDIV = 0 
+    SXT.PD_FDIV = 0
+
 
 def adjustRxGain(lms7002):
     RBB = lms7002.RBB['A']
@@ -116,48 +121,49 @@ def adjustRxGain(lms7002):
     else:
         lnaGain = 8
 
-    while pgaStep>0:
+    while pgaStep > 0:
         RBB.G_PGA_RBB = pgaGain + pgaStep
         RFE.G_LNA_RFE = lnaGain
-        if mcuRSSI()<50e3:
+        if mcuRSSI() < 50e3:
             pgaGain += pgaStep
-        pgaStep = pgaStep/2
+        pgaStep = pgaStep / 2
 
-#    pgaGain = 16
-#    lnaGain = 8
-#    
-#    dGain = 0.01
-#    dOffs = 200
-#    
-#    for pgaGain in range(30,1,-1):
-#        RBB.G_PGA_RBB = pgaGain
-#        RFE.G_LNA_RFE = lnaGain
-#        rssi = []
-#        for iq in [0x1000,0x2000, 0x6FFF, 0x7FFF]:
-#            TxTSP.loadDCIQ(iq, 65535-iq)
-#            rssi.append(RxTSP.RSSI)
-#        # Check if response is linear
-#        if abs((rssi[1]-rssi[0])-(rssi[3]-rssi[2]))<dGain*(rssi[1]-rssi[0])+dOffs:
-#            # ADC is not saturating
-#            break
-            
+    #    pgaGain = 16
+    #    lnaGain = 8
+    #
+    #    dGain = 0.01
+    #    dOffs = 200
+    #
+    #    for pgaGain in range(30,1,-1):
+    #        RBB.G_PGA_RBB = pgaGain
+    #        RFE.G_LNA_RFE = lnaGain
+    #        rssi = []
+    #        for iq in [0x1000,0x2000, 0x6FFF, 0x7FFF]:
+    #            TxTSP.loadDCIQ(iq, 65535-iq)
+    #            rssi.append(RxTSP.RSSI)
+    #        # Check if response is linear
+    #        if abs((rssi[1]-rssi[0])-(rssi[3]-rssi[2]))<dGain*(rssi[1]-rssi[0])+dOffs:
+    #            # ADC is not saturating
+    #            break
+
     RBB.G_PGA_RBB = pgaGain
-    RFE.G_LNA_RFE = lnaGain    
+    RFE.G_LNA_RFE = lnaGain
 
     TxTSP.CMIX_BYP = 'BYP'
     RxTSP.GC_BYP = 'BYP'
-    RxTSP.GCORRQ = 2047     
-    
+    RxTSP.GCORRQ = 2047
+
     I = 0x7FFF
     Q = 0x8000
     TxTSP.loadDCIQ(I, Q)
     return (pgaGain, lnaGain)
-    
+
+
 #################################################################
-    
+
 logTxt("Searching for LimeSDR... ", end="")
-limeSDR = pyLMS7002Soapy(0)
-if limeSDR.boardName=="LimeSDRMini":
+limeSDR = pyLMSS.pyLMS7002Soapy(0)
+if limeSDR.boardName == "LimeSDRMini":
     isMini = True
     lms7002 = limeSDR.LMS7002
     lms7002.fRef = 40e6
@@ -174,13 +180,13 @@ logTxt("Tuning CGEN... ", end="")
 startTime = timer()
 lms7002.CGEN.setCLK(300e6)
 endTime = timer()
-logTxt("OK\t("+str(float(round(float(endTime-startTime)*10))/10)+" s)")
+logTxt("OK\t(" + str(float(round(float(endTime - startTime) * 10)) / 10) + " s)")
 
 logTxt("Tuning SXT... ", end="")
 startTime = timer()
 lms7002.SX['T'].setFREQ(startFreq)
 endTime = timer()
-logTxt("OK\t("+str(float(round(float(endTime-startTime)*10))/10)+" s)")
+logTxt("OK\t(" + str(float(round(float(endTime - startTime) * 10)) / 10) + " s)")
 
 # Make ADC and DAC clocks equal
 lms7002.CGEN.EN_ADCCLKH_CLKGN = 0
@@ -193,9 +199,9 @@ calThreshold = 500  # RSSI threshold to trigger RX DC calibration
 RBB = lms7002.RBB['A']
 TBB = lms7002.TBB['A']
 if isMini:
-    TBB.CG_IAMP_TBB=5
+    TBB.CG_IAMP_TBB = 5
 else:
-    TBB.CG_IAMP_TBB=15
+    TBB.CG_IAMP_TBB = 15
 
 RxTSP = lms7002.RxTSP['A']
 RxTSP.GCORRQ = 2047
@@ -226,7 +232,7 @@ TxNCO.SEL = 0
 
 TRF = lms7002.TRF['A']
 TRF.EN_LOOPB_TXPAD_TRF = 0
-TRF.L_LOOPB_TXPAD_TRF = 0    
+TRF.L_LOOPB_TXPAD_TRF = 0
 TRF.PD_TLOBUF_TRF = 0
 if isMini:
     TRF.LOSS_MAIN_TXPAD_TRF = 0
@@ -234,17 +240,17 @@ if isMini:
     TRF.SEL_BAND2_TRF = 0
     limeSDR.configureAntenna(startFreq)
 else:
-    TRF.LOSS_MAIN_TXPAD_TRF = 0 
+    TRF.LOSS_MAIN_TXPAD_TRF = 0
     TRF.SEL_BAND1_TRF = 0
     TRF.SEL_BAND2_TRF = 1
 
 RFE = lms7002.RFE['A']
 
 lms7002.SX['R'].EN_G = 0
-lms7002.SX['R'].EN_DIR = 0 
+lms7002.SX['R'].EN_DIR = 0
 lms7002.SX['T'].PD_LOCH_T2RBUF = 0  # Both RX and TX use the TX PLL
 
-mcuProgram()    # Load the program to MCU SRAM
+mcuProgram()  # Load the program to MCU SRAM
 
 print("Calibrating RX path...")
 
@@ -254,37 +260,38 @@ else:
     lnaGain = 8
 pgaGain = 16
 
-TRF.PD_TXPAD_TRF = 1    # Turn off TXPAD while calibrating RX DC
+TRF.PD_TXPAD_TRF = 1  # Turn off TXPAD while calibrating RX DC
 cal.rxDCLO('A', LNA, lnaGain=lnaGain, pgaGain=pgaGain)  # Calibrate RX DC
-TRF.PD_TXPAD_TRF = 0    # Turn on TXPAD
+TRF.PD_TXPAD_TRF = 0  # Turn on TXPAD
 
 print(isMini)
 
-userConfirmation("Connect SHORT")   
+userConfirmation("Connect SHORT")
 
 freqs = numpy.linspace(startFreq, endFreq, num=nPoints)
 res = []
 resPhase = []
 pgaGains = []
 lnaGains = []
+refPhase = mcuPhase()
 for i in range(0, len(freqs)):
     # Measure reference power levels and phase
     f = freqs[i]
-    logTxt("f="+str(f)+"... ", end="")
+    logTxt("f=" + str(f) + "... ", end="")
     startTime = timer()
 
-    lms7002.verbose=0
+    lms7002.verbose = 0
     lms7002.SX['T'].setFREQ(f)
     lms7002.SX['T'].PD_LOCH_T2RBUF = 0
     syncPhase(lms7002)
-    
+
     pgaGain, lnaGain = adjustRxGain(lms7002)
     pgaGains.append(pgaGain)
     lnaGains.append(lnaGain)
-    
+
     TRF.PD_TXPAD_TRF = 1
     calRSSI = RxTSP.RSSI
-    if calRSSI>calThreshold:
+    if calRSSI > calThreshold:
         cal.rxDCLO('A', LNA, lnaGain=lnaGain, pgaGain=pgaGain)
         calRSSI = RxTSP.RSSI
     TRF.PD_TXPAD_TRF = 0
@@ -292,35 +299,37 @@ for i in range(0, len(freqs)):
     TxTSP.CMIX_BYP = 'USE'
     RxTSP.GC_BYP = 'USE'
     RxTSP.GCORRQ = 0
-    
-    rssi = 1.0*mcuRSSI()
+
+    rssi = 1.0 * mcuRSSI()
 
     TxTSP.CMIX_BYP = 'BYP'
     RxTSP.GC_BYP = 'BYP'
     RxTSP.GCORRQ = 2047
-    
+
     res.append(rssi)
-    if i==0:
+    if i == 0:
         refPhase = mcuPhase()
         phase = 0.0
     else:
-        phase = mcuPhase()-refPhase
+        phase = mcuPhase() - refPhase
     endTime = timer()
     resPhase.append(phase)
-    lms7002.verbose=1000
-    logTxt("OK\t("+str(float(round(float(endTime-startTime)*10))/10)+" s)\t("+str(i+1)+"/"+str(nPoints)+") RSSI = "+str(rssi)+" (Cal = "+str(calRSSI)+", PGA="+str(pgaGain)+", LNA="+str(lnaGain)+")"+" phase = "+str(phase))
-        
+    lms7002.verbose = 1000
+    logTxt("OK\t(" + str(float(round(float(endTime - startTime) * 10)) / 10) + " s)\t(" + str(i + 1) + "/" + str(
+        nPoints) + ") RSSI = " + str(rssi) + " (Cal = " + str(calRSSI) + ", PGA=" + str(pgaGain) + ", LNA=" + str(
+        lnaGain) + ")" + " phase = " + str(phase))
+
 res = numpy.array(res)
 
 # Write the data to file
-outFileName = 'vna_'+measName+'_short_'+str(startFreq)+'_'+str(endFreq)+'_'+str(nPoints)+'.txt'
+outFileName = 'vna_' + measName + '_short_' + str(startFreq) + '_' + str(endFreq) + '_' + str(nPoints) + '.txt'
 outFile = open(outFileName, 'w')
 txtRes = "# f, coupled power\n"
-for i in range(0,len(res)):
+for i in range(0, len(res)):
     f = freqs[i]
     y = res[i]
     phase = resPhase[i]
-    txtRes += str(f)+'\t'+str(y)+'\t'+str(phase)+'\n'
+    txtRes += str(f) + '\t' + str(y) + '\t' + str(phase) + '\n'
 outFile.write(txtRes)
 outFile.close()
 
@@ -328,10 +337,10 @@ lms7002.verbose = 0
 lms7002.SX['T'].setFREQ(startFreq)
 lms7002.SX['T'].PD_LOCH_T2RBUF = 0
 syncPhase(lms7002)
-TRF.PD_TXPAD_TRF = 1 # Turn off TXPAD while calibrating RX DC
+TRF.PD_TXPAD_TRF = 1  # Turn off TXPAD while calibrating RX DC
 cal.rxDCLO('A', LNA, lnaGain=lnaGain, pgaGain=pgaGain)
 calRSSI = RxTSP.RSSI
-TRF.PD_TXPAD_TRF = 0 # Turn on TXPAD
+TRF.PD_TXPAD_TRF = 0  # Turn on TXPAD
 refPhase = mcuPhase()
 
 userConfirmation("Connect DUT")
@@ -342,53 +351,53 @@ resPhase = []
 for i in range(0, len(freqs)):
     # Measure the DUT reflected power and phase
     f = freqs[i]
-    logTxt("f="+str(f)+"... ", end="")
+    logTxt("f=" + str(f) + "... ", end="")
     startTime = timer()
     pgaGain = pgaGains[i]
     lnaGain = lnaGains[i]
     RBB.G_PGA_RBB = pgaGain
-    RFE.G_LNA_RFE = lnaGain    
-    if i!= 0:
-        lms7002.verbose=0
+    RFE.G_LNA_RFE = lnaGain
+    if i != 0:
+        lms7002.verbose = 0
         lms7002.SX['T'].setFREQ(f)
         lms7002.SX['T'].PD_LOCH_T2RBUF = 0
         syncPhase(lms7002)
-    
+
         TRF.PD_TXPAD_TRF = 1
         calRSSI = RxTSP.RSSI
-        if calRSSI>calThreshold:
+        if calRSSI > calThreshold:
             cal.rxDCLO('A', LNA, lnaGain=lnaGain, pgaGain=pgaGain)
             calRSSI = RxTSP.RSSI
-        TRF.PD_TXPAD_TRF = 0    
+        TRF.PD_TXPAD_TRF = 0
 
     TxTSP.CMIX_BYP = 'USE'
     RxTSP.GC_BYP = 'USE'
     RxTSP.GCORRQ = 0
-    
-    rssi = 1.0*mcuRSSI()
+
+    rssi = 1.0 * mcuRSSI()
 
     TxTSP.CMIX_BYP = 'BYP'
     RxTSP.GC_BYP = 'BYP'
     RxTSP.GCORRQ = 2047
-    
+
     res.append(rssi)
-    phase = mcuPhase()-refPhase
+    phase = mcuPhase() - refPhase
     resPhase.append(phase)
     endTime = timer()
-    lms7002.verbose=1000
-    logTxt("OK\t("+str(float(round(float(endTime-startTime)*10))/10)+" s)\t("+str(i+1)+"/"+str(nPoints)+") RSSI = "+str(rssi)+" (Cal = "+str(calRSSI)+")"+" phase = "+str(phase))
+    lms7002.verbose = 1000
+    logTxt("OK\t(" + str(float(round(float(endTime - startTime) * 10)) / 10) + " s)\t(" + str(i + 1) + "/" + str(
+        nPoints) + ") RSSI = " + str(rssi) + " (Cal = " + str(calRSSI) + ")" + " phase = " + str(phase))
 
 res = numpy.array(res)
 
 # Write the data to file
-outFileName = 'vna_'+measName+'_DUT_'+str(startFreq)+'_'+str(endFreq)+'_'+str(nPoints)+'.txt'
+outFileName = 'vna_' + measName + '_DUT_' + str(startFreq) + '_' + str(endFreq) + '_' + str(nPoints) + '.txt'
 outFile = open(outFileName, 'w')
 txtRes = "# f, coupled power\n"
-for i in range(0,len(res)):
+for i in range(0, len(res)):
     f = freqs[i]
     y = res[i]
     phase = resPhase[i]
-    txtRes += str(f)+'\t'+str(y)+'\t'+str(phase)+'\n'
+    txtRes += str(f) + '\t' + str(y) + '\t' + str(phase) + '\n'
 outFile.write(txtRes)
 outFile.close()
-

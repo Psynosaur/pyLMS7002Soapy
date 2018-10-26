@@ -66,15 +66,15 @@ from pyLMS7002Soapy.LMS7002_calibration import LMS7002_calibration
 
 class LMS7002(object):
     def __init__(self, SPIwriteFn=None, SPIreadFn=None, verbose=0, MCUProgram=None, fRef=30.72e6):
-        if SPIwriteFn == None:
+        if SPIwriteFn is None:
             self._SPIwriteFn = self.debugSPIwrite
         else:
             self._SPIwriteFn = SPIwriteFn
-        if SPIreadFn == None:
+        if SPIreadFn is None:
             self._SPIreadFn = self.debugSPIread
         else:
             self._SPIreadFn = SPIreadFn
-        if MCUProgram == None:
+        if MCUProgram is None:
             self._MCUProgram = self.debugMCUProgram
         else:
             self._MCUProgram = MCUProgram
@@ -340,7 +340,7 @@ class LMS7002(object):
         
         Read values are written to registers and returned as a list.
         """
-        if self.SPIreadFn == None:
+        if self.SPIreadFn is None:
             self.log("SPIreadFn not set, skipping")
             return []
         if regAddrs == "ALL":
@@ -369,7 +369,7 @@ class LMS7002(object):
         
         Read values are written to registers and returned as a list.
         """
-        if self.SPIreadFn == None:
+        if self.SPIreadFn is None:
             self.log("SPIreadFn not set, skipping reading from SPI")
             return []
         addrList = self.regDesc.getRegisterAddresesByName(regNames)
@@ -394,7 +394,7 @@ class LMS7002(object):
         If regAddrs = "ALL" all registers are written.
         Values to be written are taken from memory.
         """
-        if self.SPIwriteFn == None:
+        if self.SPIwriteFn is None:
             self.log("SPIwriteFn not set, skipping  writing to SPI")
             return
         if regAddrs == "ALL":
@@ -416,7 +416,7 @@ class LMS7002(object):
         If regNames = "ALL" all registers are written.
         Values to be written are taken from memory.
         """
-        if self.SPIwriteFn == None:
+        if self.SPIwriteFn is None:
             self.log("SPIwriteFn not set, skipping writing to SPI")
             return
         addrList = self.regDesc.getRegisterAddresesByName(regNames)
@@ -445,12 +445,12 @@ class LMS7002(object):
             if regBank.getName() == regBankName:
                 regBankToRead = regBank
                 break
-        if regBankToRead == None:
+        if regBankToRead is None:
             raise ValueError("Register bank " + regBankName + " not found")
         regList = []
         for reg in regBankToRead.getRegs():
             regList.append(reg.getAddress())
-        regVals = self.readRegisters(regList, fromMemory=fromMemory)
+        regVals = self.readRegisters(str(regList), fromMemory=fromMemory)
         if MAC != 0:
             self.MAC = prevMAC
         self.SPIImmediate = immMode
@@ -473,7 +473,7 @@ class LMS7002(object):
             if regBank.getName() == regBankName:
                 regBankToRead = regBank
                 break
-        if regBankToRead == None:
+        if regBankToRead is None:
             raise ValueError("Register bank " + regBankName + " not found")
         for reg in regBankToRead.getRegs():
             self.log(reg)
@@ -495,12 +495,12 @@ class LMS7002(object):
             if regBank.getName() == regBankName:
                 regBankToWrite = regBank
                 break
-        if regBankToWrite == None:
+        if regBankToWrite is None:
             raise ValueError("Register bank " + regBankName + " not found")
         regList = []
         for reg in regBankToWrite.getRegs():
             regList.append(reg.getAddress())
-        self.writeRegisters(regList)
+            self.writeRegisters(regList[reg])
         if MAC != 0:
             self.MAC = prevMAC
         self.SPIImmediate = immMode
@@ -663,7 +663,7 @@ class LMS7002(object):
         else:
             reg = self.getRegisterByName(key)
         # msavic 160606
-        if (reg != -1):
+        if reg != -1:
             reg.setValue(val)
 
     #

@@ -1,11 +1,12 @@
 # LMS7002M Python package
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/6b0720fc5ffd4e3aa3176425f4bb012b)](https://www.codacy.com/app/Psynosaur/pyLMS7002Soapy?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Psynosaur/pyLMS7002Soapy&amp;utm_campaign=Badge_Grade)
 
 The pyLMS7002Soapy Python package is platform-independent, and is intended for fast prototyping
 and algorithm development. It provides low level register access and high level convenience functions
 for controlling the LMS7002M chip and evaluation boards. Supported evaluation boards are:
 
-* LimeSDR
-* LimeSDR Mini
+  * LimeSDR
+  * LimeSDR Mini
 
 The package consists of Python classes which correspond to physical or logical entities. For
 example, each module of LMS7002M (AFE, SXT, TRF, ...) is a class. The LMS7002M chip is also a
@@ -16,7 +17,7 @@ organization from evaluation board down to on-chip register level.
 SoapySDR interface is required for establishing an USB connection, and can be used
 for high level functions, such as reading samples.
 
-## Installation
+### Installation
 
 #### Since this isn't completely thought out and I'm just ballin it, please install inside a virtualenv. *Activate* your environment and run the following
 
@@ -31,15 +32,15 @@ for high level functions, such as reading samples.
 
 Module installation can be verified from Python:
 
-  python
-  >>> from pyLMS7002Soapy import *
+    $ python
+    $ from pyLMS7002Soapy import *
 
 If there is no error, the module is correctly installed.
 
 ## Examples
 
-* Vector Network Analyser (VNA) - working on it. . .
-* Scalar Network Analyser (SNA) - should be working
+  * Vector Network Analyser (VNA) - working on it. . .
+  * Scalar Network Analyser (SNA) - should be working
 
 Scalar network analyzer is preferred for measurements and is much faster than VNA.
 

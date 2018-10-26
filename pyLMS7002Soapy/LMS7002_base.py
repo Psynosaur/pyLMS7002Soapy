@@ -16,7 +16,7 @@ class LMS7002_base(object):
     #
 
     def _readReg(self, regName, fieldName):
-        if self.channel != None:
+        if self.channel is not None:
             prevMAC = self.chip.MAC  # save the value of MAC
             mac = self.chip.getMACfromName(self.channel)
             if mac != prevMAC:  # try to reduce the number of SPI accesses
@@ -24,13 +24,13 @@ class LMS7002_base(object):
         regName = self.prefix + regName
         reg = self.chip[regName]
         val = reg[fieldName]
-        if self.channel != None:
+        if self.channel is not None:
             if mac != prevMAC:  # try to reduce the number of SPI accesses
                 self.chip.MAC = prevMAC  # restore previous value of MAC
         return val
 
     def _writeReg(self, regName, fieldName, value):
-        if self.channel != None:
+        if self.channel is not None:
             prevMAC = self.chip.MAC  # save the value of MAC
             mac = self.chip.getMACfromName(self.channel)
             if mac != prevMAC:  # try to reduce the number of SPI accesses
@@ -38,7 +38,7 @@ class LMS7002_base(object):
         regName = self.prefix + regName
         reg = self.chip[regName]
         reg[fieldName] = value
-        if self.channel != None:
+        if self.channel is not None:
             if mac != prevMAC:  # try to reduce the number of SPI accesses
                 self.chip.MAC = prevMAC  # restore previous value of MAC
 

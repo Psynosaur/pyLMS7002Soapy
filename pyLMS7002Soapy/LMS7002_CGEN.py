@@ -743,7 +743,7 @@ class LMS7002_CGEN(LMS7002_base):
         self.SPDUP_VCO_CGEN = 0
         self.EN_COARSE_CKLGEN = 0
 
-        if (IntN_MODE):
+        if IntN_MODE:
             self.EN_INTONLY_SDM_CGEN = 1
             self.EN_SDM_CLK_CGEN = 0
         else:
@@ -759,16 +759,15 @@ class LMS7002_CGEN(LMS7002_base):
         self.EN_G_CGEN = 1
 
         # Calculate FB-DIV Configuration
-        if (IntN_MODE):
+        if IntN_MODE:
             N_INT = round(F_VCO / F_REF)
             N_FRAC = 0
-            F_VCO = N_INT * F_REF
         else:
             N_INT = floor(F_VCO / F_REF)
             N_FRAC = (2.0 ** 20) * ((F_VCO / F_REF) - N_INT)
 
         # Set PLL to operate in IntN-Mode if targeted frequency is integer multiple of reference frequency and user did not set IntN_MODE argument to True
-        if (N_FRAC == 0 and IntN_MODE == False):
+        if N_FRAC == 0 and IntN_MODE == False:
             self.EN_INTONLY_SDM_CGEN = 1
             self.EN_SDM_CLK_CGEN = 0
 
@@ -791,7 +790,7 @@ class LMS7002_CGEN(LMS7002_base):
         csw_high = 255
         csw = int((csw_high + csw_low + 1) / 2.0)
         iter_num = 0
-        while (csw_low < csw_high and iter_num <= 8):
+        while csw_low < csw_high and iter_num <= 8:
             iter_num += 1
             self.CSW_VCO_CGEN = csw
             sleep(0.01)
@@ -799,11 +798,11 @@ class LMS7002_CGEN(LMS7002_base):
             VTUNE_HIGH = 1 - self.VCO_CMPHO_CGEN
             VTUNE_LOW = self.VCO_CMPLO_CGEN
 
-            if (VTUNE_HIGH):
+            if VTUNE_HIGH:
                 # print 'VTUNE HIGH'
                 csw_low = csw
                 csw = int((csw_high + csw_low + 1) / 2.0)
-            elif (VTUNE_LOW):
+            elif VTUNE_LOW:
                 csw_high = csw
                 csw = int((csw_high + csw_low + 1) / 2.0)
             else:
@@ -818,15 +817,13 @@ class LMS7002_CGEN(LMS7002_base):
 
         csw_init = csw
         # Find 1st CSW_VCO where VTUNE_LOW=1
-        VTUNE_HIGH = 1 - self.VCO_CMPHO_CGEN
         VTUNE_LOW = self.VCO_CMPLO_CGEN
-        while (VTUNE_LOW == 0):
+        while VTUNE_LOW == 0:
             csw += 1
-            if (csw >= 255):
+            if csw >= 255:
                 break
             self.CSW_VCO_CGEN = csw
             sleep(0.01)
-            VTUNE_HIGH = 1 - self.VCO_CMPHO_CGEN
             VTUNE_LOW = self.VCO_CMPLO_CGEN
         csw_max = csw
 
@@ -835,17 +832,15 @@ class LMS7002_CGEN(LMS7002_base):
         self.CSW_VCO_CGEN = csw
         sleep(0.01)
         VTUNE_HIGH = 1 - self.VCO_CMPHO_CGEN
-        VTUNE_LOW = self.VCO_CMPLO_CGEN
 
-        while (VTUNE_HIGH == 0):
+        while VTUNE_HIGH == 0:
             csw = csw - 1
-            if (csw <= 0):
+            if csw <= 0:
                 break
 
             self.CSW_VCO_CGEN = csw
             sleep(0.01)
             VTUNE_HIGH = 1 - self.VCO_CMPHO_CGEN
-            VTUNE_LOW = self.VCO_CMPLO_CGEN
 
         csw_min = csw
 
@@ -857,9 +852,9 @@ class LMS7002_CGEN(LMS7002_base):
 
         self.chip.log('CLKGEN VCO Coarse Frequency Tuning Done.', 1)
         self.chip.log('-' * 60, 1)
-        self.chip.log('CSW_VCO= %d' % (self.CSW_VCO_CGEN), 1)
-        self.chip.log('min(CSW_VCO)= %d' % (csw_min), 1)
-        self.chip.log('max(CSW_VCO)= %d' % (csw_max), 1)
+        self.chip.log('CSW_VCO= %d' % self.CSW_VCO_CGEN, 1)
+        self.chip.log('min(CSW_VCO)= %d' % csw_min, 1)
+        self.chip.log('max(CSW_VCO)= %d' % csw_max, 1)
         self.chip.log('VTUNE_HIGH=%d, VTUNE_LOW=%d' % (VTUNE_HIGH, VTUNE_LOW), 1)
         self.chip.log('-' * 60, 1)
         self.chip.log('', 1)
@@ -872,21 +867,20 @@ class LMS7002_CGEN(LMS7002_base):
         Calculates CLKGEN Output Divider Modulus. Calls VCO Corse Tuning Method. Configures CLKGEN in LMS7002.
 	    F_CLKH covers continuous frequency range from 5 to 320 MHz. This is taken as a valid range for F_CLKH input argument.
         """
-        F_REF = self.chip.fRef  # get the chip reference frequency
         if not (5.0e6 <= F_CLKH <= 3.2e8):
             raise ValueError("Not Valid CLKGEN Frequency. 5 MHz< F_CLKH < 320.0 MHz")
 
         OUT_MOD = 0.0
         F_VCO = F_CLKH * 2 * (OUT_MOD + 1)
 
-        while (not (2.0e9 < F_VCO <= 2.7e9)):
+        while not (2.0e9 < F_VCO <= 2.7e9):
             OUT_MOD += 1
             F_VCO = F_CLKH * 2 * (OUT_MOD + 1)
 
         self.chip.log('', 1)
         self.chip.log('CLKGEN OUT-DIV Modulus', 1)
         self.chip.log('-' * 60, 1)
-        self.chip.log('CLKGEN OUTDIV-MOD=%d ' % (OUT_MOD), 1)
+        self.chip.log('CLKGEN OUTDIV-MOD=%d ' % OUT_MOD, 1)
         self.chip.log('', 1)
         self.chip.log('', 1)
         self.DIV_OUTCH_CGEN = int(OUT_MOD)

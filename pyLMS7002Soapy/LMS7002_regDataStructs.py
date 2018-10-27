@@ -967,7 +967,7 @@ class RegisterDefinition(object):
 
     def getRegistersByName(self, regList="ALL"):
         if regList == "ALL":
-            regs = copy(self.regNameDict.values())
+            regs = copy(list(self.regNameDict.values()))
         else:
             regs = []
             for regName in regList:
@@ -976,7 +976,7 @@ class RegisterDefinition(object):
 
     def getRegisterAddresesByName(self, regList="ALL"):
         if regList == "ALL":
-            regAddrs = copy(self.regAddrDict.keys())
+            regAddrs = copy(list(self.regAddrDict.keys()))
         else:
             regAddrs = []
             for regName in regList:

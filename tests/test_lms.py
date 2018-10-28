@@ -1,7 +1,9 @@
+import os
+import sys
 import unittest
-import os, sys
-from SoapySDR import *  # SOAPY_SDR_* constants
+
 from pyLMS7002Soapy import pyLMS7002Soapy as pyLMS
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 

@@ -108,14 +108,14 @@ class RegBank(object):
     def getRegister(self, regName):
         # Get register by name
         for reg in self.registers:
-            if (regName == reg.name):
+            if regName == reg.name:
                 return reg
         raise ValueError("Register " + regName + " does not exist in bank " + self.name)
 
     def hasRegister(self, regName):
         # Check if register exists in a register bank
         for reg in self.registers:
-            if (regName == reg.name):
+            if regName == reg.name:
                 return True
         return False
 
@@ -209,12 +209,11 @@ class Register(object):
     def __REPR__(self):
         register = self
         regName = self.name
-        regAddr = self.regAddr
         hexAddr = self.intToHex(self.addr)
         # Print register
         retVal = "REGISTER    " + regName + "    " + hexAddr + "\n"
         for bitField in register.getBitFields():
-            retVal += bitField.__repr__()
+            retVal += bitField.__repr__
         retVal += "ENDREGISTER\n"
         return retVal
 
@@ -281,7 +280,7 @@ class Register(object):
 
     def getBitFieldByName(self, bitFieldName):
         for field in self.getBitFields():
-            if (bitFieldName == field.name):
+            if bitFieldName == field.name:
                 return field
         raise ValueError("Bit field " + bitFieldName + " does not exist in register " + self.name)
 
@@ -331,7 +330,7 @@ class Register(object):
     def refresh(self):
         # Read the value from chip if immediate mode is enabled
         if self.getImmediateMode():
-            if self.SPIreadFn == None:
+            if self.SPIreadFn is None:
                 raise AttributeError("SPIreadFn must be set to use immediate mode")
             else:
                 addr = self.getAddress()
@@ -342,7 +341,7 @@ class Register(object):
         # Check if immediate mode is enabled
         if self.getImmediateMode():
             # Immediate mode is enabled, write the new value
-            if self.SPIwriteFn == None:
+            if self.SPIwriteFn is None:
                 raise AttributeError("SPIwriteFn must be set to use immediate mode")
             else:
                 addr = self.getAddress()
@@ -526,7 +525,6 @@ class BitField(object):
             if ">" not in self.position:
                 raise ValueError("Invalid bit field position " + self.position)
             tmp = self.position.split(":")
-            low = int(tmp[1].split(">")[0])
             high = int(tmp[0].split("<")[1])
             return high
         else:
@@ -540,7 +538,6 @@ class BitField(object):
             if ">" not in self.name:
                 raise ValueError("Invalid bit field position " + self.name)
             tmp = self.name.split(":")
-            low = int(tmp[1].split(">")[0])
             high = int(tmp[0].split("<")[1])
             return high
         else:
@@ -555,7 +552,6 @@ class BitField(object):
                 raise ValueError("Invalid bit field position " + self.position)
             tmp = self.position.split(":")
             low = int(tmp[1].split(">")[0])
-            high = int(tmp[0].split("<")[1])
             return low
         else:
             # Single bit
@@ -569,7 +565,6 @@ class BitField(object):
                 raise ValueError("Invalid bit field position " + self.name)
             tmp = self.name.split(":")
             low = int(tmp[1].split(">")[0])
-            high = int(tmp[0].split("<")[1])
             return low
         else:
             # Single bit
@@ -632,7 +627,8 @@ class BitField(object):
 
     def setValueBin(self, valueBin):
         if len(valueBin) != self.getLen():
-            raise ValueError("Wrong number of bits given. Bitfield width is " + str(self.getLen()) + ", while " + len(valueBin) + " bits given.")
+            raise ValueError("Wrong number of bits given. Bitfield width is " + str(self.getLen()) +
+                             ", while " + str(len(valueBin)) + " bits given.")
         self.defValue = valueBin
 
     def setValueFromReg(self, regValue):
@@ -644,7 +640,7 @@ class BitField(object):
 
     def getValueBin(self):
         # Return binary representation of bitfield
-        return self.getDefalutValue()
+        return self.getDefaultValue()
 
     def getValue(self):
         # Return integer value of bitfield
@@ -652,19 +648,22 @@ class BitField(object):
 
     def evaluate(self, bitFieldVal=None):
         # Evaluate bitfield value. Shift to correct position.
-        if bitFieldVal == None:
+        if bitFieldVal is None:
             val = self.defValue
         else:
             val = bitFieldVal
         if len(val) != self.getLen():
-            raise ValueError("Wrong number of bits given. Bitfield width is " + str(self.getLen()) + ", while " + len(val) + " bits given.")
+            raise ValueError("Wrong number of bits given. Bitfield width is " + str(self.getLen()) +
+                             ", while " + str(len(val)) + " bits given.")
         valInt = int("0b" + val, 2)
         valInt = int(valInt * (2 ** self.getPosL()))
         return valInt
 
     def evaluateBin(self, bitFieldVal=None):
-        if bitFieldVal == None:
+        if bitFieldVal is None:
             val = self.defValue
+        else:
+            val = bitFieldVal
         valInt = self.evaluate(val)
         valB = bin(valInt)
         valB = valB[2:]  # get rid of 0b
@@ -680,9 +679,6 @@ class BitField(object):
 
     def addComment(self, commentLine):
         self.comment.append(commentLine)
-
-    def getComments(self):
-        return self.comment
 
 
 class regDescParser(object):
@@ -701,7 +697,6 @@ class regDescParser(object):
         self.chip = chip
 
         # Read and parse the input file
-        line = " "
         getLine = self.getLine
         try:
             while self.nLine < len(regDefList):
@@ -713,7 +708,6 @@ class regDescParser(object):
                 line = (line.split("##")[0]).rstrip()  # Throw away comments
 
                 if line == "":
-                    line = " "
                     continue
                 keyword = line.split()[0]
                 if "#!" in keyword:
@@ -762,7 +756,8 @@ class regDescParser(object):
         self.nLine = self.nLine + 1  # Keep track of lines
         return line
 
-    def parseRegBank(self, firstLine):
+    @staticmethod
+    def parseRegBank(firstLine):
         # Register bank parsing
         args = firstLine.split()
         # We expect that first argument is REGBANK
@@ -876,13 +871,13 @@ class regDescParser(object):
             raise ValueError("Unknown construct in bitfield definition : " + line)
 
         if endBitField:
-            if (not position):
+            if not position:
                 raise ValueError("Bit position is missing.")
                 return None
-            if (not defaultValue):
+            if not defaultValue:
                 raise ValueError("Default value is missing.")
                 return None
-            if (not mode):
+            if not mode:
                 raise ValueError("Mode is missing.")
                 return None
             bf = BitField(name, position, defaultValue, mode)
@@ -913,19 +908,22 @@ class regDescParser(object):
 class RegisterDefinition(object):
     # Container class for the chip register definition
     def __init__(self, name):
+        self.regNameDict = {}
+        self.regAddrDict = {}
         self.name = name
         self.regBanks = []  # Register banks
         self.comments = []  # comments
 
     def makeDictionaries(self):
-        self.regNameDict = {}
-        self.regAddrDict = {}
         for regBank in self.regBanks:
             for reg in regBank.getRegs():
                 regName = reg.getName()
                 regAddr = reg.getAddress()
                 self.regNameDict.update({regName: reg})
                 self.regAddrDict.update({regAddr: reg})
+
+    def getComments(self):
+        return self.comments
 
     def getName(self):
         return self.name
@@ -944,9 +942,6 @@ class RegisterDefinition(object):
 
     def addComment(self, comment):
         self.comments.append(comment)
-
-    def getComments(self):
-        return self.comments
 
     def getRegisterByName(self, regName):
         # if self.regNameDict.has_key(regName):
@@ -990,11 +985,11 @@ class RegisterDefinition(object):
             retVal += comment + "\n"
 
         for regBank in self.regBanks:
-            retVal += regBank.__repr__()
+            retVal += regBank.__repr__
 
         for regBank in self.regBanks:
             for reg in regBank.getRegs():
-                retVal += reg.__repr__() + "\n"
+                retVal += reg.__repr__ + "\n"
         return retVal
 
     def check(self):

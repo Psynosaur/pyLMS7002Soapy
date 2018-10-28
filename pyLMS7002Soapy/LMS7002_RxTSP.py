@@ -940,4 +940,4 @@ class LMS7002_RxTSP(LMS7002_base):
         CAPDH = self.twosComplementToInt(self.CAPDH, nBits)
         CAPDL = self.twosComplementToInt(self.CAPDL, nBits)
         self.CAPSEL = oldVal
-        return (CAPDL, CAPDH)
+        return CAPDL, CAPDH

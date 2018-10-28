@@ -120,7 +120,6 @@ class LMS7002_calibration(LMS7002_base):
         TxTSP.GC_BYP = 'USE'
         maxVal = RxTSP.RSSI
         chip.log('\tStarting TxTSP IQ calibration for channel ' + channel + '. RSSI : ' + str(maxVal))
-        ind = 0
         # TxTSP.PH_BYP = 'BYP'
 
         for xx in range(0, 2):
@@ -129,7 +128,6 @@ class LMS7002_calibration(LMS7002_base):
                 val = RxTSP.RSSI
                 if val < maxVal:
                     print("Q ", val)
-                    ind = tmp
                     GCORRQ = tmp
                     maxVal = val
             TxTSP.GCORRQ = GCORRQ
@@ -139,7 +137,6 @@ class LMS7002_calibration(LMS7002_base):
                 val = RxTSP.RSSI
                 if val < maxVal:
                     print("I ", val)
-                    ind = tmp
                     GCORRI = tmp
                     maxVal = val
             TxTSP.GCORRI = GCORRI
@@ -150,10 +147,9 @@ class LMS7002_calibration(LMS7002_base):
             val = RxTSP.RSSI
             if val < maxVal:
                 print("PH ", val)
-                ind = tmp
                 IQCORR = tmp
                 maxVal = val
-        TxTSP.IQCORR = IQCORR
+                TxTSP.IQCORR = IQCORR
 
         return
 
@@ -548,7 +544,6 @@ class LMS7002_calibration(LMS7002_base):
         RBB.C_CTL_LPFL_RBB = 2047
         """
         chip = self.chip
-        band = 1
         chip.log('Entering RX filter response, channel ' + channel + ' DCI = ' + str(DCOFFI_RFE) + ', DCQ = ' + str(
             DCOFFQ_RFE), 1)
 
@@ -655,7 +650,7 @@ class LMS7002_calibration(LMS7002_base):
             RBB.G_PGA_RBB -= 1  # reduce loopback gain
             maxVal = RxTSP.RSSI
 
-        if freqPoints == None:
+        if freqPoints is None:
             freqs = []
             for decade in range(4, 8):
                 for point in [1, 2, 3, 4, 5, 6, 7, 8, 9]:
@@ -674,7 +669,8 @@ class LMS7002_calibration(LMS7002_base):
     # MCU commands
     #
 
-    def _getCommand(self, cmd):
+    @staticmethod
+    def _getCommand(cmd):
         if cmd == 'IDLE':
             return 0
         elif cmd == 'CALIBRATE_TX':
@@ -686,7 +682,8 @@ class LMS7002_calibration(LMS7002_base):
         else:
             raise ValueError("Unknown command")
 
-    def _getStatus(self, stat):
+    @staticmethod
+    def _getStatus(stat):
         if stat == 'MCU_IDLE':
             return 0x80
         elif stat == 'MCU_WORKING':
@@ -826,7 +823,8 @@ class LMS7002_calibration(LMS7002_base):
     # MCU hex files
     #
 
-    def getIQcalibrationHex(self):
+    @staticmethod
+    def getIQcalibrationHex():
         return """:1019D400040841F5C28F041140A00000040C40A08B
                 :0519E4000000011014D9
                 :0619A400C3E53D953EFF86

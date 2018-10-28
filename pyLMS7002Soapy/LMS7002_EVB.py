@@ -86,10 +86,12 @@ class LMS7002_EVB(object):
                     pass
         return res
 
-    def log(self, logMsg):
+    @staticmethod
+    def log(logMsg):
         print(logMsg)
 
-    def getCommandNumber(self, cmdName):
+    @staticmethod
+    def getCommandNumber(cmdName):
         if cmdName == "CMD_GET_INFO":
             return 0x00
         elif cmdName == "CMD_LMS_RST":
@@ -142,11 +144,13 @@ class LMS7002_EVB(object):
             bytes[i] = ord(string[i])
         return bytes
 
-    def sendCommand(self, command, nDataBlocks=0, periphID=0, data=[]):
+    def sendCommand(self, command, nDataBlocks=0, periphID=0, data=None):
         """
         Send the command to LMS7002_EVB.
         Function returns (status, data)
         """
+        if data is None:
+            data = []
         tmp = [0] * 64
         tmp[0] = command
         tmp[1] = 0
@@ -162,12 +166,12 @@ class LMS7002_EVB(object):
         self.ser.write(self.bytes2string(tmp))
         tmp = self.string2bytes(self.ser.read(size=64))
         if len(tmp) < 64:
-            raise IOError("Lenght of received data " + len(tmp) + "<64 bytes")
+            raise IOError("Length of received data " + str(len(tmp)) + "<64 bytes")
         if self.verbose > 2:
             self.log("sendCommand:Response : " + str(tmp))
         rxStatus = tmp[1]
         rxData = tmp[8:]
-        return (rxStatus, rxData)
+        return rxStatus, rxData
 
     #
     # Utility functions
@@ -188,7 +192,7 @@ class LMS7002_EVB(object):
         LMS_PROTOCOL_VER = rxData[2]
         HW_VER = rxData[3]
         EXP_BOARD = rxData[4]
-        return (FW_VER, DEV_TYPE, LMS_PROTOCOL_VER, HW_VER, EXP_BOARD)
+        return FW_VER, DEV_TYPE, LMS_PROTOCOL_VER, HW_VER, EXP_BOARD
 
     def printInfo(self):
         """
@@ -255,7 +259,6 @@ class LMS7002_EVB(object):
         packetSize controls the number of register writes in a single USB transfer
         """
         command = self.getCommandNumber("CMD_LMS7002_WR")
-        nDataBlocks = len(regList)
 
         toSend = copy(regList)
 
@@ -283,7 +286,6 @@ class LMS7002_EVB(object):
         packetSize controls the number of register writes in a single USB transfer
         """
         command = self.getCommandNumber("CMD_LMS7002_RD")
-        nDataBlocks = len(regList)
 
         toRead = copy(regList)
         regData = []
@@ -378,7 +380,6 @@ class LMS7002_EVB(object):
         Program Si5351
         """
         command = self.getCommandNumber("CMD_SI5351_WR")
-        nDataBlocks = len(regList)
 
         toSend = copy(regList)
 

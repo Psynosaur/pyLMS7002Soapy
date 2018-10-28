@@ -891,11 +891,11 @@ class LMS7002_SX(LMS7002_base):
         self.BYPLDO_VCO = 1
         self.EN_COARSEPLL = 0
         self.CURLIM_VCO = 1
-        if (F_VCO > 5.5e9):
+        if F_VCO > 5.5e9:
             self.EN_DIV2_DIVPROG = 1
         else:
             self.EN_DIV2_DIVPROG = 0
-        if (IntN_MODE):
+        if IntN_MODE:
             self.EN_INTONLY_SDM = 1
             self.EN_SDM_CLK = 0
         else:
@@ -914,16 +914,15 @@ class LMS7002_SX(LMS7002_base):
         self.EN_G = 1
 
         # Calculate FB-DIV Configuration
-        if (IntN_MODE):
+        if IntN_MODE:
             N_INT = round((F_VCO / 2.0 ** self.EN_DIV2_DIVPROG) / F_REF)
             N_FRAC = 0
-            F_VCO = 2.0 ** self.EN_DIV2_DIVPROG * N_INT * F_REF
         else:
             N_INT = floor((F_VCO / 2.0 ** self.EN_DIV2_DIVPROG) / F_REF)
             N_FRAC = (2.0 ** 20) * (((F_VCO / 2.0 ** self.EN_DIV2_DIVPROG) / F_REF) - N_INT)
 
         # Set PLL to operate in IntN-Mode if targeted frequency is integer multiple of reference frequency and user did not set IntN_MODE argument to True
-        if (N_FRAC == 0 and IntN_MODE == False):
+        if N_FRAC == 0 and IntN_MODE == False:
             self.EN_INTONLY_SDM = 1
             self.EN_SDM_CLK = 0
 
@@ -945,17 +944,15 @@ class LMS7002_SX(LMS7002_base):
 
         sleep(0.001)
 
-        VTUNE_HIGH = 1 - self.VCO_CMPHO
         VTUNE_LOW = self.VCO_CMPLO
 
-        if (VTUNE_LOW):
+        if VTUNE_LOW:
             self.SEL_VCO = 0
         else:
             self.CSW_VCO = 247
             sleep(0.001)
             VTUNE_HIGH = 1 - self.VCO_CMPHO
-            VTUNE_LOW = self.VCO_CMPLO
-            if (VTUNE_HIGH):
+            if VTUNE_HIGH:
                 self.SEL_VCO = 2
             else:
                 self.SEL_VCO = 1
@@ -965,7 +962,7 @@ class LMS7002_SX(LMS7002_base):
         csw_high = 255
         csw = int((csw_high + csw_low + 1) / 2.0)
         iter_num = 0
-        while (csw_low < csw_high and iter_num <= 8):
+        while csw_low < csw_high and iter_num <= 8:
             iter_num += 1
             self.CSW_VCO = csw
             sleep(0.001)
@@ -973,11 +970,11 @@ class LMS7002_SX(LMS7002_base):
             VTUNE_HIGH = 1 - self.VCO_CMPHO
             VTUNE_LOW = self.VCO_CMPLO
 
-            if (VTUNE_HIGH):
+            if VTUNE_HIGH:
                 # print 'VTUNE HIGH'
                 csw_low = csw
                 csw = int((csw_high + csw_low + 1) / 2.0)
-            elif (VTUNE_LOW):
+            elif VTUNE_LOW:
                 csw_high = csw
                 csw = int((csw_high + csw_low + 1) / 2.0)
             else:
@@ -991,18 +988,16 @@ class LMS7002_SX(LMS7002_base):
         self.chip.log('', 1)
         self.chip.log('', 1)
 
-        if (not SPDUP_CTUNE):
+        if not SPDUP_CTUNE:
             csw_init = csw
             # Find 1st CSW_VCO where VTUNE_LOW=1
-            VTUNE_HIGH = 1 - self.VCO_CMPHO
             VTUNE_LOW = self.VCO_CMPLO
-            while (VTUNE_LOW == 0):
+            while VTUNE_LOW == 0:
                 csw += 1
-                if (csw >= 255):
+                if csw >= 255:
                     break
                 self.CSW_VCO = csw
                 sleep(0.001)
-                VTUNE_HIGH = 1 - self.VCO_CMPHO
                 VTUNE_LOW = self.VCO_CMPLO
             csw_max = csw
 
@@ -1011,16 +1006,14 @@ class LMS7002_SX(LMS7002_base):
             self.CSW_VCO = csw
             sleep(0.001)
             VTUNE_HIGH = 1 - self.VCO_CMPHO
-            VTUNE_LOW = self.VCO_CMPLO
-            while (VTUNE_HIGH == 0):
+            while VTUNE_HIGH == 0:
                 csw = csw - 1
-                if (csw <= 0):
+                if csw <= 0:
                     break
 
                 self.CSW_VCO = csw
                 sleep(0.001)
                 VTUNE_HIGH = 1 - self.VCO_CMPHO
-                VTUNE_LOW = self.VCO_CMPLO
 
             csw_min = csw
 
@@ -1037,10 +1030,10 @@ class LMS7002_SX(LMS7002_base):
 
         self.chip.log('VCO Coarse Frequency Tuning Done.', 1)
         self.chip.log('-' * 60, 1)
-        self.chip.log('SEL_VCO= %d' % (self.SEL_VCO), 1)
-        self.chip.log('CSW_VCO= %d' % (self.CSW_VCO), 1)
-        self.chip.log('min(CSW_VCO)= %d' % (csw_min), 1)
-        self.chip.log('max(CSW_VCO)= %d' % (csw_max), 1)
+        self.chip.log('SEL_VCO= %d' % self.SEL_VCO, 1)
+        self.chip.log('CSW_VCO= %d' % self.CSW_VCO, 1)
+        self.chip.log('min(CSW_VCO)= %d' % csw_min, 1)
+        self.chip.log('max(CSW_VCO)= %d' % csw_max, 1)
         self.chip.log('VTUNE_HIGH=%d, VTUNE_LOW=%d' % (VTUNE_HIGH, VTUNE_LOW), 1)
         self.chip.log('-' * 60, 1)
         self.chip.log('', 1)
@@ -1051,11 +1044,10 @@ class LMS7002_SX(LMS7002_base):
         """
         Calculates FF-DIV Modulus. Calls VCO Corse Tuning Method. Configures PLL in LMS7002.
         """
-        F_REF = self.chip.fRef  # get the chip reference frequency
         if not (0.24e9 <= F_LO <= 3.8e9):
             raise ValueError("Not Valid LO Frequency. 240 MHz< F_LO < 3.8 GHz")
 
-        if (PD_TLOBUF_CTUNE):
+        if PD_TLOBUF_CTUNE:
             PD_TXMIXA = self.chip.TRF['A'].PD_TLOBUF_TRF
             PD_TXMIXB = self.chip.TRF['B'].PD_TLOBUF_TRF
             self.chip.TRF['A'].PD_TLOBUF_TRF = 1
@@ -1064,7 +1056,7 @@ class LMS7002_SX(LMS7002_base):
         FF_MOD = 0.0
         F_VCO = 2 * F_LO * (2 ** FF_MOD)
 
-        while (not (3.8e9 < F_VCO <= 7.6e9)):
+        while not (3.8e9 < F_VCO <= 7.6e9):
             FF_MOD += 1
             F_VCO = 2 * F_LO * (2 ** FF_MOD)
 
@@ -1077,7 +1069,7 @@ class LMS7002_SX(LMS7002_base):
         self.DIV_LOCH = int(FF_MOD)
         self.VCO_CTUNE(F_VCO=F_VCO, IntN_MODE=IntN_MODE, SPDUP_CTUNE=SPDUP_CTUNE)
 
-        if (PD_TLOBUF_CTUNE):
+        if PD_TLOBUF_CTUNE:
             self.chip.TRF['A'].PD_TLOBUF_TRF = PD_TXMIXA
             self.chip.TRF['B'].PD_TLOBUF_TRF = PD_TXMIXB
         return True

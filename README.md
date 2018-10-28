@@ -5,8 +5,8 @@ The pyLMS7002Soapy Python package is platform-independent, and is intended for f
 and algorithm development. It provides low level register access and high level convenience functions
 for controlling the LMS7002M chip and evaluation boards. Supported evaluation boards are:
 
-  * LimeSDR
-  * LimeSDR Mini
+* LimeSDR
+* LimeSDR Mini
 
 The package consists of Python classes which correspond to physical or logical entities. For
 example, each module of LMS7002M (AFE, SXT, TRF, ...) is a class. The LMS7002M chip is also a
@@ -17,9 +17,9 @@ organization from evaluation board down to on-chip register level.
 SoapySDR interface is required for establishing an USB connection, and can be used
 for high level functions, such as reading samples.
 
-### Installation
+## Installation
 
-#### Since this isn't completely thought out and I'm just ballin it, please install inside a virtualenv. *Activate* your environment and run the following
+### Since this isn't completely thought out, please install inside a virtualenv. *Activate* your environment and run the following
 
 ##### pyLMS7002Soapy Installation (in virtualenv ideally)
 
@@ -32,18 +32,25 @@ for high level functions, such as reading samples.
 
 Module installation can be verified from Python:
 
-    $ python
-    $ from pyLMS7002Soapy import *
+    $ python setup.py test
 
 If there is no error, the module is correctly installed.
 
-## Examples
+### Examples
 
-  * Vector Network Analyser (VNA) - working on it. . .
-  * Scalar Network Analyser (SNA) - should be working
+#### Vector Network Analyser (VNA) 
+    $ cd examples
+    $ python measureVNA.py
+     
+#### Scalar Network Analyser (SNA)
+    $ cd examples
+    $ python mSNA.py
 
 Scalar network analyzer is preferred for measurements and is much faster than VNA.
 
-## Licensing
+### Licensing
 
 pyLMS7002Soapy is copyright 2018 Lime Microsystems and provided under the Apache 2.0 License.
+
+Changes in files are documented to the best of my abilities . . .
+

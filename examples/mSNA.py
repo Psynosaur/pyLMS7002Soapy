@@ -57,13 +57,15 @@ class SNA(object):
         self.sdr.sdr.deactivateStream(rxStream)
         return buff[nSamples:]
 
-    def f2s(self, val, decPlaces):
+    @staticmethod
+    def f2s(val, decPlaces):
         tmp = round(val * 10 ** decPlaces)
         tmp = tmp / 10 ** decPlaces
         formatString = "%." + str(decPlaces) + "f"
         return formatString % tmp
 
-    def userConfirmation(self, msg):
+    @staticmethod
+    def userConfirmation(msg):
         userReady = 'n'
         while userReady != 'y':
             userReady = input(msg + '. Type y to continue. ')
@@ -77,7 +79,6 @@ else:
     sampleRate = 5e6
     rfBandwidth = 50e6
     cgenFreq = 40e6
-
 
 limeSNA = SNA(sampleRate, cgenFreq, rfBandwidth, startFreq, 20, 30)
 rxStream = limeSNA.configRadio()
@@ -111,8 +112,9 @@ for j in range(0, len(freqList)):
     ncofreq = -1.5 * dncofreq
     limeSNA.readSamples(rxStream, nSamples)
     limeSNA.readSamples(rxStream, nSamples)
-    print("Measuring " + limeSNA.f2s((freq - ncosteps * dncofreq) / 1e6, 3) + " - " + limeSNA.f2s((freq + ncosteps * dncofreq) / 1e6,
-                                                                                  3) + " MHz", end=" ")
+    print("Measuring " + limeSNA.f2s((freq - ncosteps * dncofreq) / 1e6, 3) + " - " + limeSNA.f2s(
+        (freq + ncosteps * dncofreq) / 1e6,
+        3) + " MHz", end=" ")
     limeSNA.sdr.txNCOFreq = ncofreq
     samplePosition = int(ncofreq / sampleRate * nSamples + nSamples / 2.0)
 
@@ -160,8 +162,9 @@ for j in range(0, len(freqList)):
     ncofreq = -1.5 * dncofreq
     limeSNA.readSamples(rxStream, nSamples)
     limeSNA.readSamples(rxStream, nSamples)
-    print("Measuring " + limeSNA.f2s((freq - ncosteps * dncofreq) / 1e6, 3) + " - " + limeSNA.f2s((freq + ncosteps * dncofreq) / 1e6,
-                                                                                  3) + " MHz", end=" ")
+    print("Measuring " + limeSNA.f2s((freq - ncosteps * dncofreq) / 1e6, 3) + " - " + limeSNA.f2s(
+        (freq + ncosteps * dncofreq) / 1e6,
+        3) + " MHz", end=" ")
     limeSNA.sdr.txNCOFreq = ncofreq
     samplePosition = int(ncofreq / sampleRate * nSamples + nSamples / 2.0)
 
@@ -198,7 +201,7 @@ ax = fig.add_subplot(111)
 ax.plot(measFreq, s11)
 xlabel("Frequency [MHz]")
 scale_x = 1e06
-ticks_x = ticker.FuncFormatter(lambda x, pos: '{0:g}'.format(x/scale_x))
+ticks_x = ticker.FuncFormatter(lambda x, pos: '{0:g}'.format(x / scale_x))
 ax.xaxis.set_major_formatter(ticks_x)
 ylabel("S11 [dB]")
 plt.show()

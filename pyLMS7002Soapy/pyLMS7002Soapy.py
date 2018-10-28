@@ -29,7 +29,8 @@ class pyLMS7002Soapy(object):
         self.channel = 0
         self.previousBand = [None, None]
 
-    def log(self, logMsg):
+    @staticmethod
+    def log(logMsg):
         print(logMsg)
 
     #

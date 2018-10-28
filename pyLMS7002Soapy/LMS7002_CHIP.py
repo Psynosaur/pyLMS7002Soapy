@@ -28,7 +28,7 @@ class LMS7002_CHIP(LMS7002_base):
         VER = reg['VER<4:0>']
         REV = reg['REV<4:0>']
         MASK = reg['MASK<5:0>']
-        return (VER, REV, MASK)
+        return VER, REV, MASK
 
     #
     # CHIPCFG (0x0020)

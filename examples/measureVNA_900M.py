@@ -40,7 +40,7 @@ def mcuRSSI():
     mcu = lms7002.mSPI
     mcu.SPISW_CTRL = 'MCU'
     mcu.P0 = 1
-    while (mcu.P1 == 0xFF):
+    while mcu.P1 == 0xFF:
         pass
     mcu.P0 = 0x12
     RSSI = mcu.P1 * 1.0
@@ -61,7 +61,7 @@ def mcuPhase():
 
     mcu.SPISW_CTRL = 'MCU'
     mcu.P0 = 2
-    while (mcu.P1 == 0xFF):
+    while mcu.P1 == 0xFF:
         pass
     mcu.P0 = 0x11
     phase = 1.0 * mcu.P1
@@ -137,7 +137,7 @@ def adjustRxGain(lms7002):
     I = 0x7FFF
     Q = 0x8000
     TxTSP.loadDCIQ(I, Q)
-    return (pgaGain, lnaGain)
+    return pgaGain, lnaGain
 
 
 #################################################################

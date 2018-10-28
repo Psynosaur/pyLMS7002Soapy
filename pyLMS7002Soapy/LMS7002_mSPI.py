@@ -19,7 +19,8 @@ class LMS7002_mSPI(LMS7002_base):
         self.channel = None
         self.prefix = "mSPI_"
 
-    def getOpCode(self, opCode):
+    @staticmethod
+    def getOpCode(opCode):
         if opCode == "SFR":
             return 0x7E
         elif opCode == "IRAM_READ":
@@ -35,7 +36,8 @@ class LMS7002_mSPI(LMS7002_base):
     # Auxiliary functions
     #
 
-    def _readHex(self, hexFileName, isString=False):
+    @staticmethod
+    def _readHex(hexFileName, isString=False):
         """
         Read Intel hex file.
         Returns a 16384 or 8192 bytes long list containing the MCU program.
@@ -57,7 +59,6 @@ class LMS7002_mSPI(LMS7002_base):
                 lineData.append(int("0x" + line[i:i + 2], 16))
             nBytes = lineData[0]
             offset = (lineData[1] << 8) + lineData[2]
-            recType = lineData[3]
             data = lineData[4:4 + nBytes]
             ckSum = 0
             for i in range(0, len(lineData) - 1):
@@ -196,7 +197,7 @@ class LMS7002_mSPI(LMS7002_base):
         immMode = self.chip.SPIImmediate
         self.chip.SPIImmediate = True
         for i in range(0, n // 64):
-            tmp = self.chip['mSPI_STAT']
+            pass
         self.chip.SPIImmediate = immMode
 
     def changeMCUFrequency(self, value):
@@ -491,7 +492,8 @@ class LMS7002_mSPI(LMS7002_base):
             val = 1
         self._writeReg('SPISW', 'SPISW_CTRL', val)
 
-    def getProductionTestHex(self):
+    @staticmethod
+    def getProductionTestHex():
         return """:06000000020041020108AC
         :03000B00020412DA
         :03001300020120C7

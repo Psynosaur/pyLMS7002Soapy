@@ -4,14 +4,25 @@ import numpy
 import os, sys
 from pyLMS7002Soapy import pyLMS7002Soapy as pyLMSS
 
-if len(sys.argv) != 2:
-    print("Usage: python measureVNA_900M.py measurementName")
+if len(sys.argv) < 2:
+    print("Usage: python measureVNA_900M.py measurementName [startFreq Mhz] [endFreq Mhz] [stepFreq Mhz]")
     exit(1)
 
-startFreq = 800e6
-endFreq = 1000e6
-nPoints = 201
+startFreq =  800e6
+endFreq   =  1000e6
+stepFreq  =  1e6
 measName = sys.argv[1]
+
+if len(sys.argv) == 5:
+  startFreq = int(float(sys.argv[2]) * 1e6)
+  endFreq   = int(float(sys.argv[3]) * 1e6)
+  stepFreq  = int(float(sys.argv[4]) * 1e6)
+
+nPoints =  int( (endFreq - startFreq) / 1e6 ) + 1
+
+print ("")
+print ("Using startFreq=%i endFreq=%i stepFreq=%i (nPoints=%i)" % (startFreq, endFreq, stepFreq, nPoints) )
+print ("")
 
 
 #################################################
@@ -125,7 +136,7 @@ def adjustRxGain(lms7002):
         RFE.G_LNA_RFE = lnaGain
         if mcuRSSI() < 50e3:
             pgaGain += pgaStep
-        pgaStep = pgaStep / 2
+        pgaStep = int(pgaStep / 2)
 
     RBB.G_PGA_RBB = pgaGain
     RFE.G_LNA_RFE = lnaGain

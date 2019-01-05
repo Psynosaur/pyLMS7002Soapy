@@ -14,6 +14,7 @@ measName = sys.argv[1]
 
 saveFig = False
 plotFig = False
+smithFig = False
 if len(sys.argv) == 3:
     if sys.argv[2] == "plot":
         plotFig = True
@@ -24,6 +25,13 @@ if len(sys.argv) == 3:
 if plotFig:
     from matplotlib.pyplot import *
     import warnings
+    try:
+      import smithplot
+      from smithplot import SmithAxes
+      smithFig = True
+    except:
+      print("pySmithPlot not found, smith chart will be not displayed")
+
 
     warnings.filterwarnings("ignore", module="matplotlib")
 
@@ -160,14 +168,15 @@ if plotFig:
         savefig(measName + '_s11.png')
     show()
 
-    figure(figsize=(24, 16))
-    subplot(1, 1, 1, projection='smith', grid_major_fancy=True,
-            grid_minor_fancy=True, plot_hacklines=True)
-    ZDutPlot = filterData(freq, ZDut, fMin, fMax)
-    plot(ZDutPlot, markevery=1, label="S11", color='b', linewidth=1.5, aa=True)
-    if saveFig:
-        savefig(measName + '_smith.png')
-    show()
+    if smithFig:
+        figure(figsize=(8, 8))
+        subplot(1, 1, 1, projection='smith', grid_major_fancy=True,
+                grid_minor_fancy=True, plot_marker_hack=True)
+        ZDutPlot = filterData(freq, ZDut, fMin, fMax)
+        plot(50 * ZDutPlot, markevery=1, markersize=4.0, label="S11", color='b', linewidth=1.5, aa=True, datatype=SmithAxes.Z_PARAMETER)
+        if saveFig:
+            savefig(measName + '_smith.png')
+        show()
 
 outFileName = measName + '.s1p'
 outFile = open(outFileName, 'w')
